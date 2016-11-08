@@ -1,5 +1,6 @@
 package cat.udl.menufinder;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 
@@ -13,7 +14,8 @@ public class SplashActivity extends MasterActivity {
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
-                showToast("Go to next activity");
+                startActivity(new Intent(SplashActivity.this, LoginActivity.class));
+                finish();
             }
         }, 1000);
     }
