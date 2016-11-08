@@ -2,7 +2,6 @@ package cat.udl.menufinder;
 
 import android.os.Bundle;
 import android.os.Handler;
-import android.widget.Toast;
 
 public class SplashActivity extends MasterActivity {
 
@@ -14,7 +13,7 @@ public class SplashActivity extends MasterActivity {
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
-                Toast.makeText(SplashActivity.this, "Go to next activity", Toast.LENGTH_SHORT).show();
+                showToast("Go to next activity");
             }
         }, 1000);
     }
