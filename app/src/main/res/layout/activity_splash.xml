@@ -21,6 +21,6 @@
             android:id="@+id/imageView"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:src="@mipmap/menu_finder_launcher" />
+            android:src="@drawable/menu_finder_logo" />
     </LinearLayout>
 </LinearLayout>
