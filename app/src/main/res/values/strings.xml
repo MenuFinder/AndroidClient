@@ -13,4 +13,5 @@
     <string name="error_field_required">This field is required</string>
     <string name="error_invalid_password">The password is too short</string>
     <string name="action_sign_in_without_username">Sign in without username</string>
+    <string name="shared_logo">logo</string>
 </resources>

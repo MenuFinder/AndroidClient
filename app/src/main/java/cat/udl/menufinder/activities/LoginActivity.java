@@ -1,5 +1,6 @@
-package cat.udl.menufinder;
+package cat.udl.menufinder.activities;
 
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -10,6 +11,9 @@ import android.view.inputmethod.EditorInfo;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+
+import cat.udl.menufinder.R;
+import cat.udl.menufinder.application.MasterActivity;
 
 public class LoginActivity extends MasterActivity {
 
@@ -57,6 +61,7 @@ public class LoginActivity extends MasterActivity {
             @Override
             public void onClick(View view) {
                 showToast("Sign in without username");
+                loginSuccess();
             }
         });
     }
@@ -119,7 +124,7 @@ public class LoginActivity extends MasterActivity {
             authTask = null;
 
             if (success) {
-                showToast("Login OK");
+                loginSuccess();
             } else {
                 passwordView.setError(getString(R.string.error_incorrect_password));
                 passwordView.requestFocus();
@@ -130,6 +135,12 @@ public class LoginActivity extends MasterActivity {
         protected void onCancelled() {
             authTask = null;
         }
+    }
+
+    private void loginSuccess() {
+        Intent intent = new Intent(LoginActivity.this, HomeActivity.class);
+
+        startActivity(intent);
     }
 }
 
