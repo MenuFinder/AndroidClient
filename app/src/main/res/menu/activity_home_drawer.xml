@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/option_1"
+            android:checked="true"
+            android:icon="@android:drawable/ic_delete"
+            android:title="Option 1" />
+        <item
+            android:id="@+id/option_2"
+            android:icon="@android:drawable/ic_delete"
+            android:title="Option 2" />
+        <item
+            android:id="@+id/option_3"
+            android:icon="@android:drawable/ic_delete"
+            android:title="Option 3" />
+    </group>
+
+    <item android:title="Login?">
+        <menu>
+            <item
+                android:id="@+id/login"
+                android:icon="@android:drawable/ic_delete"
+                android:title="Login" />
+            <item
+                android:id="@+id/register"
+                android:icon="@android:drawable/ic_delete"
+                android:title="Register" />
+        </menu>
+    </item>
+
+</menu>

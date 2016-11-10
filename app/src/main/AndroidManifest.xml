@@ -18,6 +18,15 @@
         <activity
             android:name=".activities.LoginActivity"
             android:label="@string/title_activity_login" />
+        <activity
+            android:name=".activities.HomeActivity"
+            android:label="@string/title_activity_home"
+            android:parentActivityName=".application.MasterActivity"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="cat.udl.menufinder.application.MasterActivity" />
+        </activity>
     </application>
 
 </manifest>
