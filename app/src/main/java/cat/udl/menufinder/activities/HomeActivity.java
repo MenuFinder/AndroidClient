@@ -1,5 +1,6 @@
 package cat.udl.menufinder.activities;
 
+import android.app.Fragment;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
@@ -11,6 +12,7 @@ import android.view.MenuItem;
 
 import cat.udl.menufinder.R;
 import cat.udl.menufinder.application.MasterActivity;
+import cat.udl.menufinder.fragments.ManageItemsFragment;
 
 public class HomeActivity extends MasterActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -56,6 +58,8 @@ public class HomeActivity extends MasterActivity
         if (id == R.id.login) {
             startActivity(new Intent(HomeActivity.this, LoginActivity.class));
             finish();
+        } else if (id == R.id.manage_items) {
+            loadFragment(itemId, new ManageItemsFragment());
         }
     }
 }

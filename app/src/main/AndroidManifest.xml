@@ -27,6 +27,9 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="cat.udl.menufinder.application.MasterActivity" />
         </activity>
+        <activity
+            android:name=".activities.ManageItemActivity"
+            android:label="Manage Item" />
     </application>
 
 </manifest>

@@ -19,4 +19,9 @@
     <string name="navigation_drawer_close">Close navigation drawer</string>
 
     <string name="shared_logo">logo</string>
+    <string name="manage_items">Manage Items</string>
+    <string name="prompt_name">Name</string>
+    <string name="prompt_description">Description</string>
+    <string name="prompt_price">Price</string>
+    <string name="item_saved">Item saved</string>
 </resources>
