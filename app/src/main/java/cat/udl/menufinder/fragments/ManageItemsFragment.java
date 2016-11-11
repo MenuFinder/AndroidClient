@@ -72,7 +72,7 @@ public class ManageItemsFragment extends MasterFragment {
 
                 if (closeDialog) {
                     alertDialog.dismiss();
-                    savetoDB(new Item(name, description, Integer.valueOf(price)));
+                    savetoDB(new Item(name, description, Double.valueOf(price)));
                 }
             }
         });
