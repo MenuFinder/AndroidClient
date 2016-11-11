@@ -16,6 +16,7 @@ public class Restaurant {
     private String email;
     private String phone;
     private List<Menu> menus;
+    private List<Category> categories;
 
     public Restaurant(String name, String cif, String address, String city, String postalCode,
                       String state, String country, String email, String phone) {
@@ -29,6 +30,7 @@ public class Restaurant {
         this.email = email;
         this.phone = phone;
         menus = new ArrayList<Menu>();
+        categories = new ArrayList<Category>();
     }
 
     public long getId() {
@@ -113,6 +115,14 @@ public class Restaurant {
 
     public List<Menu> getMenus() {
         return menus;
+    }
+
+    public List<Category> getCategories() {
+        return categories;
+    }
+
+    public void addCategory(Category category) {
+        categories.add(category);
     }
 
     public void addMenu(Menu menu) {
