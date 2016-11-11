@@ -24,4 +24,6 @@
     <string name="prompt_description">Description</string>
     <string name="prompt_price">Price</string>
     <string name="item_saved">Item saved</string>
+    <string name="save">Save</string>
+    <string name="manage_item">Manage Item</string>
 </resources>
