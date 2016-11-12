@@ -26,4 +26,6 @@
     <string name="item_saved">Item saved</string>
     <string name="save">Save</string>
     <string name="manage_item">Manage Item</string>
+    <string name="price">Price:\u0020</string>
+    <string name="name">Name:\u0020</string>
 </resources>
