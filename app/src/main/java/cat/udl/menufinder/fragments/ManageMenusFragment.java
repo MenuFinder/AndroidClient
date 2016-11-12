@@ -133,9 +133,9 @@ public class ManageMenusFragment extends MasterFragment {
                 String name = ((EditText) dialogView.findViewById(R.id.name)).getText().toString().trim();
                 if (TextUtils.isEmpty(name)) closeDialog = false;
                 else m.setName(name);
-                String price = ((EditText) dialogView.findViewById(R.id.name)).getText().toString().trim();
+                String price = ((EditText) dialogView.findViewById(R.id.price)).getText().toString().trim();
                 if (TextUtils.isEmpty(price)) closeDialog = false;
-                else m.setName(name);
+                else m.setPrice(Double.valueOf(price));
                 String description = ((EditText) dialogView.findViewById(R.id.description)).getText()
                         .toString().trim();
                 m.setDescription(description);
