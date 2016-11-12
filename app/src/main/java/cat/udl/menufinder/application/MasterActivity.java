@@ -8,6 +8,10 @@ import android.widget.Toast;
 
 public class MasterActivity extends AppCompatActivity {
 
+    public MasterApplication getMasterApplication() {
+        return (MasterApplication) getApplication();
+    }
+
     public void loadFragment(int resId, Fragment fragment) {
         FragmentManager fragmentManager = getFragmentManager();
         FragmentTransaction transaction = fragmentManager.beginTransaction();

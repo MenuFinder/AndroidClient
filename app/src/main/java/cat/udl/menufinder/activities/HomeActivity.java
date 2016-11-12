@@ -15,6 +15,10 @@ import cat.udl.menufinder.application.MasterActivity;
 import cat.udl.menufinder.fragments.ManageItemsFragment;
 import cat.udl.menufinder.fragments.ManageMenusFragment;
 
+import static cat.udl.menufinder.enums.UserType.CLIENT;
+import static cat.udl.menufinder.enums.UserType.GUEST;
+import static cat.udl.menufinder.enums.UserType.RESTAURANT;
+
 public class HomeActivity extends MasterActivity
         implements NavigationView.OnNavigationItemSelectedListener {
     Toolbar toolbar;
@@ -33,6 +37,12 @@ public class HomeActivity extends MasterActivity
         toggle.syncState();
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+        if (getMasterApplication().getUserType() == CLIENT)
+            navigationView.inflateMenu(R.menu.activity_home_drawer_client);
+        else if (getMasterApplication().getUserType() == RESTAURANT)
+            navigationView.inflateMenu(R.menu.activity_home_drawer_restaurant);
+        else if (getMasterApplication().getUserType() == GUEST)
+            navigationView.inflateMenu(R.menu.activity_home_drawer_guest);
         navigationView.setNavigationItemSelectedListener(this);
     }
 
@@ -57,13 +67,17 @@ public class HomeActivity extends MasterActivity
     private void navigate(int id) {
         int itemId = R.id.content;
         if (id == R.id.manage_items) {
-            toolbar.setTitle(R.string.manage_items);
+            toolbar.setTitle(R.string.action_manage_items);
             loadFragment(itemId, new ManageItemsFragment());
         } else if (id == R.id.manage_menus) {
-            toolbar.setTitle(R.string.manage_menus);
+            toolbar.setTitle(R.string.action_manage_menus);
             loadFragment(itemId, new ManageMenusFragment());
-        } else  if (id == R.id.login) {
+        } else if (id == R.id.login) {
             startActivity(new Intent(HomeActivity.this, LoginActivity.class));
+            finish();
+        } else if (id == R.id.logout) {
+            getMasterApplication().logout();
+            startActivity(new Intent(HomeActivity.this, SplashActivity.class));
             finish();
         }
     }

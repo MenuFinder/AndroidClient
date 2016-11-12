@@ -4,9 +4,11 @@ import android.app.Application;
 import android.content.Context;
 import android.content.SharedPreferences;
 
+import cat.udl.menufinder.enums.UserType;
 import cat.udl.menufinder.utils.Constants;
 
 public class MasterApplication extends Application {
+
     private final static String TAG = MasterApplication.class.getSimpleName();
     private static MasterApplication context;
 
@@ -38,6 +40,32 @@ public class MasterApplication extends Application {
 
     public void putString(String key, String value) {
         getPestormixSharedPreferences().edit().putString(key, value).apply();
+    }
+
+    public void removePreference(String key) {
+        getPestormixSharedPreferences().edit().remove(key).apply();
+    }
+
+    public void login(UserType userType, String username) {
+        putString(Constants.PREFERENCES_USER_TYPE, userType.toString());
+        putString(Constants.PREFERENCES_USERNAME, username);
+    }
+
+    public void logout() {
+        removePreference(Constants.PREFERENCES_USER_TYPE);
+        removePreference(Constants.PREFERENCES_USERNAME);
+    }
+
+    public boolean isLogged() {
+        return !getUsername().equals("");
+    }
+
+    public UserType getUserType() {
+        return UserType.fromString(getString(Constants.PREFERENCES_USER_TYPE, ""));
+    }
+
+    public String getUsername() {
+        return getString(Constants.PREFERENCES_USERNAME, "");
     }
 
 }

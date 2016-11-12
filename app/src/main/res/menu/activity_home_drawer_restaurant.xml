@@ -6,28 +6,22 @@
             android:id="@+id/option_1"
             android:checked="true"
             android:icon="@android:drawable/ic_delete"
-            android:title="Option 1" />
+            android:title="RESTAURANT" />
         <item
             android:id="@+id/manage_items"
             android:icon="@android:drawable/ic_delete"
-            android:title="@string/manage_items" />
+            android:title="@string/action_manage_items" />
         <item
             android:id="@+id/manage_menus"
             android:icon="@android:drawable/ic_delete"
-            android:title="@string/manage_menus" />
+            android:title="@string/action_manage_menus" />
     </group>
 
-    <item android:title="Login?">
-        <menu>
-            <item
-                android:id="@+id/login"
-                android:icon="@android:drawable/ic_delete"
-                android:title="Login" />
-            <item
-                android:id="@+id/register"
-                android:icon="@android:drawable/ic_delete"
-                android:title="Register" />
-        </menu>
-    </item>
+    <group>
+        <item
+            android:id="@+id/logout"
+            android:icon="@android:drawable/ic_delete"
+            android:title="@string/action_logout" />
+    </group>
 
 </menu>

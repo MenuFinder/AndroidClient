@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/option_1"
+            android:checked="true"
+            android:icon="@android:drawable/ic_delete"
+            android:title="GUEST" />
+        <item
+            android:id="@+id/manage_items"
+            android:icon="@android:drawable/ic_delete"
+            android:title="@string/action_manage_items" />
+        <item
+            android:id="@+id/manage_menus"
+            android:icon="@android:drawable/ic_delete"
+            android:title="@string/action_manage_menus" />
+    </group>
+    <group
+        android:id="@+id/menu_bottom"
+        android:checkableBehavior="none">
+
+        <item
+            android:id="@+id/login"
+            android:icon="@android:drawable/ic_delete"
+            android:title="@string/action_login" />
+        <item
+            android:id="@+id/register"
+            android:icon="@android:drawable/ic_delete"
+            android:title="@string/action_register" />
+    </group>
+
+</menu>

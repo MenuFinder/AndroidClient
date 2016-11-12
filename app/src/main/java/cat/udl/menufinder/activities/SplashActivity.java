@@ -8,6 +8,7 @@ import android.widget.ImageView;
 
 import cat.udl.menufinder.R;
 import cat.udl.menufinder.application.MasterActivity;
+import cat.udl.menufinder.enums.UserType;
 
 public class SplashActivity extends MasterActivity {
 
@@ -20,9 +21,21 @@ public class SplashActivity extends MasterActivity {
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
-                ActivityOptionsCompat activityOptionsCompat = ActivityOptionsCompat.makeSceneTransitionAnimation(SplashActivity.this, logo, getString(R.string.shared_logo));
-                startActivity(new Intent(SplashActivity.this, LoginActivity.class), activityOptionsCompat.toBundle());
-                finish();
+                if (getMasterApplication().isLogged()) {
+                    UserType userType = getMasterApplication().getUserType();
+                    switch (userType) {
+                        case CLIENT:
+                        case RESTAURANT:
+                        case GUEST:
+                            startActivity(new Intent(SplashActivity.this, HomeActivity.class));
+                            finish();
+                            break;
+                    }
+                } else {
+                    ActivityOptionsCompat activityOptionsCompat = ActivityOptionsCompat.makeSceneTransitionAnimation(SplashActivity.this, logo, getString(R.string.shared_logo));
+                    startActivity(new Intent(SplashActivity.this, LoginActivity.class), activityOptionsCompat.toBundle());
+                    finish();
+                }
             }
         }, 1000);
     }

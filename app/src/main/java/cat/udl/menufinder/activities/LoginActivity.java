@@ -14,9 +14,11 @@ import android.widget.TextView;
 
 import cat.udl.menufinder.R;
 import cat.udl.menufinder.application.MasterActivity;
+import cat.udl.menufinder.enums.UserType;
 
 public class LoginActivity extends MasterActivity {
 
+    private static final String TAG = LoginActivity.class.getSimpleName();
     private UserLoginTask authTask = null;
 
     private EditText usernameView;
@@ -60,8 +62,7 @@ public class LoginActivity extends MasterActivity {
         signInWithouUserName.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View view) {
-                showToast("Sign in without username");
-                loginSuccess();
+                loginSuccess(UserType.GUEST, UserType.GUEST.toString());
             }
         });
     }
@@ -74,8 +75,8 @@ public class LoginActivity extends MasterActivity {
         usernameView.setError(null);
         passwordView.setError(null);
 
-        String email = usernameView.getText().toString();
-        String password = passwordView.getText().toString();
+        String username = usernameView.getText().toString().trim();
+        String password = passwordView.getText().toString().trim();
 
         boolean cancel = false;
         View focusView = null;
@@ -86,7 +87,7 @@ public class LoginActivity extends MasterActivity {
             cancel = true;
         }
 
-        if (TextUtils.isEmpty(email)) {
+        if (TextUtils.isEmpty(username)) {
             usernameView.setError(getString(R.string.error_field_required));
             focusView = usernameView;
             cancel = true;
@@ -95,7 +96,7 @@ public class LoginActivity extends MasterActivity {
         if (cancel) {
             focusView.requestFocus();
         } else {
-            authTask = new UserLoginTask(email, password);
+            authTask = new UserLoginTask(username, password);
             authTask.execute((Void) null);
         }
     }
@@ -104,30 +105,35 @@ public class LoginActivity extends MasterActivity {
         return password.length() > 4;
     }
 
-    public class UserLoginTask extends AsyncTask<Void, Void, Boolean> {
+    public class UserLoginTask extends AsyncTask<Void, Void, UserType> {
 
-        private final String mEmail;
+        private final String mUsername;
         private final String mPassword;
 
         UserLoginTask(String email, String password) {
-            mEmail = email;
+            mUsername = email;
             mPassword = password;
         }
 
         @Override
-        protected Boolean doInBackground(Void... params) {
-            return mEmail.equals("admin") && mPassword.equals("admin");
+        protected UserType doInBackground(Void... params) {
+            UserType userType = null;
+            if (mUsername.equals("client") && mPassword.equals("client"))
+                userType = UserType.CLIENT;
+            else if (mUsername.equals("restaurant") && mPassword.equals("restaurant"))
+                userType = UserType.RESTAURANT;
+            return userType;
         }
 
         @Override
-        protected void onPostExecute(final Boolean success) {
+        protected void onPostExecute(final UserType userType) {
             authTask = null;
 
-            if (success) {
-                loginSuccess();
-            } else {
+            if (userType == null) {
                 passwordView.setError(getString(R.string.error_incorrect_password));
                 passwordView.requestFocus();
+            } else {
+                loginSuccess(userType, mUsername);
             }
         }
 
@@ -137,10 +143,11 @@ public class LoginActivity extends MasterActivity {
         }
     }
 
-    private void loginSuccess() {
+    private void loginSuccess(UserType userType, String username) {
+        getMasterApplication().login(userType, username);
         Intent intent = new Intent(LoginActivity.this, HomeActivity.class);
-
         startActivity(intent);
+        finish();
     }
 }
 
