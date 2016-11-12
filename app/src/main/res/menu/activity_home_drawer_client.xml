@@ -17,7 +17,9 @@
             android:title="@string/action_manage_menus" />
     </group>
 
-    <group>
+    <group
+        android:id="@+id/menu_bottom"
+        android:checkableBehavior="none">
         <item
             android:id="@+id/logout"
             android:icon="@android:drawable/ic_delete"
