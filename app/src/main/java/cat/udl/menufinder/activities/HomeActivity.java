@@ -2,6 +2,7 @@ package cat.udl.menufinder.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
@@ -12,6 +13,7 @@ import android.view.MenuItem;
 import cat.udl.menufinder.R;
 import cat.udl.menufinder.application.MasterActivity;
 import cat.udl.menufinder.fragments.ManageItemsFragment;
+import cat.udl.menufinder.fragments.ManageMenusFragment;
 
 public class HomeActivity extends MasterActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -44,9 +46,8 @@ public class HomeActivity extends MasterActivity
         }
     }
 
-    @SuppressWarnings("StatementWithEmptyBody")
     @Override
-    public boolean onNavigationItemSelected(MenuItem item) {
+    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         navigate(item.getItemId());
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
@@ -58,7 +59,10 @@ public class HomeActivity extends MasterActivity
         if (id == R.id.manage_items) {
             toolbar.setTitle(R.string.manage_items);
             loadFragment(itemId, new ManageItemsFragment());
-        } else if (id == R.id.login) {
+        } else if (id == R.id.manage_menus) {
+            toolbar.setTitle(R.string.manage_menus);
+            loadFragment(itemId, new ManageMenusFragment());
+        } else  if (id == R.id.login) {
             startActivity(new Intent(HomeActivity.this, LoginActivity.class));
             finish();
         }

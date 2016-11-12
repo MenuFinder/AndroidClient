@@ -12,9 +12,9 @@
             android:icon="@android:drawable/ic_delete"
             android:title="@string/manage_items" />
         <item
-            android:id="@+id/option_3"
+            android:id="@+id/manage_menus"
             android:icon="@android:drawable/ic_delete"
-            android:title="Option 3" />
+            android:title="@string/manage_menus" />
     </group>
 
     <item android:title="Login?">
