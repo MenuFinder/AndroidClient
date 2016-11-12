@@ -10,16 +10,19 @@ import android.widget.TextView;
 import java.util.List;
 
 import cat.udl.menufinder.R;
+import cat.udl.menufinder.fragments.ManageItemsFragment;
 import cat.udl.menufinder.models.Item;
 
 public class ItemsAdapter extends RecyclerView.Adapter<ItemsAdapter.ViewHolder> {
 
     private Context context;
     private List<Item> items;
+    private ManageItemsFragment.OnItemClick listener;
 
-    public ItemsAdapter(Context context, List<Item> items) {
+    public ItemsAdapter(Context context, List<Item> items, ManageItemsFragment.OnItemClick listener) {
         this.context = context;
         this.items = items;
+        this.listener = listener;
     }
 
     @Override
@@ -45,16 +48,33 @@ public class ItemsAdapter extends RecyclerView.Adapter<ItemsAdapter.ViewHolder> 
         return items.size();
     }
 
-    private Item getItem(int position) {
+    public Item getItem(int position) {
         return items.get(position);
     }
 
-    static class ViewHolder extends RecyclerView.ViewHolder {
+    public void addItem(Item item) {
+        items.add(item);
+        notifyDataSetChanged();
+    }
+
+    public void removeItem(int position) {
+        items.remove(position);
+        notifyDataSetChanged();
+    }
+
+
+    class ViewHolder extends RecyclerView.ViewHolder {
         TextView name;
         TextView price;
 
         ViewHolder(View itemView) {
             super(itemView);
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    listener.onItem(getItem(getAdapterPosition()),getAdapterPosition());
+                }
+            });
             name = (TextView) itemView.findViewById(R.id.name);
             price = (TextView) itemView.findViewById(R.id.price);
         }

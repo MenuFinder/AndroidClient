@@ -29,4 +29,5 @@
     <string name="price">Price:\u0020</string>
     <string name="name">Name:\u0020</string>
     <string name="visible">Visible</string>
+    <string name="deleteConfirmation">Delete \"%s\"?</string>
 </resources>

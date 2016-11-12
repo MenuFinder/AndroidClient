@@ -14,6 +14,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
+import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -45,7 +46,7 @@ public class ManageItemsFragment extends MasterFragment {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                showDialog();
+                showAddDialog();
             }
         });
     }
@@ -61,12 +62,95 @@ public class ManageItemsFragment extends MasterFragment {
         recyclerView.setItemAnimator(animator);
 
         items = new ArrayList<>();
-        adapter = new ItemsAdapter(getActivity(), items);
+        items.add(new Item("Test", "", 25));
+        adapter = new ItemsAdapter(getActivity(), items, new OnItemClick() {
+            @Override
+            public void onItem(Item item, int position) {
+                showEditDialog(item, position);
+            }
+        });
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
     }
 
-    private void showDialog() {
+    private void showDeleteConfirmation(final int position) {
+        Item item = adapter.getItem(position);
+        new AlertDialog.Builder(getActivity())
+                .setMessage(String.format(getString(R.string.deleteConfirmation), item.getName()))
+                .setNegativeButton(android.R.string.no, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                    }
+                })
+                .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        removeOfDB(position);
+                    }
+                }).show();
+    }
+
+    private void showEditDialog(Item item, final int position) {
+        LayoutInflater inflater = getActivity().getLayoutInflater();
+
+        final View dialogView = inflater.inflate(R.layout.view_manage_item, null);
+        ((TextView) dialogView.findViewById(R.id.name)).setText(item.getName());
+        ((TextView) dialogView.findViewById(R.id.price)).setText(String.valueOf(item.getPrice()));
+        ((TextView) dialogView.findViewById(R.id.description)).setText(item.getDescription());
+
+        final AlertDialog alertDialog = new AlertDialog.Builder(getActivity())
+                .setTitle(R.string.manage_item)
+                .setIcon(R.drawable.menu_finder_logo)
+                .setView(dialogView)
+                .setPositiveButton(R.string.save, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                    }
+                })
+                .setNegativeButton(android.R.string.cancel, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                    }
+                })
+                .setNeutralButton("Delete", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        showDeleteConfirmation(position);
+                    }
+                })
+                .create();
+
+        alertDialog.show();
+        alertDialog.getButton(AlertDialog.BUTTON_POSITIVE).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Item item1 = items.get(position);
+                boolean closeDialog = true;
+                String name = ((EditText) dialogView.findViewById(R.id.name)).getText().toString();
+                if (TextUtils.isEmpty(name)) closeDialog = false;
+                else item1.setName(name);
+
+
+                String price = ((EditText) dialogView.findViewById(R.id.price)).getText().toString();
+                if (TextUtils.isEmpty(price)) closeDialog = false;
+                else item1.setPrice(Double.valueOf(price));
+
+                String description = ((EditText) dialogView.findViewById(R.id.description)).getText().toString();
+                item1.setDescription(description);
+
+                if (closeDialog) {
+                    alertDialog.dismiss();
+                    editToDB(item1);
+                }
+            }
+        });
+    }
+
+    private void editToDB(Item item) {
+        adapter.notifyDataSetChanged();
+    }
+
+    private void showAddDialog() {
         LayoutInflater inflater = getActivity().getLayoutInflater();
         final View dialogView = inflater.inflate(R.layout.view_manage_item, null);
         final AlertDialog alertDialog = new AlertDialog.Builder(getActivity())
@@ -82,8 +166,9 @@ public class ManageItemsFragment extends MasterFragment {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
                     }
-                });
-        alertDialog.create();
+                })
+                .create();
+
         alertDialog.show();
         alertDialog.getButton(AlertDialog.BUTTON_POSITIVE).setOnClickListener(new View.OnClickListener() {
             @Override
@@ -104,16 +189,24 @@ public class ManageItemsFragment extends MasterFragment {
 
                 if (closeDialog) {
                     alertDialog.dismiss();
-                    savetoDB(new Item(name, description, Double.valueOf(price)));
+                    saveToDB(new Item(name, description, Double.valueOf(price)));
                 }
             }
         });
     }
 
-    private void savetoDB(Item item) {
+    private void saveToDB(Item item) {
         showToast(R.string.item_saved);
-        items.add(item);
-        adapter.notifyDataSetChanged();
+        adapter.addItem(item);
+    }
+
+    private void removeOfDB(int position) {
+        showToast(R.string.item_saved);
+        adapter.removeItem(position);
+    }
+
+    public interface OnItemClick {
+        void onItem(Item item, int adapterPosition);
     }
 }
 
