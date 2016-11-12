@@ -37,10 +37,9 @@ public class ItemsAdapter extends RecyclerView.Adapter<ItemsAdapter.ViewHolder> 
     public void onBindViewHolder(ViewHolder viewHolder, int position) {
         Item item = getItem(position);
 
-        TextView name = viewHolder.name;
-        name.setText(item.getName());
-        TextView price = viewHolder.price;
-        price.setText(String.valueOf(item.getPrice()));
+        viewHolder.name.setText(item.getName());
+        viewHolder.price.setText(String.valueOf(item.getPrice()));
+        viewHolder.score.setText(String.valueOf(item.getScore()));
     }
 
     @Override
@@ -66,6 +65,7 @@ public class ItemsAdapter extends RecyclerView.Adapter<ItemsAdapter.ViewHolder> 
     class ViewHolder extends RecyclerView.ViewHolder {
         TextView name;
         TextView price;
+        TextView score;
 
         ViewHolder(View itemView) {
             super(itemView);
@@ -77,6 +77,7 @@ public class ItemsAdapter extends RecyclerView.Adapter<ItemsAdapter.ViewHolder> 
             });
             name = (TextView) itemView.findViewById(R.id.name);
             price = (TextView) itemView.findViewById(R.id.price);
+            score = (TextView) itemView.findViewById(R.id.score);
         }
     }
 }

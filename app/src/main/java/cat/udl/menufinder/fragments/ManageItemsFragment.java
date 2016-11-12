@@ -62,7 +62,9 @@ public class ManageItemsFragment extends MasterFragment {
         recyclerView.setItemAnimator(animator);
 
         items = new ArrayList<>();
-        items.add(new Item("Test", "", 25));
+        Item testItem = new Item("Test", "", 25);
+        testItem.setScore(4.2);
+        items.add(testItem);
         adapter = new ItemsAdapter(getActivity(), items, new OnItemClick() {
             @Override
             public void onItem(Item item, int position) {
