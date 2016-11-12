@@ -1,7 +1,10 @@
 package cat.udl.menufinder.models;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 public class Menu {
 
@@ -12,14 +15,14 @@ public class Menu {
     private double score;
     private boolean isVisible;
     private long restaurant_id;
-    private List<MenuItem> menuItems;
+    private Map<ItemCategory, List<Item>> itemsCategory;
 
     public Menu(String name, String description, double price, boolean isVisible) {
         this.name = name;
         this.description = description;
         this.price = price;
         this.isVisible = isVisible;
-        menuItems = new ArrayList<MenuItem>();
+        itemsCategory = new HashMap<ItemCategory, List<Item>>();
     }
 
     public void setId(long id) {
@@ -79,12 +82,23 @@ public class Menu {
         return restaurant_id;
     }
 
-    public List<MenuItem> getMenuItems() {
-        return menuItems;
+    public void addMenuItem(MenuItem menuItem) {
+        if (!itemsCategory.containsKey(menuItem.getItemCategory())) {
+            itemsCategory.put(menuItem.getItemCategory(), new ArrayList<Item>());
+        }
+        itemsCategory.get(menuItem.getItemCategory()).add(menuItem.getItem());
     }
 
-    public void addMenuItem(MenuItem menuItems) {
-        this.menuItems.add(menuItems);
+    public List<Item> getItemsByCategory(ItemCategory itemCategory) {
+        return itemsCategory.get(itemCategory);
+    }
+
+    public Map<ItemCategory, List<Item>> getItemsCategory() {
+        return itemsCategory;
+    }
+
+    public Set<ItemCategory> getItemCategories() {
+        return itemsCategory.keySet();
     }
 
     @Override
