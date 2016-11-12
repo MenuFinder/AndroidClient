@@ -4,9 +4,9 @@
     <group android:checkableBehavior="single">
         <item
             android:id="@+id/view_restaurants"
+            android:checked="true"
             android:icon="@drawable/ic_restaurant"
-            android:title="@string/action_view_restaurants"
-            android:checked="true"/>
+            android:title="@string/action_view_restaurants" />
         <item
             android:id="@+id/view_map"
             android:icon="@drawable/ic_map_black"

@@ -11,10 +11,6 @@ public enum UserType {
         this.text = text;
     }
 
-    public String getText() {
-        return this.text;
-    }
-
     public static UserType fromString(String text) {
         if (text != null) {
             for (UserType userType : UserType.values()) {
@@ -24,5 +20,9 @@ public enum UserType {
             }
         }
         return null;
+    }
+
+    public String getText() {
+        return this.text;
     }
 }

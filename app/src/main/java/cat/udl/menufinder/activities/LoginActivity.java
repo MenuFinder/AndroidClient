@@ -101,6 +101,13 @@ public class LoginActivity extends MasterActivity {
         }
     }
 
+    private void loginSuccess(UserType userType, String username) {
+        getMasterApplication().login(userType, username);
+        Intent intent = new Intent(LoginActivity.this, HomeActivity.class);
+        startActivity(intent);
+        finish();
+    }
+
     public class UserLoginTask extends AsyncTask<Void, Void, UserType> {
 
         private final String mUsername;
@@ -137,13 +144,6 @@ public class LoginActivity extends MasterActivity {
         protected void onCancelled() {
             authTask = null;
         }
-    }
-
-    private void loginSuccess(UserType userType, String username) {
-        getMasterApplication().login(userType, username);
-        Intent intent = new Intent(LoginActivity.this, HomeActivity.class);
-        startActivity(intent);
-        finish();
     }
 }
 

@@ -72,7 +72,7 @@ public class ItemsAdapter extends RecyclerView.Adapter<ItemsAdapter.ViewHolder> 
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    listener.onItem(getItem(getAdapterPosition()),getAdapterPosition());
+                    listener.onItem(getItem(getAdapterPosition()), getAdapterPosition());
                 }
             });
             name = (TextView) itemView.findViewById(R.id.name);

@@ -25,61 +25,61 @@ public class Menu {
         itemsCategory = new HashMap<ItemCategory, List<Item>>();
     }
 
-    public void setId(long id) {
-        this.id = id;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
-    public void setPrice(double price) {
-        this.price = price;
-    }
-
-    public void setScore(double score) {
-        this.score = score;
-    }
-
-    public void setVisible(boolean visible) {
-        isVisible = visible;
-    }
-
-    public void setRestaurant_id(long restaurant_id) {
-        this.restaurant_id = restaurant_id;
-    }
-
     public long getId() {
 
         return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
     }
 
     public String getName() {
         return name;
     }
 
+    public void setName(String name) {
+        this.name = name;
+    }
+
     public String getDescription() {
         return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 
     public double getPrice() {
         return price;
     }
 
+    public void setPrice(double price) {
+        this.price = price;
+    }
+
     public double getScore() {
         return score;
+    }
+
+    public void setScore(double score) {
+        this.score = score;
     }
 
     public boolean isVisible() {
         return isVisible;
     }
 
+    public void setVisible(boolean visible) {
+        isVisible = visible;
+    }
+
     public long getRestaurant_id() {
         return restaurant_id;
+    }
+
+    public void setRestaurant_id(long restaurant_id) {
+        this.restaurant_id = restaurant_id;
     }
 
     public void addMenuItem(MenuItem menuItem) {

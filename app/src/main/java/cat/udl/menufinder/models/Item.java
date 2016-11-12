@@ -64,5 +64,5 @@ public class Item {
                 ", score=" + score +
                 '}';
     }
-    
+
 }
