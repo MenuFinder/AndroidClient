@@ -3,18 +3,14 @@
 
     <group android:checkableBehavior="single">
         <item
-            android:id="@+id/option_1"
-            android:checked="true"
-            android:icon="@android:drawable/ic_delete"
-            android:title="GUEST" />
+            android:id="@+id/view_restaurants"
+            android:icon="@drawable/ic_restaurant"
+            android:title="@string/action_view_restaurants"
+            android:checked="true"/>
         <item
-            android:id="@+id/manage_items"
-            android:icon="@android:drawable/ic_delete"
-            android:title="@string/action_manage_items" />
-        <item
-            android:id="@+id/manage_menus"
-            android:icon="@android:drawable/ic_delete"
-            android:title="@string/action_manage_menus" />
+            android:id="@+id/view_map"
+            android:icon="@drawable/ic_map_black"
+            android:title="@string/action_view_map" />
     </group>
     <group
         android:id="@+id/menu_bottom"
@@ -22,11 +18,11 @@
 
         <item
             android:id="@+id/login"
-            android:icon="@android:drawable/ic_delete"
+            android:icon="@drawable/ic_login"
             android:title="@string/action_login" />
         <item
             android:id="@+id/register"
-            android:icon="@android:drawable/ic_delete"
+            android:icon="@drawable/ic_register"
             android:title="@string/action_register" />
     </group>
 

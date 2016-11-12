@@ -3,26 +3,26 @@
 
     <group android:checkableBehavior="single">
         <item
-            android:id="@+id/option_1"
-            android:checked="true"
-            android:icon="@android:drawable/ic_delete"
-            android:title="RESTAURANT" />
+            android:id="@+id/manage_menus"
+            android:icon="@drawable/ic_menu"
+            android:title="@string/action_manage_menus"
+            android:checked="true"/>
         <item
             android:id="@+id/manage_items"
-            android:icon="@android:drawable/ic_delete"
+            android:icon="@drawable/ic_item"
             android:title="@string/action_manage_items" />
-        <item
-            android:id="@+id/manage_menus"
-            android:icon="@android:drawable/ic_delete"
-            android:title="@string/action_manage_menus" />
     </group>
 
     <group
         android:id="@+id/menu_bottom"
         android:checkableBehavior="none">
         <item
+            android:id="@+id/settings"
+            android:icon="@drawable/ic_settings_black"
+            android:title="@string/action_settings" />
+        <item
             android:id="@+id/logout"
-            android:icon="@android:drawable/ic_delete"
+            android:icon="@drawable/ic_logout"
             android:title="@string/action_logout" />
     </group>
 

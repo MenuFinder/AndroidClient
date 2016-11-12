@@ -39,4 +39,7 @@
     <string name="action_manage_menus">Manage Menus</string>
     <string name="action_logout">Logout</string>
     <string name="action_login">Login</string>
+    <string name="action_settings">Settings</string>
+    <string name="action_view_map">Map</string>
+    <string name="action_view_restaurants">Restaurants</string>
 </resources>
