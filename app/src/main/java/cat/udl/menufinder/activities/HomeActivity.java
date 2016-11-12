@@ -72,12 +72,15 @@ public class HomeActivity extends MasterActivity
         } else if (id == R.id.manage_menus) {
             toolbar.setTitle(R.string.action_manage_menus);
             loadFragment(itemId, new ManageMenusFragment());
-        } else if (id == R.id.login) {
-            startActivity(new Intent(HomeActivity.this, LoginActivity.class));
-            finish();
         } else if (id == R.id.logout) {
             getMasterApplication().logout();
             startActivity(new Intent(HomeActivity.this, SplashActivity.class));
+            finish();
+        } else if (id == R.id.login) {
+            startActivity(new Intent(HomeActivity.this, LoginActivity.class));
+            finish();
+        } else if (id == R.id.register) {
+            startActivity(new Intent(HomeActivity.this, RegisterActivity.class));
             finish();
         }
     }

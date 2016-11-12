@@ -54,7 +54,7 @@ public class LoginActivity extends MasterActivity {
         registerButton.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View view) {
-                showToast("Go to Register");
+                startActivity(new Intent(LoginActivity.this, RegisterActivity.class));
             }
         });
 
@@ -81,8 +81,8 @@ public class LoginActivity extends MasterActivity {
         boolean cancel = false;
         View focusView = null;
 
-        if (!TextUtils.isEmpty(password) && !isInvalidPassword(password)) {
-            passwordView.setError(getString(R.string.error_invalid_password));
+        if (TextUtils.isEmpty(password)) {
+            passwordView.setError(getString(R.string.error_field_required));
             focusView = passwordView;
             cancel = true;
         }
@@ -99,10 +99,6 @@ public class LoginActivity extends MasterActivity {
             authTask = new UserLoginTask(username, password);
             authTask.execute((Void) null);
         }
-    }
-
-    private boolean isInvalidPassword(String password) {
-        return password.length() > 4;
     }
 
     public class UserLoginTask extends AsyncTask<Void, Void, UserType> {
