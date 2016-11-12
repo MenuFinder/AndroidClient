@@ -1,6 +1,5 @@
 package cat.udl.menufinder.activities;
 
-import android.app.Fragment;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
@@ -16,12 +15,13 @@ import cat.udl.menufinder.fragments.ManageItemsFragment;
 
 public class HomeActivity extends MasterActivity
         implements NavigationView.OnNavigationItemSelectedListener {
+    Toolbar toolbar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -55,11 +55,12 @@ public class HomeActivity extends MasterActivity
 
     private void navigate(int id) {
         int itemId = R.id.content;
-        if (id == R.id.login) {
+        if (id == R.id.manage_items) {
+            toolbar.setTitle(R.string.manage_items);
+            loadFragment(itemId, new ManageItemsFragment());
+        } else if (id == R.id.login) {
             startActivity(new Intent(HomeActivity.this, LoginActivity.class));
             finish();
-        } else if (id == R.id.manage_items) {
-            loadFragment(itemId, new ManageItemsFragment());
         }
     }
 }
