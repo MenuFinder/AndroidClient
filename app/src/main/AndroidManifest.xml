@@ -3,12 +3,13 @@
     package="cat.udl.menufinder">
 
     <application
+        android:name=".application.MasterApplication"
         android:allowBackup="true"
         android:icon="@mipmap/menu_finder_launcher"
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".SplashActivity">
+        <activity android:name=".activities.SplashActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -16,8 +17,18 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".LoginActivity"
+            android:name=".activities.LoginActivity"
             android:label="@string/title_activity_login" />
+        <activity
+            android:name=".activities.HomeActivity"
+            android:label="@string/title_activity_home"
+            android:parentActivityName=".application.MasterActivity"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="cat.udl.menufinder.application.MasterActivity" />
+        </activity>
+        <activity android:name=".activities.RegisterActivity" />
     </application>
 
 </manifest>

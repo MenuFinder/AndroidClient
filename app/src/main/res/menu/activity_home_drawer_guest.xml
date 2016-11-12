@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/view_restaurants"
+            android:checked="true"
+            android:icon="@drawable/ic_restaurant"
+            android:title="@string/action_view_restaurants" />
+        <item
+            android:id="@+id/view_map"
+            android:icon="@drawable/ic_map_black"
+            android:title="@string/action_view_map" />
+    </group>
+    <group
+        android:id="@+id/menu_bottom"
+        android:checkableBehavior="none">
+
+        <item
+            android:id="@+id/login"
+            android:icon="@drawable/ic_login"
+            android:title="@string/action_login" />
+        <item
+            android:id="@+id/register"
+            android:icon="@drawable/ic_register"
+            android:title="@string/action_register" />
+    </group>
+
+</menu>

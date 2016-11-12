@@ -13,4 +13,45 @@
     <string name="error_field_required">This field is required</string>
     <string name="error_invalid_password">The password is too short</string>
     <string name="action_sign_in_without_username">Sign in without username</string>
+    <string name="title_activity_home">HomeActivity</string>
+
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+
+    <string name="shared_logo">logo</string>
+    <string name="action_manage_items">Manage Items</string>
+    <string name="prompt_restaurant_name">Restaurant name</string>
+    <string name="prompt_description">Description</string>
+    <string name="prompt_price">Price</string>
+    <string name="item_saved">Item saved</string>
+    <string name="menu_saved">Menu saved</string>
+    <string name="menu_deleted">Menu deleted</string>
+    <string name="save">Save</string>
+    <string name="manage_item">Manage Item</string>
+    <string name="manage_menu">Manage Menu</string>
+    <string name="price">Price:\u0020</string>
+    <string name="name">Name:\u0020</string>
+    <string name="visible">Visible</string>
+    <string name="deleteConfirmation">Delete \"%s\"?</string>
+    <string name="saveNotification">\"%s\" saved</string>
+    <string name="deleteNotification">\"%s\" deleted</string>
+    <string name="delete">Delete</string>
+    <string name="action_manage_menus">Manage Menus</string>
+    <string name="action_logout">Logout</string>
+    <string name="action_login">Login</string>
+    <string name="action_settings">Settings</string>
+    <string name="action_view_map">Map</string>
+    <string name="action_view_restaurants">Restaurants</string>
+    <string name="prompt_email">Email</string>
+    <string name="you_are_the_owner_of_a_restaurant">You are the owner of a restaurant?</string>
+    <string name="prompt_cif">CIF</string>
+    <string name="prompt_address">Address</string>
+    <string name="prompt_city">City</string>
+    <string name="prompt_postal_code">Postal code</string>
+    <string name="prompt_state">State</string>
+    <string name="prompt_phone">Phone</string>
+    <string name="prompt_restaurant_email">Restaurant email</string>
+    <string name="prompt_country">Country</string>
+    <string name="error_email_format">This email has a wrong format</string>
+    <string name="error_phone_format">This phone has a wrong format</string>
 </resources>
