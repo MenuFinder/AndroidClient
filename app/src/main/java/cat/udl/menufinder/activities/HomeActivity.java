@@ -14,6 +14,7 @@ import cat.udl.menufinder.R;
 import cat.udl.menufinder.application.MasterActivity;
 import cat.udl.menufinder.fragments.ManageItemsFragment;
 import cat.udl.menufinder.fragments.ManageMenusFragment;
+import cat.udl.menufinder.fragments.RestaurantsFragment;
 
 import static cat.udl.menufinder.enums.UserType.CLIENT;
 import static cat.udl.menufinder.enums.UserType.GUEST;
@@ -44,6 +45,8 @@ public class HomeActivity extends MasterActivity
         else if (getMasterApplication().getUserType() == GUEST)
             navigationView.inflateMenu(R.menu.activity_home_drawer_guest);
         navigationView.setNavigationItemSelectedListener(this);
+
+        navigate(navigationView.getMenu().getItem(0).getItemId());
     }
 
     @Override
@@ -72,6 +75,9 @@ public class HomeActivity extends MasterActivity
         } else if (id == R.id.manage_menus) {
             toolbar.setTitle(R.string.action_manage_menus);
             loadFragment(itemId, new ManageMenusFragment());
+        } else if (id == R.id.view_restaurants) {
+            toolbar.setTitle(R.string.action_view_restaurants);
+            loadFragment(itemId, new RestaurantsFragment());
         } else if (id == R.id.logout) {
             getMasterApplication().logout();
             startActivity(new Intent(HomeActivity.this, SplashActivity.class));
