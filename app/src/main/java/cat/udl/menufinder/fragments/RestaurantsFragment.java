@@ -1,5 +1,6 @@
 package cat.udl.menufinder.fragments;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.DefaultItemAnimator;
@@ -57,8 +58,26 @@ public class RestaurantsFragment extends MasterFragment {
         restaurants.add(testRestaurant2);
         adapter = new RestaurantsAdapter(getActivity(), restaurants, new OnRestaurantClickListener() {
             @Override
-            public void onRestaurantClick(Restaurant restaurant, int adapterPosition) {
-                Restaurant res = adapter.getRestaurant(adapterPosition);
+            public void onRestaurantClick(Restaurant restaurant) {
+                DetailRestaurantFragment fragment = (DetailRestaurantFragment) getFragmentManager()
+                        .findFragmentById(R.id.detail_fragment);
+                if (fragment != null && fragment.isInLayout()) {
+                    fragment.update(restaurant);
+                } else {
+                    Intent intent = new Intent(getActivity(), DetailRestaurantActivity.class);
+                    intent.putExtra("restaurant", restaurant);
+                    startActivity(intent);
+                }
+            }
+
+            @Override
+            public void onShareClick(Restaurant restaurant) {
+                showToast("SHARE");
+            }
+
+            @Override
+            public void onViewMapClick(Restaurant restaurant) {
+                showToast("MAP");
             }
         });
         recyclerView.setAdapter(adapter);
@@ -66,7 +85,11 @@ public class RestaurantsFragment extends MasterFragment {
     }
 
     public interface OnRestaurantClickListener {
-        void onRestaurantClick(Restaurant restaurant, int adapterPosition);
+        void onRestaurantClick(Restaurant restaurant);
+
+        void onShareClick(Restaurant restaurant);
+
+        void onViewMapClick(Restaurant restaurant);
     }
 
 }
