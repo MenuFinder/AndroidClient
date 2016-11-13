@@ -18,6 +18,7 @@ public class Restaurant implements Serializable {
     private String phone;
     private List<Menu> menus;
     private List<Category> categories;
+    private double score;
 
     public Restaurant(String name, String cif, String address, String city, String postalCode,
                       String state, String country, String email, String phone) {
@@ -130,6 +131,14 @@ public class Restaurant implements Serializable {
         menus.add(menu);
     }
 
+    public double getScore() {
+        return score;
+    }
+
+    public void setScore(double score) {
+        this.score = score;
+    }
+
     @Override
     public String toString() {
         return "Restaurant{" +
@@ -143,7 +152,7 @@ public class Restaurant implements Serializable {
                 ", country='" + country + '\'' +
                 ", email='" + email + '\'' +
                 ", phone='" + phone + '\'' +
+                ", score=" + score +
                 '}';
     }
-
 }
