@@ -2,6 +2,7 @@ package cat.udl.menufinder.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.MenuItem;
 
 import cat.udl.menufinder.R;
 import cat.udl.menufinder.application.MasterActivity;
@@ -20,5 +21,14 @@ public class DetailRestaurantActivity extends MasterActivity {
         Restaurant restaurant = (Restaurant) intent.getSerializableExtra(KEY_RESTAURANT);
         DetailRestaurantFragment fragment = (DetailRestaurantFragment) getSupportFragmentManager().findFragmentById(R.id.detail_fragment);
         fragment.update(restaurant);
+    }
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                onBackPressed();
+                break;
+        }
+        return false;
     }
 }

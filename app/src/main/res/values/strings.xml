@@ -58,4 +58,6 @@
     <string name="share">Share</string>
     <string name="view_on_map">View on Map</string>
     <string name="search">Search</string>
+    <string name="menus">Menus</string>
+    <string name="general_information">General information</string>
 </resources>
