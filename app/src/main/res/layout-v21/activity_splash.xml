@@ -17,5 +17,6 @@
         android:layout_height="0dp"
         android:layout_weight="1"
         android:scaleType="fitCenter"
+        android:transitionName="@string/shared_logo"
         app:srcCompat="@drawable/menu_finder_logo" />
 </LinearLayout>
