@@ -12,19 +12,25 @@ import android.widget.TextView;
 import java.util.List;
 
 import cat.udl.menufinder.R;
+import cat.udl.menufinder.enums.UserType;
 import cat.udl.menufinder.fragments.ManageMenusFragment;
 import cat.udl.menufinder.models.Menu;
 
+import static android.view.View.GONE;
+import static cat.udl.menufinder.enums.UserType.RESTAURANT;
+
 public class MenusAdapter extends RecyclerView.Adapter<MenusAdapter.ViewHolder> {
 
+    private final UserType userType;
     private Context context;
     private List<Menu> menus;
     private ManageMenusFragment.OnMenuClickListener listener;
 
-    public MenusAdapter(Context context, List<Menu> menus, ManageMenusFragment.OnMenuClickListener listener) {
+    public MenusAdapter(Context context, List<Menu> menus, ManageMenusFragment.OnMenuClickListener listener, UserType userType) {
         this.context = context;
         this.menus = menus;
         this.listener = listener;
+        this.userType = userType;
     }
 
     @Override
@@ -39,6 +45,7 @@ public class MenusAdapter extends RecyclerView.Adapter<MenusAdapter.ViewHolder> 
         Menu menu = getMenu(position);
         holder.name.setText(menu.getName());
         holder.price.setText(String.valueOf(menu.getPrice()));
+        if (userType != RESTAURANT) holder.is_visible.setVisibility(GONE);
         holder.is_visible.setChecked(menu.isVisible());
         holder.is_visible.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override

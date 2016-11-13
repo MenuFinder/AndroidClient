@@ -70,7 +70,7 @@ public class ManageMenusFragment extends MasterFragment {
             public void onMenuClick(Menu menu, int adapterPosition) {
                 showEditDialog(menu, adapterPosition);
             }
-        });
+        }, getMasterApplication().getUserType());
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
     }
