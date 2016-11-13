@@ -1,6 +1,6 @@
 package cat.udl.menufinder.application;
 
-import android.app.Fragment;
+import android.support.v4.app.Fragment;
 
 public class MasterFragment extends Fragment {
 
