@@ -1,6 +1,8 @@
 package cat.udl.menufinder.models;
 
-public class MenuItem {
+import java.io.Serializable;
+
+public class MenuItem implements Serializable {
 
     private Item item;
     private ItemCategory itemCategory;
