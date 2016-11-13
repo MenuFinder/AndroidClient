@@ -2,6 +2,7 @@ package cat.udl.menufinder.database;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import cat.udl.menufinder.models.Item;
 import cat.udl.menufinder.models.ItemCategory;
@@ -57,9 +58,11 @@ public class FakeDB implements DBManager {
         testMenu.addMenuItem(new MenuItem(new Item("Grilled Chicken Sandwich", "", 4.5), itemCategories.get(2)));
         testMenu.addMenuItem(new MenuItem(new Item("Veggie (Garden) Burger", "", 4.5), itemCategories.get(2)));
         testMenu.addMenuItem(new MenuItem(new Item("Steak Sandwich", "", 4.5), itemCategories.get(2)));
-        testMenu.addMenuItem(new MenuItem(new Item("Spaghetti", "", 4.5), itemCategories.get(3)));
-        testMenu.addMenuItem(new MenuItem(new Item("Pepperoni Pizza", "", 4.5), itemCategories.get(3)));
-        testMenu.addMenuItem(new MenuItem(new Item("Fettucini", "", 4.5), itemCategories.get(3)));
+        Menu testMenu01 = new Menu("Mesillas Italian", "", 11.50, true);
+        testRestaurant.addMenu(testMenu01);
+        testMenu01.addMenuItem(new MenuItem(new Item("Spaghetti", "", 4.5), itemCategories.get(3)));
+        testMenu01.addMenuItem(new MenuItem(new Item("Pepperoni Pizza", "", 4.5), itemCategories.get(3)));
+        testMenu01.addMenuItem(new MenuItem(new Item("Fettucini", "", 4.5), itemCategories.get(3)));
 
         Restaurant testRestaurant1 = new Restaurant("Calmao Restaurant", "123456781X",
                 "Av. Madrid 1", "Lleida", "25002", "Spaña", "Lleida", "", "973 973 970");
@@ -116,6 +119,22 @@ public class FakeDB implements DBManager {
         itemCategories.add(new ItemCategory("Beverages", "")); //10
         itemCategories.add(new ItemCategory("Wine and Beer", "")); //11
         itemCategories.add(new ItemCategory("Kids Menu", "")); //12
+    }
+
+    public List<Item> getAllItemsOfRestaurant(int restaurant_id) {
+        List<Item> items = new ArrayList<>();
+        for (Menu m : restaurants.get(restaurant_id).getMenus()) {
+            for (Map.Entry<ItemCategory, List<Item>> itemCategoryList : m.getItemsCategory().entrySet()) {
+                for (Item item : itemCategoryList.getValue()) {
+                    items.add(item);
+                }
+            }
+        }
+        return items;
+    }
+
+    public List<Menu> getAllMenusOfRestaurant(int restaurant_id) {
+        return restaurants.get(restaurant_id).getMenus();
     }
 
 }

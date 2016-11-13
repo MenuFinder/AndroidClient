@@ -16,12 +16,12 @@ import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.TextView;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import cat.udl.menufinder.R;
 import cat.udl.menufinder.adapters.MenusAdapter;
 import cat.udl.menufinder.application.MasterFragment;
+import cat.udl.menufinder.database.FakeDB;
 import cat.udl.menufinder.models.Menu;
 
 public class ManageMenusFragment extends MasterFragment {
@@ -62,9 +62,7 @@ public class ManageMenusFragment extends MasterFragment {
         animator.setAddDuration(1000);
         recyclerView.setItemAnimator(animator);
 
-        menus = new ArrayList<Menu>();
-        Menu testMenu = new Menu("Mesillas", "The best menu of Lleida city", 172.16, true);
-        menus.add(testMenu);
+        menus = FakeDB.getInstance().getAllMenusOfRestaurant(0);
         adapter = new MenusAdapter(getActivity(), menus, new OnMenuClickListener() {
             @Override
             public void onMenuClick(Menu menu, int adapterPosition) {

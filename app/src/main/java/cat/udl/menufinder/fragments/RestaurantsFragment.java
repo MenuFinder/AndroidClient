@@ -18,7 +18,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import cat.udl.menufinder.R;
@@ -26,6 +25,7 @@ import cat.udl.menufinder.activities.DetailRestaurantActivity;
 import cat.udl.menufinder.adapters.RestaurantsAdapter;
 import cat.udl.menufinder.application.MasterFragment;
 import cat.udl.menufinder.builders.SearchCriteriaBuilder;
+import cat.udl.menufinder.database.FakeDB;
 import cat.udl.menufinder.models.Restaurant;
 import cat.udl.menufinder.utils.SearchCriteria;
 
@@ -77,16 +77,7 @@ public class RestaurantsFragment extends MasterFragment {
         animator.setAddDuration(1000);
         recyclerView.setItemAnimator(animator);
 
-        restaurants = new ArrayList<Restaurant>();
-        Restaurant testRestaurant = new Restaurant("Mesillas Restaurant", "123456789X",
-                "Av. Balmes 54", "Lleida", "25003", "Spaña", "Lleida", "", "973 973 973");
-        Restaurant testRestaurant1 = new Restaurant("Calmao Restaurant", "123456781X",
-                "Av. Madrid 1", "Lleida", "25002", "Spaña", "Lleida", "", "973 973 970");
-        Restaurant testRestaurant2 = new Restaurant("Messon 2004", "123416781X",
-                "C\\Sant Pelegrí 25", "Tàrrega", "25300", "Spaña", "Lleida", "", "973 310 367");
-        restaurants.add(testRestaurant);
-        restaurants.add(testRestaurant1);
-        restaurants.add(testRestaurant2);
+        restaurants = FakeDB.getInstance().getRestaurants();
         adapter = new RestaurantsAdapter(getActivity(), restaurants, new OnRestaurantClickListener() {
             @Override
             public void onRestaurantClick(Restaurant restaurant) {
