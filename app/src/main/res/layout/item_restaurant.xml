@@ -16,7 +16,7 @@
 
         <FrameLayout
             android:layout_width="match_parent"
-            android:layout_height="200dp">
+            android:layout_height="@dimen/card_view_height">
 
             <ImageView
                 android:layout_width="match_parent"
@@ -30,12 +30,12 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="bottom"
                 android:background="@android:drawable/screen_background_dark_transparent"
-                android:paddingBottom="10dp"
-                android:paddingLeft="20dp"
-                android:paddingRight="10dp"
-                android:paddingTop="10dp"
+                android:paddingBottom="@dimen/space_10"
+                android:paddingLeft="@dimen/space_20"
+                android:paddingRight="@dimen/space_10"
+                android:paddingTop="@dimen/space_10"
                 android:textColor="@android:color/background_light"
-                android:textSize="24sp"
+                android:textSize="@dimen/card_view_title"
                 android:textStyle="bold" />
         </FrameLayout>
 
@@ -44,17 +44,17 @@
             android:layout_height="wrap_content"
             android:gravity="center"
             android:orientation="horizontal"
-            android:paddingBottom="10dp"
-            android:paddingLeft="20dp"
-            android:paddingRight="10dp"
-            android:paddingTop="10dp">
+            android:paddingBottom="@dimen/space_10"
+            android:paddingLeft="@dimen/space_20"
+            android:paddingRight="@dimen/space_10"
+            android:paddingTop="@dimen/space_10">
 
             <TextView
                 android:id="@+id/address"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:textSize="16sp" />
+                android:textSize="@dimen/card_view_text" />
         </LinearLayout>
 
         <View
