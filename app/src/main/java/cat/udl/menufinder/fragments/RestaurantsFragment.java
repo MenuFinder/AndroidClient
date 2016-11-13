@@ -29,6 +29,8 @@ import cat.udl.menufinder.builders.SearchCriteriaBuilder;
 import cat.udl.menufinder.models.Restaurant;
 import cat.udl.menufinder.utils.SearchCriteria;
 
+import static cat.udl.menufinder.utils.Constants.KEY_RESTAURANT;
+
 public class RestaurantsFragment extends MasterFragment {
 
     private List<Restaurant> restaurants;
@@ -94,7 +96,7 @@ public class RestaurantsFragment extends MasterFragment {
                     fragment.update(restaurant);
                 } else {
                     Intent intent = new Intent(getActivity(), DetailRestaurantActivity.class);
-                    intent.putExtra("restaurant", restaurant);
+                    intent.putExtra(KEY_RESTAURANT, restaurant);
                     startActivity(intent);
                 }
             }
