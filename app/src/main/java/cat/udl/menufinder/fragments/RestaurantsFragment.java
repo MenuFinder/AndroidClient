@@ -15,6 +15,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import cat.udl.menufinder.R;
+import cat.udl.menufinder.activities.DetailRestaurantActivity;
 import cat.udl.menufinder.adapters.RestaurantsAdapter;
 import cat.udl.menufinder.application.MasterFragment;
 import cat.udl.menufinder.models.Restaurant;

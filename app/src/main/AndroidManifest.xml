@@ -29,6 +29,7 @@
                 android:value="cat.udl.menufinder.application.MasterActivity" />
         </activity>
         <activity android:name=".activities.RegisterActivity" />
+        <activity android:name=".activities.DetailRestaurantActivity" />
     </application>
 
 </manifest>
