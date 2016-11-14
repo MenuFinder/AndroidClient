@@ -63,4 +63,6 @@
     <string name="key_totifications">notifications</string>
     <string name="need_notification">Do you want recive notifications?</string>
     <string name="notifications">Notifications</string>
+    <string name="menu_finder_guest">Menu Finder Guest</string>
+    <string name="menu_finder_com">menu@finder.com</string>
 </resources>

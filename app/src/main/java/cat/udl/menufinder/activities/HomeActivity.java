@@ -9,6 +9,7 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
+import android.widget.TextView;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -29,7 +30,7 @@ import static cat.udl.menufinder.enums.UserType.GUEST;
 import static cat.udl.menufinder.enums.UserType.RESTAURANT;
 
 public class HomeActivity extends MasterActivity
-        implements NavigationView.OnNavigationItemSelectedListener,OnMapReadyCallback {
+        implements NavigationView.OnNavigationItemSelectedListener, OnMapReadyCallback {
     Toolbar toolbar;
 
     @Override
@@ -53,6 +54,11 @@ public class HomeActivity extends MasterActivity
         else if (getMasterApplication().getUserType() == GUEST)
             navigationView.inflateMenu(R.menu.activity_home_drawer_guest);
         navigationView.setNavigationItemSelectedListener(this);
+
+        if (getMasterApplication().getUserType() != GUEST) {
+            TextView view = (TextView)navigationView.getHeaderView(0).findViewById(R.id.nav_username);
+            view.setText(getMasterApplication().getUsername());
+        }
 
         navigate(navigationView.getMenu().getItem(0).getItemId());
     }
