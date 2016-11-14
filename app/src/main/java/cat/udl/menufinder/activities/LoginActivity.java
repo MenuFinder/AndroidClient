@@ -27,6 +27,7 @@ public class LoginActivity extends MasterActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        changeOrientationIfIsPhone();
         setContentView(R.layout.activity_login);
         usernameView = (EditText) findViewById(R.id.username);
 

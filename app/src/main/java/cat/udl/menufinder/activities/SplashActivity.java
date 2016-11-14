@@ -16,6 +16,7 @@ public class SplashActivity extends MasterActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        changeOrientationIfIsPhone();
         setContentView(R.layout.activity_splash);
         getSupportActionBar().hide();
         final ImageView logo = (ImageView) findViewById(R.id.logo);

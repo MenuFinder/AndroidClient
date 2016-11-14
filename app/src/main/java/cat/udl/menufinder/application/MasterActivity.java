@@ -4,8 +4,11 @@ package cat.udl.menufinder.application;
 import android.app.Fragment;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
+import android.content.pm.ActivityInfo;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.Toast;
+
+import cat.udl.menufinder.R;
 
 public class MasterActivity extends AppCompatActivity {
 
@@ -32,4 +35,10 @@ public class MasterActivity extends AppCompatActivity {
         Toast.makeText(MasterActivity.this, text, Toast.LENGTH_SHORT).show();
     }
 
+    public void changeOrientationIfIsPhone() {
+        boolean isTablet = getResources().getBoolean(R.bool.is_tablet);
+        if (!isTablet) {
+            setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+        }
+    }
 }
