@@ -1,5 +1,6 @@
 package cat.udl.menufinder.fragments;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.CollapsingToolbarLayout;
@@ -17,10 +18,13 @@ import android.widget.TextView;
 import java.util.List;
 
 import cat.udl.menufinder.R;
+import cat.udl.menufinder.activities.DetailMenuActivity;
 import cat.udl.menufinder.adapters.MenusAdapter;
 import cat.udl.menufinder.application.MasterFragment;
 import cat.udl.menufinder.models.Menu;
 import cat.udl.menufinder.models.Restaurant;
+
+import static cat.udl.menufinder.utils.Constants.KEY_MENU;
 
 public class DetailRestaurantFragment extends MasterFragment {
 
@@ -67,7 +71,9 @@ public class DetailRestaurantFragment extends MasterFragment {
         MenusAdapter adapter = new MenusAdapter(getActivity(), menus, new ManageMenusFragment.OnMenuClickListener() {
             @Override
             public void onMenuClick(Menu menu, int adapterPosition) {
-                showToast(menu.getName());
+                Intent intent = new Intent(getActivity(), DetailMenuActivity.class);
+                intent.putExtra(KEY_MENU, menu);
+                startActivity(intent);
             }
         }, getMasterApplication().getUserType());
         recyclerView.setAdapter(adapter);
