@@ -2,6 +2,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="cat.udl.menufinder">
 
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+
     <application
         android:name=".application.MasterApplication"
         android:allowBackup="true"
@@ -29,9 +31,10 @@
                 android:value="cat.udl.menufinder.application.MasterActivity" />
         </activity>
         <activity android:name=".activities.RegisterActivity" />
-        <activity
-            android:name=".activities.DetailRestaurantActivity"
-            android:theme="@style/AppTheme.NoActionBar" />
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="@string/google_maps_key" />
+
     </application>
 
 </manifest>
