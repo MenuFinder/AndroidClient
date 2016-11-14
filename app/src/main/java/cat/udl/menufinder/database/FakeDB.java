@@ -9,6 +9,7 @@ import cat.udl.menufinder.models.ItemCategory;
 import cat.udl.menufinder.models.Menu;
 import cat.udl.menufinder.models.MenuItem;
 import cat.udl.menufinder.models.Restaurant;
+import cat.udl.menufinder.models.Review;
 
 public class FakeDB implements DBManager {
 
@@ -49,7 +50,10 @@ public class FakeDB implements DBManager {
         restaurants.add(testRestaurant);
         Menu testMenu = new Menu("Mesillas Menu", "The best menu of Lleida city", 172.16, true);
         testRestaurant.addMenu(testMenu);
-        testMenu.addMenuItem(new MenuItem(new Item("Garlic Bread", "", 4.5), itemCategories.get(0)));
+        Item item = new Item("Garlic Bread", "Very strangerous flavour", 4.5);
+        item.addReview(new Review("Very good dish!"));
+        item.addReview(new Review("I don't like"));
+        testMenu.addMenuItem(new MenuItem(item, itemCategories.get(0)));
         testMenu.addMenuItem(new MenuItem(new Item("Cheese Plate", "", 4.5), itemCategories.get(0)));
         testMenu.addMenuItem(new MenuItem(new Item("Nachos", "", 4.5), itemCategories.get(0)));
         testMenu.addMenuItem(new MenuItem(new Item("Tossed Salad", "", 4.5), itemCategories.get(1)));

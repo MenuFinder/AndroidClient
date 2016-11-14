@@ -1,6 +1,8 @@
 package cat.udl.menufinder.models;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Item implements Serializable {
 
@@ -9,11 +11,13 @@ public class Item implements Serializable {
     private String description;
     private double price;
     private double score;
+    private List<Review> reviews;
 
     public Item(String name, String description, double price) {
         this.name = name;
         this.description = description;
         this.price = price;
+        reviews = new ArrayList<>();
     }
 
     public long getId() {
@@ -65,6 +69,14 @@ public class Item implements Serializable {
                 ", price=" + price +
                 ", score=" + score +
                 '}';
+    }
+
+    public List<Review> getReviews() {
+        return reviews;
+    }
+
+    public void addReview(Review review) {
+        reviews.add(review);
     }
 
 }
