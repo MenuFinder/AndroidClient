@@ -55,6 +55,7 @@ public class ReviewAdapter extends RecyclerView.Adapter<ReviewAdapter.ViewHolder
 
     public void addReview(Review review) {
         reviews.add(review);
+        notifyDataSetChanged();
     }
 
 }
