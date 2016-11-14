@@ -155,4 +155,13 @@ public class Restaurant implements Serializable {
                 ", score=" + score +
                 '}';
     }
+
+    public List<Menu> getVisibleMenus() {
+        List<Menu> visibleMenus = new ArrayList<>();
+        for (Menu menu : menus) {
+            if (menu.isVisible()) visibleMenus.add(menu);
+        }
+        return visibleMenus;
+    }
+
 }
