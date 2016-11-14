@@ -19,7 +19,7 @@ public class DetailRestaurantActivity extends MasterActivity {
         setContentView(R.layout.activity_detail_restaurant);
         Intent intent = getIntent();
         Restaurant restaurant = (Restaurant) intent.getSerializableExtra(KEY_RESTAURANT);
-        DetailRestaurantFragment fragment = (DetailRestaurantFragment) getSupportFragmentManager().findFragmentById(R.id.detail_fragment);
+        DetailRestaurantFragment fragment = (DetailRestaurantFragment) getFragmentManager().findFragmentById(R.id.detail_fragment);
         fragment.update(restaurant);
     }
     @Override

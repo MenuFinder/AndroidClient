@@ -12,8 +12,8 @@ import android.view.MenuItem;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.MapFragment;
 import com.google.android.gms.maps.OnMapReadyCallback;
-import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 
@@ -21,6 +21,7 @@ import cat.udl.menufinder.R;
 import cat.udl.menufinder.application.MasterActivity;
 import cat.udl.menufinder.fragments.ManageItemsFragment;
 import cat.udl.menufinder.fragments.ManageMenusFragment;
+import cat.udl.menufinder.fragments.PreferencesFragment;
 import cat.udl.menufinder.fragments.RestaurantsFragment;
 
 import static cat.udl.menufinder.enums.UserType.CLIENT;
@@ -87,9 +88,12 @@ public class HomeActivity extends MasterActivity
             loadFragment(itemId, new RestaurantsFragment());
         } else if (id == R.id.view_map) {
             toolbar.setTitle(R.string.view_on_map);
-            SupportMapFragment mapFragment = SupportMapFragment.newInstance();
+            MapFragment mapFragment = MapFragment.newInstance();
             mapFragment.getMapAsync(this);
             loadFragment(itemId, mapFragment);
+        } else if (id == R.id.settings) {
+            toolbar.setTitle(R.string.action_settings);
+            loadFragment(itemId, new PreferencesFragment());
         } else if (id == R.id.logout) {
             getMasterApplication().logout();
             startActivity(new Intent(HomeActivity.this, SplashActivity.class));

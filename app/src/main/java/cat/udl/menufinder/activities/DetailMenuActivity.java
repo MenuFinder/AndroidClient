@@ -20,7 +20,7 @@ public class DetailMenuActivity extends MasterActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         Intent intent = getIntent();
         Menu menu = (Menu) intent.getSerializableExtra(KEY_MENU);
-        DetailMenuFragment fragment = (DetailMenuFragment) getSupportFragmentManager().findFragmentById(R.id.detail_fragment);
+        DetailMenuFragment fragment = (DetailMenuFragment) getFragmentManager().findFragmentById(R.id.detail_fragment);
         fragment.update(menu);
     }
 
