@@ -1,5 +1,6 @@
 package cat.udl.menufinder.fragments;
 
+import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -11,13 +12,16 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import cat.udl.menufinder.R;
+import cat.udl.menufinder.activities.ReviewActivity;
 import cat.udl.menufinder.application.MasterActivity;
 import cat.udl.menufinder.application.MasterFragment;
 import cat.udl.menufinder.models.Item;
 import cat.udl.menufinder.models.ItemCategory;
 import cat.udl.menufinder.models.Menu;
+import cat.udl.menufinder.utils.Constants;
 
 import static android.view.Gravity.CENTER;
+import static cat.udl.menufinder.utils.Constants.KEY_ITEM;
 
 public class DetailMenuFragment extends MasterFragment {
     private LinearLayout container;
@@ -35,8 +39,8 @@ public class DetailMenuFragment extends MasterFragment {
     }
 
     public void update(Menu menu) {
-        ((TextView) getView().findViewById(R.id.price)).setText(String.valueOf(menu.getPrice()+"€"));
-        ((MasterActivity)getActivity()).getSupportActionBar().setTitle(menu.getName());
+        ((TextView) getView().findViewById(R.id.price)).setText(String.valueOf(menu.getPrice() + "€"));
+        ((MasterActivity) getActivity()).getSupportActionBar().setTitle(menu.getName());
         container.removeAllViews();
 
 
@@ -44,9 +48,18 @@ public class DetailMenuFragment extends MasterFragment {
             String categoria = ic.getName();
             LinearLayout layout = getNewLayout();
             layout.addView(getCategory(categoria));
-            for (Item item : menu.getItemsByCategory(ic)) {
+            for (final Item item : menu.getItemsByCategory(ic)) {
                 String itemName = item.getName();
-                layout.addView(getItem(itemName));
+                View view = getItem(itemName);
+                view.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        Intent intent = new Intent(getActivity(), ReviewActivity.class);
+                        intent.putExtra(KEY_ITEM, item);
+                        startActivity(intent);
+                    }
+                });
+                layout.addView(view);
             }
             container.addView(layout);
         }
