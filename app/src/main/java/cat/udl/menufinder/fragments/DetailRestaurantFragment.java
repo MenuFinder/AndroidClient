@@ -46,7 +46,7 @@ public class DetailRestaurantFragment extends MasterFragment {
 
     public void update(Restaurant restaurant) {
         collapsingToolbarLayout.setTitle(restaurant.getName());
-        collapsingToolbarLayout.setExpandedTitleColor(ContextCompat.getColor(getContext(), android.R.color.transparent));
+        collapsingToolbarLayout.setExpandedTitleColor(ContextCompat.getColor(getActivity(), android.R.color.transparent));
 
         configGeneralInformation(restaurant);
         configList(restaurant);

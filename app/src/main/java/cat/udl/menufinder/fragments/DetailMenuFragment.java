@@ -66,7 +66,7 @@ public class DetailMenuFragment extends MasterFragment {
     }
 
     private View getCategory(String categoria) {
-        LinearLayout layout = new LinearLayout(getContext());
+        LinearLayout layout = new LinearLayout(getActivity());
         layout.setOrientation(LinearLayout.HORIZONTAL);
         layout.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
         float weightSum = 5;
@@ -76,7 +76,7 @@ public class DetailMenuFragment extends MasterFragment {
         layout.setGravity(CENTER);
 
 
-        TextView textView = new TextView(getContext());
+        TextView textView = new TextView(getActivity());
         textView.setLayoutParams(new LinearLayout.LayoutParams(0, ViewGroup.LayoutParams.WRAP_CONTENT, weightSum - 1));
         int padding = getResources().getDimensionPixelSize(R.dimen.space_10);
         textView.setPadding(padding, padding, padding, padding);
@@ -91,7 +91,7 @@ public class DetailMenuFragment extends MasterFragment {
     }
 
     private View getItem(String itemName) {
-        TextView textView = new TextView(getContext());
+        TextView textView = new TextView(getActivity());
         textView.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT));
         int padding = getResources().getDimensionPixelSize(R.dimen.space_5);
         textView.setPadding(padding, padding, padding, padding);
@@ -100,7 +100,7 @@ public class DetailMenuFragment extends MasterFragment {
     }
 
     public LinearLayout getNewLayout() {
-        LinearLayout layout = new LinearLayout(getContext());
+        LinearLayout layout = new LinearLayout(getActivity());
         layout.setOrientation(LinearLayout.VERTICAL);
         layout.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
         int padding = getResources().getDimensionPixelSize(R.dimen.space_10);
