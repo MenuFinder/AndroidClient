@@ -16,12 +16,12 @@ import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.TextView;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import cat.udl.menufinder.R;
 import cat.udl.menufinder.adapters.ItemsAdapter;
 import cat.udl.menufinder.application.MasterFragment;
+import cat.udl.menufinder.database.FakeDB;
 import cat.udl.menufinder.models.Item;
 
 public class ManageItemsFragment extends MasterFragment {
@@ -61,10 +61,7 @@ public class ManageItemsFragment extends MasterFragment {
         animator.setAddDuration(1000);
         recyclerView.setItemAnimator(animator);
 
-        items = new ArrayList<>();
-        Item testItem = new Item("Test", "", 25);
-        testItem.setScore(4.2);
-        items.add(testItem);
+        items = FakeDB.getInstance().getAllItemsOfRestaurant(0);
         adapter = new ItemsAdapter(getActivity(), items, new OnItemClick() {
             @Override
             public void onItem(Item item, int position) {
@@ -114,7 +111,7 @@ public class ManageItemsFragment extends MasterFragment {
                     public void onClick(DialogInterface dialogInterface, int i) {
                     }
                 })
-                .setNeutralButton("Delete", new DialogInterface.OnClickListener() {
+                .setNeutralButton(R.string.delete, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
                         showDeleteConfirmation(position);

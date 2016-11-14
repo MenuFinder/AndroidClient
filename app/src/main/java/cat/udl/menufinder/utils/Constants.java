@@ -7,4 +7,7 @@ public class Constants {
     public static final String PREFERENCES_USER_TYPE = "user_type";
     public static final String PREFERENCES_USERNAME = "username";
 
+    public static final String KEY_RESTAURANT = "restaurant";
+    public static final String KEY_MENU = "menu";
+    public static final String KEY_ITEM = "item";
 }

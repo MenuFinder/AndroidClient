@@ -1,10 +1,12 @@
 package cat.udl.menufinder.adapters;
 
 import android.content.Context;
+import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
 
 import java.util.List;
@@ -56,14 +58,29 @@ public class RestaurantsAdapter extends RecyclerView.Adapter<RestaurantsAdapter.
 
         public ViewHolder(View itemView) {
             super(itemView);
-            itemView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    listener.onRestaurantClick(getRestaurant(getAdapterPosition()), getAdapterPosition());
-                }
-            });
             name = (TextView) itemView.findViewById(R.id.name);
             address = (TextView) itemView.findViewById(R.id.address);
+            Button share_button = (Button) itemView.findViewById(R.id.share_button);
+            Button view_map_button = (Button) itemView.findViewById(R.id.view_map_button);
+            CardView cardView = (CardView) itemView.findViewById(R.id.card_view);
+            share_button.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    listener.onShareClick(getRestaurant(getAdapterPosition()));
+                }
+            });
+            view_map_button.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    listener.onViewMapClick(getRestaurant(getAdapterPosition()));
+                }
+            });
+            cardView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    listener.onRestaurantClick(getRestaurant(getAdapterPosition()));
+                }
+            });
         }
     }
 

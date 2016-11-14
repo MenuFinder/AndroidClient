@@ -9,11 +9,20 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
+import android.widget.TextView;
+
+import com.google.android.gms.maps.CameraUpdateFactory;
+import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.MapFragment;
+import com.google.android.gms.maps.OnMapReadyCallback;
+import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.MarkerOptions;
 
 import cat.udl.menufinder.R;
 import cat.udl.menufinder.application.MasterActivity;
 import cat.udl.menufinder.fragments.ManageItemsFragment;
 import cat.udl.menufinder.fragments.ManageMenusFragment;
+import cat.udl.menufinder.fragments.PreferencesFragment;
 import cat.udl.menufinder.fragments.RestaurantsFragment;
 
 import static cat.udl.menufinder.enums.UserType.CLIENT;
@@ -21,7 +30,7 @@ import static cat.udl.menufinder.enums.UserType.GUEST;
 import static cat.udl.menufinder.enums.UserType.RESTAURANT;
 
 public class HomeActivity extends MasterActivity
-        implements NavigationView.OnNavigationItemSelectedListener {
+        implements NavigationView.OnNavigationItemSelectedListener, OnMapReadyCallback {
     Toolbar toolbar;
 
     @Override
@@ -45,6 +54,11 @@ public class HomeActivity extends MasterActivity
         else if (getMasterApplication().getUserType() == GUEST)
             navigationView.inflateMenu(R.menu.activity_home_drawer_guest);
         navigationView.setNavigationItemSelectedListener(this);
+
+        if (getMasterApplication().getUserType() != GUEST) {
+            TextView view = (TextView)navigationView.getHeaderView(0).findViewById(R.id.nav_username);
+            view.setText(getMasterApplication().getUsername());
+        }
 
         navigate(navigationView.getMenu().getItem(0).getItemId());
     }
@@ -78,6 +92,14 @@ public class HomeActivity extends MasterActivity
         } else if (id == R.id.view_restaurants) {
             toolbar.setTitle(R.string.action_view_restaurants);
             loadFragment(itemId, new RestaurantsFragment());
+        } else if (id == R.id.view_map) {
+            toolbar.setTitle(R.string.view_on_map);
+            MapFragment mapFragment = MapFragment.newInstance();
+            mapFragment.getMapAsync(this);
+            loadFragment(itemId, mapFragment);
+        } else if (id == R.id.settings) {
+            toolbar.setTitle(R.string.action_settings);
+            loadFragment(itemId, new PreferencesFragment());
         } else if (id == R.id.logout) {
             getMasterApplication().logout();
             startActivity(new Intent(HomeActivity.this, SplashActivity.class));
@@ -89,5 +111,12 @@ public class HomeActivity extends MasterActivity
             startActivity(new Intent(HomeActivity.this, RegisterActivity.class));
             finish();
         }
+    }
+
+    @Override
+    public void onMapReady(GoogleMap googleMap) {
+        LatLng lleida = new LatLng(41.6175899, 0.6200145999999904);
+        googleMap.addMarker(new MarkerOptions().position(lleida).title("Marker in Lleida"));
+        googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(lleida, 15));
     }
 }

@@ -1,9 +1,10 @@
 package cat.udl.menufinder.models;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Restaurant {
+public class Restaurant implements Serializable {
 
     private long id;
     private String name;
@@ -17,6 +18,7 @@ public class Restaurant {
     private String phone;
     private List<Menu> menus;
     private List<Category> categories;
+    private double score;
 
     public Restaurant(String name, String cif, String address, String city, String postalCode,
                       String state, String country, String email, String phone) {
@@ -129,6 +131,14 @@ public class Restaurant {
         menus.add(menu);
     }
 
+    public double getScore() {
+        return score;
+    }
+
+    public void setScore(double score) {
+        this.score = score;
+    }
+
     @Override
     public String toString() {
         return "Restaurant{" +
@@ -142,7 +152,16 @@ public class Restaurant {
                 ", country='" + country + '\'' +
                 ", email='" + email + '\'' +
                 ", phone='" + phone + '\'' +
+                ", score=" + score +
                 '}';
+    }
+
+    public List<Menu> getVisibleMenus() {
+        List<Menu> visibleMenus = new ArrayList<>();
+        for (Menu menu : menus) {
+            if (menu.isVisible()) visibleMenus.add(menu);
+        }
+        return visibleMenus;
     }
 
 }
