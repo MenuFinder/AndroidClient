@@ -78,7 +78,7 @@ public class RestaurantsAdapter extends RecyclerView.Adapter<RestaurantsAdapter.
             cardView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    listener.onRestaurantClick(getRestaurant(getAdapterPosition()));
+                    listener.onRestaurantClick(getRestaurant(getAdapterPosition()), view);
                 }
             });
         }

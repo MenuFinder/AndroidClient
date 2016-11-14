@@ -2,8 +2,10 @@ package cat.udl.menufinder.fragments;
 
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.DividerItemDecoration;
@@ -80,7 +82,7 @@ public class RestaurantsFragment extends MasterFragment {
         restaurants = FakeDB.getInstance().getRestaurants();
         adapter = new RestaurantsAdapter(getActivity(), restaurants, new OnRestaurantClickListener() {
             @Override
-            public void onRestaurantClick(Restaurant restaurant) {
+            public void onRestaurantClick(Restaurant restaurant, View view) {
                 DetailRestaurantFragment fragment = (DetailRestaurantFragment) getFragmentManager()
                         .findFragmentById(R.id.detail_fragment);
                 if (fragment != null && fragment.isInLayout()) {
@@ -88,7 +90,15 @@ public class RestaurantsFragment extends MasterFragment {
                 } else {
                     Intent intent = new Intent(getActivity(), DetailRestaurantActivity.class);
                     intent.putExtra(KEY_RESTAURANT, restaurant);
-                    startActivity(intent);
+                    if (Build.VERSION.SDK_INT >= 21) {
+                        View image = view.findViewById(R.id.image);
+                        ActivityOptionsCompat activityOptionsCompat =
+                                ActivityOptionsCompat.makeSceneTransitionAnimation(getActivity(),
+                                        image, getString(R.string.image_restaurant));
+                        startActivity(intent, activityOptionsCompat.toBundle());
+                    } else {
+                        startActivity(intent);
+                    }
                 }
             }
 
@@ -107,7 +117,7 @@ public class RestaurantsFragment extends MasterFragment {
     }
 
     public interface OnRestaurantClickListener {
-        void onRestaurantClick(Restaurant restaurant);
+        void onRestaurantClick(Restaurant restaurant, View view);
 
         void onShareClick(Restaurant restaurant);
 
