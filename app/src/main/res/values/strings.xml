@@ -60,4 +60,7 @@
     <string name="search">Search</string>
     <string name="menus">Menus</string>
     <string name="general_information">General information</string>
+    <string name="key_totifications">notifications</string>
+    <string name="need_notification">Do you want recive notifications?</string>
+    <string name="notifications">Notifications</string>
 </resources>
