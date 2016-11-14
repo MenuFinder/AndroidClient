@@ -3,10 +3,10 @@
 
     <!-- Action -->
     <string name="action_login">Iniciar sesión</string>
-    <string name="action_manage_items">Administrar Items</string>
-    <string name="action_manage_menus">Adminsitrar Menus</string>
+    <string name="action_manage_items">Administrar Artículos</string>
+    <string name="action_manage_menus">Administrar Menus</string>
     <string name="action_register">Registrar</string>
-    <string name="action_settings">Configuraciones</string>
+    <string name="action_settings">Configuración</string>
     <string name="action_view_map">Mapa</string>
     <string name="action_view_restaurants">Restaurantes</string>
     <string name="action_logout">Cerrar sesión</string>
@@ -17,24 +17,24 @@
     <!-- Delete -->
     <string name="delete">Borrar</string>
     <string name="deleteConfirmation">Borrar \"%s\"</string>
-    <string name="deleteNotification">\"%s\" delete</string>
+    <string name="deleteNotification">\"%s\" borrado</string>
 
     <!-- Error -->
-    <string name="error_email_format">Este correo tiene un formato erroneo</string>
+    <string name="error_email_format">Este correo tiene un formato incorrecto</string>
     <string name="error_field_required">Este campo es obligatorio</string>
     <string name="error_incorrect_password">Esta contraseña es incorrecta</string>
     <string name="error_invalid_email">Esta dirección de correo es invalida</string>
     <string name="error_invalid_password">La contraseña es demasiado corta</string>
-    <string name="error_phone_format">Este telefono tiene un formato erroneo</string>
+    <string name="error_phone_format">Este teléfono tiene un formato erroneo</string>
     <string name="general_information">Información general</string>
     <string name="item_saved">Item guardado</string>
     <string name="key_totifications">notificaciones</string>
 
     <!-- Manage -->
-    <string name="manage_item">Adminsitrar Item</string>
+    <string name="manage_item">Administrar Artículo</string>
     <string name="manage_menu">Administrar Menu</string>
     <string name="menu_deleted">Menu borrado</string>
-    <string name="menu_finder_guest">Menu Finder Invitado</string>
+    <string name="menu_finder_guest">Invitado Menu Finder</string>
     <string name="menu_saved">Menu guardado</string>
     <string name="menus">Menus</string>
     <string name="name">Nombre:</string>
@@ -48,7 +48,7 @@
     <string name="prompt_address">Dirección:</string>
     <string name="prompt_cif">CIF</string>
     <string name="prompt_city">Ciudad</string>
-    <string name="prompt_country">Pais</string>
+    <string name="prompt_country">País</string>
     <string name="prompt_description">Descripción</string>
     <string name="prompt_email">Correo electrónico</string>
     <string name="prompt_name">Nombre</string>
@@ -63,13 +63,13 @@
 
 
     <string name="save">Guardar</string>
-    <string name="saveNotification">\"%s\" guardar</string>
+    <string name="saveNotification">\"%s\" guardado</string>
     <string name="search">Buscar</string>
     <string name="share">Compartir</string>
-    <string name="shared_logo">Logo</string>
-    <string name="title_activity_home"></string>
     <string name="view_on_map">Ver en mapa</string>
     <string name="visible">Visible</string>
     <string name="you_are_the_owner_of_a_restaurant">¿Eres propietario de un restaurante?</string>
     <string name="title_activity_login">Iniciar sesión</string>
+    <string name="review">Crítica</string>
+    <string name="review_added">Crítica añadida</string>
 </resources>
