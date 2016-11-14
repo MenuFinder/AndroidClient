@@ -5,7 +5,6 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.v4.content.ContextCompat;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -20,6 +19,7 @@ import java.util.List;
 import cat.udl.menufinder.R;
 import cat.udl.menufinder.activities.DetailMenuActivity;
 import cat.udl.menufinder.adapters.MenusAdapter;
+import cat.udl.menufinder.application.MasterActivity;
 import cat.udl.menufinder.application.MasterFragment;
 import cat.udl.menufinder.models.Menu;
 import cat.udl.menufinder.models.Restaurant;
@@ -40,8 +40,8 @@ public class DetailRestaurantFragment extends MasterFragment {
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         collapsingToolbarLayout = (CollapsingToolbarLayout) view.findViewById(R.id.collapsing_toolbar);
-        ((AppCompatActivity) getActivity()).setSupportActionBar((Toolbar) view.findViewById(R.id.toolbar));
-        ((AppCompatActivity) getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        ((MasterActivity) getActivity()).setSupportActionBar((Toolbar) view.findViewById(R.id.toolbar));
+        ((MasterActivity) getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     }
 
     public void update(Restaurant restaurant) {
