@@ -83,7 +83,7 @@ public class ReviewActivity extends MasterActivity {
             @Override
             public void onClick(View view) {
                 boolean closeDialog = true;
-                String review = ((EditText) dialogView.findViewById(R.id.review)).getText().toString();
+                String review = ((EditText) dialogView.findViewById(R.id.review)).getText().toString().trim();
                 if (TextUtils.isEmpty(review)) {
                     closeDialog = false;
                 }
