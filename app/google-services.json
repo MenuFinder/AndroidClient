@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "501471509123",
+    "firebase_url": "https://menu-finder.firebaseio.com",
+    "project_id": "menu-finder",
+    "storage_bucket": "menu-finder.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:501471509123:android:504b0d477e87134e",
+        "android_client_info": {
+          "package_name": "cat.udl.menufinder"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "501471509123-ii3sukqas3ossr8gn0erocjbcjiolmj4.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB-Vb5JRxTxHDEPmKGOs32eJWoSsBBFD3Y"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
