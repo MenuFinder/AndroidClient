@@ -80,5 +80,7 @@
     <string name="review_added">Review added</string>
     <string name="review">Review</string>
 
+    <!-- Social media -->
+    <string name="share_text">I ate very well at %s — I\'m using Menu Finder</string>
 
 </resources>

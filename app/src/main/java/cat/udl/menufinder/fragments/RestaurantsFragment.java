@@ -30,6 +30,7 @@ import cat.udl.menufinder.builders.SearchCriteriaBuilder;
 import cat.udl.menufinder.database.FakeDB;
 import cat.udl.menufinder.models.Restaurant;
 import cat.udl.menufinder.utils.SearchCriteria;
+import cat.udl.menufinder.utils.Utils;
 
 import static cat.udl.menufinder.utils.Constants.KEY_RESTAURANT;
 
@@ -105,6 +106,7 @@ public class RestaurantsFragment extends MasterFragment {
             @Override
             public void onShareClick(Restaurant restaurant) {
                 showToast("SHARE");
+                startActivity(Utils.getShareIntent(getString(R.string.share_text, restaurant.getName())));
             }
 
             @Override
@@ -114,14 +116,6 @@ public class RestaurantsFragment extends MasterFragment {
         });
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-    }
-
-    public interface OnRestaurantClickListener {
-        void onRestaurantClick(Restaurant restaurant, View view);
-
-        void onShareClick(Restaurant restaurant);
-
-        void onViewMapClick(Restaurant restaurant);
     }
 
     private void showFilterDialog() {
@@ -159,6 +153,14 @@ public class RestaurantsFragment extends MasterFragment {
                 "Plaça Major", "Talladell", "25301", "Spaña", "Lleida", "", "973 973 973");
         restaurants.add(filteredRestaurant);
         adapter.notifyDataSetChanged();
+    }
+
+    public interface OnRestaurantClickListener {
+        void onRestaurantClick(Restaurant restaurant, View view);
+
+        void onShareClick(Restaurant restaurant);
+
+        void onViewMapClick(Restaurant restaurant);
     }
 
 }
