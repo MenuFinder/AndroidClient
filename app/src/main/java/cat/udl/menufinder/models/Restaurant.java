@@ -164,4 +164,8 @@ public class Restaurant implements Serializable {
         return visibleMenus;
     }
 
+    public String getAddressWithCity() {
+        return address + "," + city;
+    }
+
 }
