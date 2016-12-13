@@ -83,4 +83,7 @@
     <!-- Social media -->
     <string name="share_text">I ate very well at %s — I\'m using Menu Finder</string>
 
+    <!-- Map-->
+    <string name="marker_title">Marker in %s</string>
+
 </resources>
