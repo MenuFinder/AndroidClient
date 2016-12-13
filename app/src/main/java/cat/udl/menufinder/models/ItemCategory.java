@@ -8,8 +8,11 @@ public class ItemCategory implements Serializable {
     private String name;
     private String description;
 
-    public ItemCategory(String name, String description) {
+    public ItemCategory() {
+    }
 
+    public ItemCategory(long id, String name, String description) {
+        this.id = id;
         this.name = name;
         this.description = description;
     }
@@ -45,13 +48,26 @@ public class ItemCategory implements Serializable {
 
         ItemCategory that = (ItemCategory) o;
 
-        return name.equals(that.name);
+        if (id != that.id) return false;
+        if (!name.equals(that.name)) return false;
+        return description != null ? description.equals(that.description) : that.description == null;
 
     }
 
     @Override
     public int hashCode() {
-        return name.hashCode();
+        int result = (int) (id ^ (id >>> 32));
+        result = 31 * result + name.hashCode();
+        result = 31 * result + (description != null ? description.hashCode() : 0);
+        return result;
     }
 
+    @Override
+    public String toString() {
+        return "ItemCategory{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", description='" + description + '\'' +
+                '}';
+    }
 }

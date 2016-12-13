@@ -59,7 +59,7 @@ public class ReviewActivity extends MasterActivity {
         });
     }
 
-    private void showAddDialog(Item item) {
+    private void showAddDialog(final Item item) {
         LayoutInflater inflater = getLayoutInflater();
         final View dialogView = inflater.inflate(R.layout.view_review, null);
         final AlertDialog alertDialog = new AlertDialog.Builder(ReviewActivity.this)
@@ -90,7 +90,8 @@ public class ReviewActivity extends MasterActivity {
 
                 if (closeDialog) {
                     alertDialog.dismiss();
-                    saveToDB(new Review(review));
+                    //TODO ENUM REVIEW_PARENT {item, restaurant, menu}
+                    saveToDB(new Review(review, "item", item.getId(), getMasterApplication().getUsername()));
                 }
             }
         });

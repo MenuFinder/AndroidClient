@@ -14,8 +14,8 @@ import android.widget.LinearLayout;
 import cat.udl.menufinder.R;
 import cat.udl.menufinder.application.MasterActivity;
 import cat.udl.menufinder.enums.UserType;
+import cat.udl.menufinder.models.Account;
 import cat.udl.menufinder.models.Restaurant;
-import cat.udl.menufinder.models.User;
 
 import static cat.udl.menufinder.R.id.address;
 import static cat.udl.menufinder.enums.UserType.CLIENT;
@@ -96,7 +96,7 @@ public class RegisterActivity extends MasterActivity {
         checkEmail(emailUser, emailUserView);
 
         UserType userType = (checkedTextView.isChecked()) ? RESTAURANT : CLIENT;
-        User user = new User(userType, username, password, emailUser);
+        Account account = new Account(username, password, userType, emailUser);
 
         if (checkedTextView.isChecked()) {
             String restaurantName = restaurantNameView.getText().toString().trim();
@@ -129,15 +129,15 @@ public class RegisterActivity extends MasterActivity {
             checkMobilPhone(phone, phoneView);
 
             Restaurant restaurant = new Restaurant(restaurantName, cif, address, city, postalCode,
-                    state, country, emailRestaurant, phone);
+                    state, country, emailRestaurant, phone, username);
 
-            user.addRestaurant(restaurant);
+            account.addRestaurant(restaurant);
         }
 
         if (cancel) {
             focusView.requestFocus();
         } else {
-            authTask = new UserRegisterTask(user);
+            authTask = new UserRegisterTask(account);
             authTask.execute((Void) null);
         }
     }
@@ -170,10 +170,10 @@ public class RegisterActivity extends MasterActivity {
     public class UserRegisterTask extends AsyncTask<Void, Void, Boolean> {
 
 
-        private final User user;
+        private final Account account;
 
-        UserRegisterTask(User user) {
-            this.user = user;
+        UserRegisterTask(Account account) {
+            this.account = account;
         }
 
         @Override
@@ -185,7 +185,7 @@ public class RegisterActivity extends MasterActivity {
         protected void onPostExecute(final Boolean ok) {
             authTask = null;
             if (ok) {
-                getMasterApplication().login(user.getUserType(), user.getUsername());
+                getMasterApplication().login(account.getType(), account.getId());
                 startActivity(new Intent(RegisterActivity.this, HomeActivity.class));
             }
         }

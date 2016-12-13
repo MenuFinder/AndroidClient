@@ -11,13 +11,17 @@ public class Item implements Serializable {
     private String description;
     private double price;
     private double score;
-    private List<Review> reviews;
+    private long restaurant;
 
-    public Item(String name, String description, double price) {
+    public Item() {
+    }
+
+    public Item(String name, String description, double price, long restaurant) {
         this.name = name;
         this.description = description;
         this.price = price;
-        reviews = new ArrayList<>();
+        this.score = 0;
+        this.restaurant = restaurant;
     }
 
     public long getId() {
@@ -63,20 +67,28 @@ public class Item implements Serializable {
     @Override
     public String toString() {
         return "Item{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", description='" + description + '\'' +
-                ", price=" + price +
+                "restaurant=" + restaurant +
                 ", score=" + score +
+                ", price=" + price +
+                ", description='" + description + '\'' +
+                ", name='" + name + '\'' +
+                ", id=" + id +
                 '}';
     }
 
     public List<Review> getReviews() {
-        return reviews;
+        return new ArrayList<>();
     }
 
     public void addReview(Review review) {
-        reviews.add(review);
+
     }
 
+    public long getRestaurant() {
+        return restaurant;
+    }
+
+    public void setRestaurant(long restaurant) {
+        this.restaurant = restaurant;
+    }
 }

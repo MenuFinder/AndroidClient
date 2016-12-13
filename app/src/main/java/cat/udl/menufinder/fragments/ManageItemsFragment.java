@@ -187,7 +187,8 @@ public class ManageItemsFragment extends MasterFragment {
 
                 if (closeDialog) {
                     alertDialog.dismiss();
-                    saveToDB(new Item(name, description, Double.valueOf(price)));
+                    //TODO Posar la id del restaurant
+                    saveToDB(new Item(name, description, Double.valueOf(price), 0));
                 }
             }
         });

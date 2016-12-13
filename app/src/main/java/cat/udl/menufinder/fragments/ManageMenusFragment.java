@@ -177,7 +177,8 @@ public class ManageMenusFragment extends MasterFragment {
                         .toString().trim();
                 if (closeDialog) {
                     alertDialog.dismiss();
-                    saveToDB(new Menu(name, description, Double.parseDouble(price), true));
+                    //TODO Posar la id del restaurant
+                    saveToDB(new Menu(0,name, description, Double.parseDouble(price)));
                 }
             }
         });
