@@ -21,7 +21,6 @@ import java.util.List;
 import cat.udl.menufinder.R;
 import cat.udl.menufinder.adapters.ItemsAdapter;
 import cat.udl.menufinder.application.MasterFragment;
-import cat.udl.menufinder.database.FakeDB;
 import cat.udl.menufinder.models.Item;
 
 public class ManageItemsFragment extends MasterFragment {
@@ -61,7 +60,7 @@ public class ManageItemsFragment extends MasterFragment {
         animator.setAddDuration(1000);
         recyclerView.setItemAnimator(animator);
 
-        items = FakeDB.getInstance().getAllItemsOfRestaurant(0);
+        items = getDbManager().getAllItemsOfRestaurant(0);
         adapter = new ItemsAdapter(getActivity(), items, new OnItemClick() {
             @Override
             public void onItem(Item item, int position) {

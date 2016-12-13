@@ -9,11 +9,16 @@ import android.support.v7.app.AppCompatActivity;
 import android.widget.Toast;
 
 import cat.udl.menufinder.R;
+import cat.udl.menufinder.database.DBManager;
 
 public class MasterActivity extends AppCompatActivity {
 
     public MasterApplication getMasterApplication() {
         return (MasterApplication) getApplication();
+    }
+
+    public DBManager getDbManager() {
+        return getMasterApplication().getDbManager();
     }
 
     public void loadFragment(int resId, Fragment fragment) {

@@ -20,7 +20,6 @@ import java.util.List;
 
 import cat.udl.menufinder.R;
 import cat.udl.menufinder.application.MasterFragment;
-import cat.udl.menufinder.database.FakeDB;
 import cat.udl.menufinder.models.Restaurant;
 
 public class RestaurantMapFragment extends MasterFragment implements OnMapReadyCallback {
@@ -48,7 +47,7 @@ public class RestaurantMapFragment extends MasterFragment implements OnMapReadyC
 
     private void putRestaurantsInMap(GoogleMap googleMap) {
         Geocoder geocoder = new Geocoder(getActivity());
-        List<Restaurant> restaurants = FakeDB.getInstance().getRestaurants();
+        List<Restaurant> restaurants = getDbManager().getRestaurants();
         for (Restaurant restaurant : restaurants) {
             try {
                 List<Address> addresses = geocoder.getFromLocationName(restaurant.getAddressWithCity(), 1);

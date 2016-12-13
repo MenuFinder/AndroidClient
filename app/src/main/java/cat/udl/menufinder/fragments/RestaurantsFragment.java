@@ -27,7 +27,6 @@ import cat.udl.menufinder.activities.DetailRestaurantActivity;
 import cat.udl.menufinder.adapters.RestaurantsAdapter;
 import cat.udl.menufinder.application.MasterFragment;
 import cat.udl.menufinder.builders.SearchCriteriaBuilder;
-import cat.udl.menufinder.database.FakeDB;
 import cat.udl.menufinder.models.Restaurant;
 import cat.udl.menufinder.utils.SearchCriteria;
 import cat.udl.menufinder.utils.Utils;
@@ -80,7 +79,7 @@ public class RestaurantsFragment extends MasterFragment {
         animator.setAddDuration(1000);
         recyclerView.setItemAnimator(animator);
 
-        restaurants = FakeDB.getInstance().getRestaurants();
+        restaurants = getDbManager().getRestaurants();
         adapter = new RestaurantsAdapter(getActivity(), restaurants, new OnRestaurantClickListener() {
             @Override
             public void onRestaurantClick(Restaurant restaurant, View view) {

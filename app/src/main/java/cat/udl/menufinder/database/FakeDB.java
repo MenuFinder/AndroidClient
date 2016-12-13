@@ -125,6 +125,7 @@ public class FakeDB implements DBManager {
         itemCategories.add(new ItemCategory("Kids Menu", "")); //12
     }
 
+    @Override
     public List<Item> getAllItemsOfRestaurant(int restaurant_id) {
         List<Item> items = new ArrayList<>();
         for (Menu m : restaurants.get(restaurant_id).getMenus()) {
@@ -137,6 +138,7 @@ public class FakeDB implements DBManager {
         return items;
     }
 
+    @Override
     public List<Menu> getAllMenusOfRestaurant(int restaurant_id) {
         return restaurants.get(restaurant_id).getMenus();
     }

@@ -21,7 +21,6 @@ import java.util.List;
 import cat.udl.menufinder.R;
 import cat.udl.menufinder.adapters.MenusAdapter;
 import cat.udl.menufinder.application.MasterFragment;
-import cat.udl.menufinder.database.FakeDB;
 import cat.udl.menufinder.models.Menu;
 
 public class ManageMenusFragment extends MasterFragment {
@@ -62,7 +61,7 @@ public class ManageMenusFragment extends MasterFragment {
         animator.setAddDuration(1000);
         recyclerView.setItemAnimator(animator);
 
-        menus = FakeDB.getInstance().getAllMenusOfRestaurant(0);
+        menus = getDbManager().getAllMenusOfRestaurant(0);
         adapter = new MenusAdapter(getActivity(), menus, new OnMenuClickListener() {
             @Override
             public void onMenuClick(Menu menu, int adapterPosition) {
