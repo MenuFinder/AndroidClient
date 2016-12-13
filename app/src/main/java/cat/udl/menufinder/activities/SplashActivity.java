@@ -1,6 +1,7 @@
 package cat.udl.menufinder.activities;
 
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.app.ActivityOptionsCompat;
@@ -15,6 +16,7 @@ public class SplashActivity extends MasterActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        changeOrientationIfIsPhone();
         setContentView(R.layout.activity_splash);
         getSupportActionBar().hide();
         final ImageView logo = (ImageView) findViewById(R.id.logo);
@@ -32,8 +34,13 @@ public class SplashActivity extends MasterActivity {
                             break;
                     }
                 } else {
-                    ActivityOptionsCompat activityOptionsCompat = ActivityOptionsCompat.makeSceneTransitionAnimation(SplashActivity.this, logo, getString(R.string.shared_logo));
-                    startActivity(new Intent(SplashActivity.this, LoginActivity.class), activityOptionsCompat.toBundle());
+                    Intent intent = new Intent(SplashActivity.this, LoginActivity.class);
+                    if (Build.VERSION.SDK_INT >= 21) {
+                        ActivityOptionsCompat activityOptionsCompat = ActivityOptionsCompat.makeSceneTransitionAnimation(SplashActivity.this, logo, getString(R.string.shared_logo));
+                        startActivity(intent, activityOptionsCompat.toBundle());
+                    } else {
+                        startActivity(intent);
+                    }
                     finish();
                 }
             }

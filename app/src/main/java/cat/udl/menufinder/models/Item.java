@@ -1,17 +1,23 @@
 package cat.udl.menufinder.models;
 
-public class Item {
+import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
+
+public class Item implements Serializable {
 
     private long id;
     private String name;
     private String description;
     private double price;
     private double score;
+    private List<Review> reviews;
 
     public Item(String name, String description, double price) {
         this.name = name;
         this.description = description;
         this.price = price;
+        reviews = new ArrayList<>();
     }
 
     public long getId() {
@@ -63,6 +69,14 @@ public class Item {
                 ", price=" + price +
                 ", score=" + score +
                 '}';
+    }
+
+    public List<Review> getReviews() {
+        return reviews;
+    }
+
+    public void addReview(Review review) {
+        reviews.add(review);
     }
 
 }

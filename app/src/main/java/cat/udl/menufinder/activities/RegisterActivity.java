@@ -31,6 +31,7 @@ public class RegisterActivity extends MasterActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        changeOrientationIfIsPhone();
         setContentView(R.layout.activity_register);
         final LinearLayout linearLayout = (LinearLayout) findViewById(R.id.restaurant_linear_layout);
         checkedTextView = (CheckedTextView) findViewById(R.id.is_restaurant);

@@ -16,7 +16,6 @@ import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.TextView;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import cat.udl.menufinder.R;
@@ -62,15 +61,13 @@ public class ManageMenusFragment extends MasterFragment {
         animator.setAddDuration(1000);
         recyclerView.setItemAnimator(animator);
 
-        menus = new ArrayList<Menu>();
-        Menu testMenu = new Menu("Mesillas", "The best menu of Lleida city", 172.16, true);
-        menus.add(testMenu);
+        menus = getDbManager().getAllMenusOfRestaurant(0);
         adapter = new MenusAdapter(getActivity(), menus, new OnMenuClickListener() {
             @Override
             public void onMenuClick(Menu menu, int adapterPosition) {
                 showEditDialog(menu, adapterPosition);
             }
-        });
+        }, getMasterApplication().getUserType());
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
     }
