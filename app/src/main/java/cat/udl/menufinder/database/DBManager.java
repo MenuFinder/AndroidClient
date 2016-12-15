@@ -19,23 +19,23 @@ public interface DBManager {
 
     Menu getMenuById(long menuId);
 
-    String addNewMenu(Menu menu);
+    boolean addNewMenu(Menu menu);
 
     List<Menu> getMenus();
 
-    String deleteMenu(long menuId);
+    boolean deleteMenu(long menuId);
 
-    String updateMenu(Menu menu);
+    boolean updateMenu(Menu menu);
 
     Restaurant getRestaurantById(long restaurantId);
 
-    String addNewRestaurant(Restaurant restaurant);
+    boolean addNewRestaurant(Restaurant restaurant);
 
     List<Restaurant> getRestaurants();
 
-    String deleteRestaurant(long restaurantId);
+    boolean deleteRestaurant(long restaurantId);
 
-    String updateRestaurant(Restaurant restaurant);
+    boolean updateRestaurant(Restaurant restaurant);
 
     Review getReviewById(long reviewId);
 
@@ -45,17 +45,17 @@ public interface DBManager {
 
     List<Review> getReviewsOfRestaurant(long restaurantId);
 
-    String updateReview(Review review);
+    boolean updateReview(Review review);
 
-    String deleteReview(long reviewId);
+    boolean deleteReview(long reviewId);
 
-    String addReview(Review review);
+    boolean addReview(Review review);
 
-    String updateItem(Item item);
+    boolean updateItem(Item item);
 
-    String deleteItem(long itemId);
+    boolean deleteItem(long itemId);
 
-    String addItem(Item item);
+    boolean addItem(Item item);
 
     Item getItemById(long itemId);
 
@@ -63,32 +63,32 @@ public interface DBManager {
 
     Map<Long, List<Item>> getMenuItemsByCategory(long menuId);
 
-    String deleteMenuItem(MenuItem menuItem);
+    boolean deleteMenuItem(MenuItem menuItem);
 
-    String addMenuItem(MenuItem menuItem);
+    boolean addMenuItem(MenuItem menuItem);
 
     ItemCategory getItemCategoryById(long id);
 
-    Boolean updateItemCategory(ItemCategory itemCategory);
+    boolean updateItemCategory(ItemCategory itemCategory);
 
-    Boolean deleteItemCategory(long id);
+    boolean deleteItemCategory(long id);
 
-    Boolean addItemCategory(ItemCategory itemCategory);
+    boolean addItemCategory(ItemCategory itemCategory);
 
     List<ItemCategory> getItemCategories();
 
-//    String updateItemRating(ItemRating itemRating);
+//    boolean updateItemRating(ItemRating itemRating);
 //
-//    String deleteItemRating(ItemRating itemRating);
+//    boolean deleteItemRating(ItemRating itemRating);
 //
-//    String addItemRating(ItemRating itemRating);
+//    boolean addItemRating(ItemRating itemRating);
 //
 //    List<ItemRating> getRatingsOfItem(long itemId);
 //
 //    double getItemRatingOfItem(long itemId);
 //
-//    String deleteAccountSubscription(AccountSubscription accountSubscription);
+//    boolean deleteAccountSubscription(AccountSubscription accountSubscription);
 //
-//    String addAccountSubscription(AccountSubscription accountSubscription);
+//    boolean addAccountSubscription(AccountSubscription accountSubscription);
 
 }

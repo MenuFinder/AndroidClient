@@ -61,7 +61,7 @@ public class ManageMenusFragment extends MasterFragment {
         animator.setAddDuration(1000);
         recyclerView.setItemAnimator(animator);
 
-        menus = getDbManager().getAllMenusOfRestaurant(0);
+        menus = getDbManager().getMenusByRestaurantId(0);
         adapter = new MenusAdapter(getActivity(), menus, new OnMenuClickListener() {
             @Override
             public void onMenuClick(Menu menu, int adapterPosition) {
