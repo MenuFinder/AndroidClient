@@ -69,11 +69,11 @@ public interface DBManager {
 
     ItemCategory getItemCategoryById(long id);
 
-    String updateItemCategory(ItemCategory itemCategory);
+    Boolean updateItemCategory(ItemCategory itemCategory);
 
-    String deleteItemCategory(long id);
+    Boolean deleteItemCategory(long id);
 
-    String addItemCategory(ItemCategory itemCategory);
+    Boolean addItemCategory(ItemCategory itemCategory);
 
     List<ItemCategory> getItemCategories();
 
