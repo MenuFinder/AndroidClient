@@ -70,12 +70,20 @@ public class Menu implements Serializable {
         this.score = score;
     }
 
-    public boolean isVisible() {
+    public boolean getIsVisible() {
         return isVisible;
     }
 
     public void setVisible(boolean visible) {
         isVisible = visible;
+    }
+
+    public int isVisible() {
+        return isVisible ? 1 : 0;
+    }
+
+    public void setVisible(int visible) {
+        isVisible = visible == 0 ? false : true;
     }
 
     public long getRestaurant() {
