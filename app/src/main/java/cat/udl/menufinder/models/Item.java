@@ -1,8 +1,6 @@
 package cat.udl.menufinder.models;
 
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.List;
 
 public class Item implements Serializable {
 
@@ -64,6 +62,14 @@ public class Item implements Serializable {
         this.score = score;
     }
 
+    public long getRestaurant() {
+        return restaurant;
+    }
+
+    public void setRestaurant(long restaurant) {
+        this.restaurant = restaurant;
+    }
+
     @Override
     public String toString() {
         return "Item{" +
@@ -74,21 +80,5 @@ public class Item implements Serializable {
                 ", name='" + name + '\'' +
                 ", id=" + id +
                 '}';
-    }
-
-    public List<Review> getReviews() {
-        return new ArrayList<>();
-    }
-
-    public void addReview(Review review) {
-
-    }
-
-    public long getRestaurant() {
-        return restaurant;
-    }
-
-    public void setRestaurant(long restaurant) {
-        this.restaurant = restaurant;
     }
 }

@@ -1,8 +1,6 @@
 package cat.udl.menufinder.models;
 
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.List;
 
 public class Restaurant implements Serializable {
 
@@ -149,18 +147,6 @@ public class Restaurant implements Serializable {
                 ", account='" + account + '\'' +
                 ", score=" + score +
                 '}';
-    }
-
-    public List<Menu> getVisibleMenus() {
-        return new ArrayList<>();
-    }
-
-    public void addCategory(Category category) {
-
-    }
-
-    public void addMenu(Menu menu) {
-
     }
 
     public String getAddressWithCity() {

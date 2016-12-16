@@ -1,8 +1,6 @@
 package cat.udl.menufinder.models;
 
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.List;
 
 import cat.udl.menufinder.enums.UserType;
 
@@ -14,18 +12,13 @@ public class Account implements Serializable {
     private String token;
     private String email;
 
+    public Account() {
+    }
+
     public Account(String id, String password, UserType type, String email) {
         this.id = id;
         this.password = password;
         this.type = type;
-        this.email = email;
-    }
-
-    public Account(String id, String password, UserType type, String token, String email) {
-        this.id = id;
-        this.password = password;
-        this.type = type;
-        this.token = token;
         this.email = email;
     }
 
@@ -79,14 +72,4 @@ public class Account implements Serializable {
                 ", id='" + id + '\'' +
                 '}';
     }
-
-    public List<Restaurant> getRestaurants() {
-        return new ArrayList<>();
-    }
-
-    public void addRestaurant(Restaurant restaurant) {
-
-    }
-
-
 }

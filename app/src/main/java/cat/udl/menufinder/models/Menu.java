@@ -1,12 +1,6 @@
 package cat.udl.menufinder.models;
 
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
 
 public class Menu implements Serializable {
 
@@ -36,6 +30,14 @@ public class Menu implements Serializable {
 
     public void setId(long id) {
         this.id = id;
+    }
+
+    public long getRestaurant() {
+        return restaurant;
+    }
+
+    public void setRestaurant(long restaurant) {
+        this.restaurant = restaurant;
     }
 
     public String getName() {
@@ -78,38 +80,6 @@ public class Menu implements Serializable {
         isVisible = visible;
     }
 
-    public int isVisible() {
-        return isVisible ? 1 : 0;
-    }
-
-    public void setVisible(int visible) {
-        isVisible = visible == 0 ? false : true;
-    }
-
-    public long getRestaurant() {
-        return restaurant;
-    }
-
-    public void setRestaurant(long restaurant) {
-        this.restaurant = restaurant;
-    }
-
-    public void addMenuItem(MenuItem menuItem) {
-
-    }
-
-    public List<Item> getItemsByCategory(ItemCategory itemCategory) {
-        return new ArrayList<>();
-    }
-
-    public Map<ItemCategory, List<Item>> getItemsCategory() {
-        return new HashMap<>();
-    }
-
-    public Set<ItemCategory> getItemCategories() {
-        return new HashSet<>();
-    }
-
     @Override
     public String toString() {
         return "Menu{" +
@@ -121,5 +91,13 @@ public class Menu implements Serializable {
                 ", score=" + score +
                 ", isVisible=" + isVisible +
                 '}';
+    }
+
+    public void setVisible(int visible) {
+        isVisible = visible == 1;
+    }
+
+    public int isVisible() {
+        return isVisible ? 1 : 0;
     }
 }
