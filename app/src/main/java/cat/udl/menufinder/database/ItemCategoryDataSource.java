@@ -1,7 +1,4 @@
 package cat.udl.menufinder.database;
-/**
- * Created by MEUSBURGGER on 15/12/2016.
- */
 
 import android.content.Context;
 import android.content.ContentValues;

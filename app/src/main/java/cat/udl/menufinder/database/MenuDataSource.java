@@ -8,12 +8,9 @@ import android.database.sqlite.SQLiteDatabase;
 
 import java.util.ArrayList;
 import java.util.List;
+
 import cat.udl.menufinder.models.Menu;
 import cat.udl.menufinder.database.MenuContract.MenuTable;
-
-/**
- * Created by MEUSBURGGER on 16/12/2016.
- */
 
 public abstract class MenuDataSource implements DBManager {
 
@@ -45,8 +42,7 @@ public abstract class MenuDataSource implements DBManager {
         dbHelper.close();
     }
 
-    public List<Menu> getMenusByRestaurantId(long restaurantId)
-    {
+    public List<Menu> getMenusByRestaurantId(long restaurantId) {
         List<Menu> allMenus = new ArrayList<Menu>();
         Cursor cursor = dbHelper.getReadableDatabase().query(
                 MenuTable.TABLE_NAME,
@@ -96,7 +92,7 @@ public abstract class MenuDataSource implements DBManager {
         return allMenus;
     }
 
-    public  boolean updateMenu(Menu menu, Long id) {
+    public boolean updateMenu(Menu menu, Long id) {
         try {
             long MeuId = dbHelper.getWritableDatabase().update(
                     MenuTable.TABLE_NAME,
@@ -122,7 +118,7 @@ public abstract class MenuDataSource implements DBManager {
         return true;
     }
 
-    public boolean addMenu(Menu menu){
+    public boolean addMenu(Menu menu) {
         try {
             dbHelper.getWritableDatabase().insert(
                     MenuTable.TABLE_NAME,

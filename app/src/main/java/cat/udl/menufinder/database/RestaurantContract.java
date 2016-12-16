@@ -1,4 +1,5 @@
 package cat.udl.menufinder.database;
+
 import android.provider.BaseColumns;
 
 /**
@@ -19,5 +20,6 @@ public class RestaurantContract {
         public static final String EMAIL = "email";
         public static final String PHONE = "phone";
         public static final String ACCOUNT = "account";
+        public static final String SCORE = "score";
     }
 }

@@ -1,11 +1,11 @@
 package cat.udl.menufinder.database;
+
 import android.provider.BaseColumns;
-/**
- * Created by MEUSBURGGER on 14/12/2016.
- */
+
+
 public class ItemContract {
-    public static abstract class ItemTable implements BaseColumns{
-        public static final String TABLE_NAME ="item";
+    public static abstract class ItemTable implements BaseColumns {
+        public static final String TABLE_NAME = "item";
         public static final String ID = "id";
         public static final String NAME = "name";
         public static final String DESCRIPTION = "description ";

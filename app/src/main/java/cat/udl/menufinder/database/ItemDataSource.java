@@ -12,10 +12,6 @@ import java.util.ArrayList;
 import cat.udl.menufinder.models.Item;
 import cat.udl.menufinder.database.ItemContract.ItemTable;
 
-/**
- * Created by MEUSBURGGER on 16/12/2016.
- */
-
 public abstract class ItemDataSource implements DBManager {
 
     private SQLiteDatabase database;

@@ -9,23 +9,26 @@ import android.database.sqlite.SQLiteDatabase;
 import java.util.ArrayList;
 import java.util.List;
 
-import cat.udl.menufinder.models.Menu;
-
-/**
- * Created by MEUSBURGGER on 16/12/2016.
- */
+import cat.udl.menufinder.models.Restaurant;
 
 public abstract class RestaurantDataSource implements DBManager {
     private SQLiteDatabase database;
     private ManagerDbHelper dbHelper;
     private String[] allColumns =
             {
-                    ItemContract.ItemTable.ID,
-                    ItemContract.ItemTable.NAME,
-                    ItemContract.ItemTable.DESCRIPTION,
-                    ItemContract.ItemTable.PRICE,
-                    ItemContract.ItemTable.SCORE,
-                    ItemContract.ItemTable.RESTAURANT
+                    RestaurantContract.RestaurantTable.ID,
+                    RestaurantContract.RestaurantTable.NAME,
+                    RestaurantContract.RestaurantTable.CIF,
+                    RestaurantContract.RestaurantTable.ADDRESS,
+                    RestaurantContract.RestaurantTable.CITY,
+                    RestaurantContract.RestaurantTable.POSTALCODE,
+                    RestaurantContract.RestaurantTable.STATE,
+                    RestaurantContract.RestaurantTable.COUNTRY,
+                    RestaurantContract.RestaurantTable.EMAIL,
+                    RestaurantContract.RestaurantTable.PHONE,
+                    RestaurantContract.RestaurantTable.ACCOUNT,
+                    RestaurantContract.RestaurantTable.SCORE
+
             };
 
     public RestaurantDataSource() {
@@ -43,63 +46,43 @@ public abstract class RestaurantDataSource implements DBManager {
         dbHelper.close();
     }
 
-    public List<Menu> getMenusByRestaurantId(long restaurantId)
-    {
-        List<Menu> allMenus = new ArrayList<Menu>();
-        Cursor cursor = dbHelper.getReadableDatabase().query(
-                MenuContract.MenuTable.TABLE_NAME,
-                allColumns,
-                MenuContract.MenuTable.RESTAURANT + " =" +
-                        restaurantId, null, null, null, null);
-        cursor.moveToFirst();
 
-        while (!cursor.isAfterLast()) {
-            Menu menu = cuToMenu(cursor);
-            allMenus.add(menu);
-            cursor.moveToNext();
-        }
-        // Make sure to close the cursor
-        cursor.close();
-        return allMenus;
-
-    }
-
-    public Menu getMenuById(Long menuId) {
+    public Restaurant getRestaurantById(long restaurantId) {
         Cursor cursor = dbHelper.getReadableDatabase().query
-                (MenuContract.MenuTable.TABLE_NAME,
+                (RestaurantContract.RestaurantTable.TABLE_NAME,
                         allColumns, MenuContract.MenuTable.ID + " =" +
-                                menuId, null, null, null, null
+                                restaurantId, null, null, null, null
                 );
         cursor.moveToFirst();
-        Menu menu = cuToMenu(cursor);
+        Restaurant restaurant = cuToRestaurant(cursor);
         cursor.close();
-        return menu;
+        return restaurant;
     }
 
-    public List<Menu> getMenus() {
-        List<Menu> allMenus = new ArrayList<Menu>();
+    public List<Restaurant> getRestaurants() {
+        List<Restaurant> allRestaurant = new ArrayList<Restaurant>();
         Cursor cursor = dbHelper.getReadableDatabase().query(
-                MenuContract.MenuTable.TABLE_NAME,
+                RestaurantContract.RestaurantTable.TABLE_NAME,
                 allColumns,
                 null, null, null, null, null);
         cursor.moveToFirst();
 
         while (!cursor.isAfterLast()) {
-            Menu menu = cuToMenu(cursor);
-            allMenus.add(menu);
+            Restaurant restaurant = cuToRestaurant(cursor);
+            allRestaurant.add(restaurant);
             cursor.moveToNext();
         }
         // Make sure to close the cursor
         cursor.close();
-        return allMenus;
+        return allRestaurant;
     }
 
-    public  boolean updateMenu(Menu menu, Long id) {
+    public boolean updateRestaurant(Restaurant restaurant, long id) {
         try {
-            long MeuId = dbHelper.getWritableDatabase().update(
-                    MenuContract.MenuTable.TABLE_NAME,
-                    toContentValues(menu),
-                    MenuContract.MenuTable.ID + " =" + id,
+            long RestaurantId = dbHelper.getWritableDatabase().update(
+                    RestaurantContract.RestaurantTable.TABLE_NAME,
+                    toContentValues(restaurant),
+                    RestaurantContract.RestaurantTable.ID + " =" + id,
                     null
             );
         } catch (Exception exp) {
@@ -108,11 +91,11 @@ public abstract class RestaurantDataSource implements DBManager {
         return true;
     }
 
-    public boolean deleteMenu(long menuId) {
+    public boolean deleteRestaurant(long restaurantId) {
         try {
-            long ItemId = dbHelper.getWritableDatabase().delete(
-                    MenuContract.MenuTable.TABLE_NAME,
-                    MenuContract.MenuTable.ID + " =" + menuId,
+            long RestaurantId = dbHelper.getWritableDatabase().delete(
+                    RestaurantContract.RestaurantTable.TABLE_NAME,
+                    RestaurantContract.RestaurantTable.ID + " =" + restaurantId,
                     null);
         } catch (Exception exp) {
             throw (exp);
@@ -120,38 +103,48 @@ public abstract class RestaurantDataSource implements DBManager {
         return true;
     }
 
-    public boolean addMenu(Menu menu){
+    public boolean addRestaurant(Restaurant restaurant) {
         try {
             dbHelper.getWritableDatabase().insert(
-                    MenuContract.MenuTable.TABLE_NAME,
+                    RestaurantContract.RestaurantTable.TABLE_NAME,
                     null,
-                    toContentValues(menu));
+                    toContentValues(restaurant));
         } catch (Exception exp) {
             throw (exp);
         }
         return true;
     }
 
-    private Menu cuToMenu(Cursor cursor) {
-        Menu menu = new Menu();
-        menu.setId(cursor.getLong(0));
-        menu.setRestaurant(cursor.getLong(1));
-        menu.setName(cursor.getString(2));
-        menu.setDescription(cursor.getString(3));
-        menu.setPrice(cursor.getLong(4));
-        menu.setScore(cursor.getLong(5));
-        menu.setVisible(cursor.getInt(5));
-        return menu;
+    private Restaurant cuToRestaurant(Cursor cursor) {
+        Restaurant restaurant = new Restaurant();
+        restaurant.setId(cursor.getLong(0));
+        restaurant.setName(cursor.getString(1));
+        restaurant.setCif(cursor.getString(2));
+        restaurant.setAddress(cursor.getString(3));
+        restaurant.setCity(cursor.getString(4));
+        restaurant.setPostalCode(cursor.getString(5));
+        restaurant.setCountry(cursor.getString(6));
+        restaurant.setEmail(cursor.getString(7));
+        restaurant.setPhone(cursor.getString(8));
+        restaurant.setAccount(cursor.getString(9));
+        restaurant.setScore(cursor.getLong(10));
+        return restaurant;
     }
 
-    public ContentValues toContentValues(Menu menu) {
+    public ContentValues toContentValues(Restaurant restaurant) {
         ContentValues values = new ContentValues();
-        values.put(MenuContract.MenuTable.ID, menu.getId());
-        values.put(MenuContract.MenuTable.RESTAURANT, menu.getRestaurant());
-        values.put(MenuContract.MenuTable.NAME, menu.getName());
-        values.put(MenuContract.MenuTable.DESCRIPTION, menu.getDescription());
-        values.put(MenuContract.MenuTable.PRICE, menu.getScore());
-        values.put(MenuContract.MenuTable.VISIBLE, menu.isVisible());
+        values.put(RestaurantContract.RestaurantTable.ID, restaurant.getId());
+        values.put(RestaurantContract.RestaurantTable.NAME, restaurant.getName());
+        values.put(RestaurantContract.RestaurantTable.CIF, restaurant.getCif());
+        values.put(RestaurantContract.RestaurantTable.ADDRESS, restaurant.getAddress());
+        values.put(RestaurantContract.RestaurantTable.CITY, restaurant.getCity());
+        values.put(RestaurantContract.RestaurantTable.POSTALCODE, restaurant.getPostalCode());
+        values.put(RestaurantContract.RestaurantTable.STATE, restaurant.getState());
+        values.put(RestaurantContract.RestaurantTable.COUNTRY, restaurant.getCountry());
+        values.put(RestaurantContract.RestaurantTable.EMAIL, restaurant.getEmail());
+        values.put(RestaurantContract.RestaurantTable.PHONE, restaurant.getPhone());
+        values.put(RestaurantContract.RestaurantTable.ACCOUNT, restaurant.getAccount());
+        values.put(RestaurantContract.RestaurantTable.SCORE, restaurant.getScore());
         return values;
     }
 

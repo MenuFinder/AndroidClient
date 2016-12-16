@@ -76,6 +76,7 @@ public class ManagerDbHelper extends SQLiteOpenHelper {
                 + RestaurantTable.EMAIL + " TEXT,"
                 + RestaurantTable.PHONE + " TEXT,"
                 + RestaurantTable.ACCOUNT + " TEXT NOT NULL,"
+                + RestaurantTable.SCORE + " TEXT NOT NULL,"
                 + "UNIQUE (" + RestaurantTable.ID + "))");
 
         db.execSQL("CREATE TABLE " + SuscriptionTable.TABLE_NAME + " ("
