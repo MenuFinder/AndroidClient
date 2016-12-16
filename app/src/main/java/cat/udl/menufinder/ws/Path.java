@@ -22,6 +22,14 @@ abstract class Path {
 
     //POST
     static final String GET_VALID_LOGIN = "/login";
+    static final String POST_ADD_MENU = "/addMenu";
+    static final String POST_ADD_RESTAURANT = "/addRestaurant";
+    static final String POST_ADD_REVIEW = "/addReview";
+    static final String POST_ADD_ITEM = "/addItem";
+    static final String POST_ADD_MENU_ITEM = "/addMenuItem";
+    static final String POST_ADD_ITEM_CATEGORY = "/addItemCategory";
+    static final String POST_ADD_ITEM_RATING = "/addItemRating";
+    static final String POST_ADD_ACCOUNT_SUBSCRIPTION = "/addAccountSubscription";
 
     //PUT
 

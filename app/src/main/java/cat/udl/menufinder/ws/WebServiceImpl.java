@@ -3,6 +3,7 @@ package cat.udl.menufinder.ws;
 import java.util.List;
 import java.util.Map;
 
+import cat.udl.menufinder.database.DBManager;
 import cat.udl.menufinder.models.Account;
 import cat.udl.menufinder.models.Item;
 import cat.udl.menufinder.models.ItemCategory;
@@ -11,7 +12,7 @@ import cat.udl.menufinder.models.MenuItem;
 import cat.udl.menufinder.models.Restaurant;
 import cat.udl.menufinder.models.Review;
 
-public class WebServiceImpl implements WebService {
+public class WebServiceImpl implements DBManager {
     @Override
     public Account getValidLogin(String id, String password) {
         return null;
@@ -28,8 +29,8 @@ public class WebServiceImpl implements WebService {
     }
 
     @Override
-    public String addNewMenu(Menu menu) {
-        return null;
+    public boolean addMenu(Menu menu) {
+        return WebServiceUtils.post(Path.POST_ADD_MENU, menu);
     }
 
     @Override
@@ -38,13 +39,13 @@ public class WebServiceImpl implements WebService {
     }
 
     @Override
-    public String deleteMenu(long menuId) {
-        return null;
+    public boolean deleteMenu(long menuId) {
+        return false;
     }
 
     @Override
-    public String updateMenu(Menu menu) {
-        return null;
+    public boolean updateMenu(Menu menu) {
+        return false;
     }
 
     @Override
@@ -53,8 +54,8 @@ public class WebServiceImpl implements WebService {
     }
 
     @Override
-    public String addNewRestaurant(Restaurant restaurant) {
-        return null;
+    public boolean addRestaurant(Restaurant restaurant) {
+        return WebServiceUtils.post(Path.POST_ADD_RESTAURANT, restaurant);
     }
 
     @Override
@@ -63,13 +64,13 @@ public class WebServiceImpl implements WebService {
     }
 
     @Override
-    public String deleteRestaurant(long restaurantId) {
-        return null;
+    public boolean deleteRestaurant(long restaurantId) {
+        return false;
     }
 
     @Override
-    public String updateRestaurant(Restaurant restaurant) {
-        return null;
+    public boolean updateRestaurant(Restaurant restaurant) {
+        return false;
     }
 
     @Override
@@ -93,33 +94,33 @@ public class WebServiceImpl implements WebService {
     }
 
     @Override
-    public String updateReview(Review review) {
-        return null;
+    public boolean updateReview(Review review) {
+        return false;
     }
 
     @Override
-    public String deleteReview(long reviewId) {
-        return null;
+    public boolean deleteReview(long reviewId) {
+        return false;
     }
 
     @Override
-    public String addReview(Review review) {
-        return null;
+    public boolean addReview(Review review) {
+        return WebServiceUtils.post(Path.POST_ADD_REVIEW, review);
     }
 
     @Override
-    public String updateItem(Item item) {
-        return null;
+    public boolean updateItem(Item item) {
+        return false;
     }
 
     @Override
-    public String deleteItem(long itemId) {
-        return null;
+    public boolean deleteItem(long itemId) {
+        return false;
     }
 
     @Override
-    public String addItem(Item item) {
-        return null;
+    public boolean addItem(Item item) {
+        return WebServiceUtils.post(Path.POST_ADD_ITEM, item);
     }
 
     @Override
@@ -138,13 +139,13 @@ public class WebServiceImpl implements WebService {
     }
 
     @Override
-    public String deleteMenuItem(MenuItem menuItem) {
-        return null;
+    public boolean deleteMenuItem(MenuItem menuItem) {
+        return false;
     }
 
     @Override
-    public String addMenuItem(MenuItem menuItem) {
-        return null;
+    public boolean addMenuItem(MenuItem menuItem) {
+        return WebServiceUtils.post(Path.POST_ADD_MENU_ITEM, menuItem);
     }
 
     @Override
@@ -153,18 +154,18 @@ public class WebServiceImpl implements WebService {
     }
 
     @Override
-    public String updateItemCategory(ItemCategory itemCategory) {
-        return null;
+    public boolean updateItemCategory(ItemCategory itemCategory) {
+        return false;
     }
 
     @Override
-    public String deleteItemCategory(long id) {
-        return null;
+    public boolean deleteItemCategory(long id) {
+        return false;
     }
 
     @Override
-    public String addItemCategory(ItemCategory itemCategory) {
-        return null;
+    public boolean addItemCategory(ItemCategory itemCategory) {
+        return WebServiceUtils.post(Path.POST_ADD_ITEM_CATEGORY, itemCategory);
     }
 
     @Override

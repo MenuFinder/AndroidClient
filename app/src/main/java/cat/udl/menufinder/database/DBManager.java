@@ -19,7 +19,7 @@ public interface DBManager {
 
     Menu getMenuById(long menuId);
 
-    boolean addNewMenu(Menu menu);
+    boolean addMenu(Menu menu);
 
     List<Menu> getMenus();
 
@@ -29,7 +29,7 @@ public interface DBManager {
 
     Restaurant getRestaurantById(long restaurantId);
 
-    boolean addNewRestaurant(Restaurant restaurant);
+    boolean addRestaurant(Restaurant restaurant);
 
     List<Restaurant> getRestaurants();
 

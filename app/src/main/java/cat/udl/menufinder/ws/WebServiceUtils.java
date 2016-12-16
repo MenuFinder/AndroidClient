@@ -1,11 +1,13 @@
 package cat.udl.menufinder.ws;
 
+import android.support.annotation.NonNull;
 import android.util.Log;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
 import java.io.BufferedReader;
+import java.io.DataOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -15,7 +17,8 @@ import java.net.URL;
 import java.util.List;
 
 public abstract class WebServiceUtils {
-    public static final String baseUrl = "http://172.16.112.124:8080/MenuFinderWeb/webservice/menufinderws";// /restaurantMenus/2
+    public static final String TAG = WebServiceUtils.class.getSimpleName();
+    public static final String baseUrl = "http://127.0.0.1:8080/MenuFinderWeb/webservice/menufinderws";// /restaurantMenus/2
 
     public static String get(String acction) {
         String result = null;
@@ -27,19 +30,7 @@ public abstract class WebServiceUtils {
             if (conn.getResponseCode() != 200) {
                 throw new RuntimeException("Failed : HTTP error code " + conn.getResponseCode());
             }
-
-            InputStream inputStream = conn.getInputStream();
-            BufferedReader bReader = new BufferedReader(new InputStreamReader(inputStream));
-            StringBuilder sBuilder = new StringBuilder();
-
-            String line;
-            while ((line = bReader.readLine()) != null) {
-                sBuilder.append(line).append("\n");
-            }
-
-            inputStream.close();
-            result = sBuilder.toString();
-
+            result = getResponse(conn);
         } catch (IOException e) {
             Log.e("IOException", e.toString());
             e.printStackTrace();
@@ -58,4 +49,42 @@ public abstract class WebServiceUtils {
         }.getType();
         return gson.fromJson(json, listType);
     }
+
+    public static <T> boolean post(String acction, T object) {
+
+        Gson gson = new Gson();
+        try {
+            URL url = new URL(baseUrl + acction);
+            HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+            conn.setRequestMethod("POST");
+            conn.setRequestProperty("Content-Type", "application/json");
+            conn.setDoOutput(true);
+            DataOutputStream wr = new DataOutputStream(conn.getOutputStream());
+            wr.writeBytes(gson.toJson(object));
+            wr.flush();
+            wr.close();
+            conn.getResponseCode();
+            String result = getResponse(conn);
+        } catch (IOException e) {
+            e.printStackTrace();
+            return false;
+        }
+        return true;
+    }
+
+    @NonNull
+    private static String getResponse(HttpURLConnection conn) throws IOException {
+        InputStream inputStream = conn.getInputStream();
+        BufferedReader bReader = new BufferedReader(new InputStreamReader(inputStream));
+        StringBuilder sBuilder = new StringBuilder();
+
+        String line;
+        while ((line = bReader.readLine()) != null) {
+            sBuilder.append(line).append("\n");
+        }
+
+        inputStream.close();
+        return sBuilder.toString();
+    }
+
 }
