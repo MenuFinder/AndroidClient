@@ -67,11 +67,11 @@ public interface DBManager {
 
     boolean addMenuItem(MenuItem menuItem);
 
-    ItemCategory getItemCategoryById(long id);
+    ItemCategory getItemCategoryById(long itemCategoryId);
 
     boolean updateItemCategory(ItemCategory itemCategory);
 
-    boolean deleteItemCategory(long id);
+    boolean deleteItemCategory(long itemCategoryId);
 
     boolean addItemCategory(ItemCategory itemCategory);
 

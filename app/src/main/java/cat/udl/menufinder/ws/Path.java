@@ -3,6 +3,7 @@ package cat.udl.menufinder.ws;
 abstract class Path {
 
     //GET
+    static final String GET_METHOD = "GET";
     static final String GET_MENUS_BY_RESTAURANT_ID = "/restaurantMenus/";
     static final String GET_MENU_BY_ID = "/getMenu/";
     static final String GET_MENUS = "/getMenus";
@@ -21,6 +22,7 @@ abstract class Path {
     static final String GET_ITEM_RATING_OF_ITEM = "/itemRatingItem/";
 
     //POST
+    static final String POST_METHOD = "POST";
     static final String GET_VALID_LOGIN = "/login";
     static final String POST_ADD_MENU = "/addMenu";
     static final String POST_ADD_RESTAURANT = "/addRestaurant";
@@ -32,7 +34,22 @@ abstract class Path {
     static final String POST_ADD_ACCOUNT_SUBSCRIPTION = "/addAccountSubscription";
 
     //PUT
+    static final String PUT_METHOD = "PUT";
+    static final String PUT_UPDATE_MENU = "/updateMenu";
+    static final String PUT_UPDATE_RESTAURANT = "/updateRestaurant";
+    static final String PUT_UPDATE_REVIEW = "/updateReview";
+    static final String PUT_UPDATE_ITEM = "/updateItem";
+    static final String PUT_UPDATE_ITEM_CATEGORY = "/updateItemCategory";
+    static final String PUT_UPDATE_ITEM_RATING = "/updateItemRating";
 
     //DELETE
-
+    static final String DELETE_METHOD = "DELETE";
+    static final String DELETE_MENU = "/deleteMenu/";
+    static final String DELETE_RESTAURANT = "/deleteRestaurant/";
+    static final String DELETE_REVIEW = "/deleteReview/";
+    static final String DELETE_ITEM = "/deleteItem/";
+    static final String DELETE_MENU_ITEM = "/deleteMenuItem/";
+    static final String DELETE_ITEM_CATEGORY = "/deleteItemCategory/";
+    static final String DELETE_ITEM_RATING = "/deleteItemRating/";
+    static final String DELETE_ACCOUNT_SUBSCRIPTION = "/deleteAccountSubscription/";
 }

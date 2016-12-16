@@ -40,12 +40,12 @@ public class WebServiceImpl implements DBManager {
 
     @Override
     public boolean deleteMenu(long menuId) {
-        return false;
+        return WebServiceUtils.delete(Path.DELETE_MENU + menuId);
     }
 
     @Override
     public boolean updateMenu(Menu menu) {
-        return false;
+        return WebServiceUtils.put(Path.PUT_UPDATE_MENU, menu);
     }
 
     @Override
@@ -65,12 +65,12 @@ public class WebServiceImpl implements DBManager {
 
     @Override
     public boolean deleteRestaurant(long restaurantId) {
-        return false;
+        return WebServiceUtils.delete(Path.DELETE_RESTAURANT + restaurantId);
     }
 
     @Override
     public boolean updateRestaurant(Restaurant restaurant) {
-        return false;
+        return WebServiceUtils.put(Path.PUT_UPDATE_RESTAURANT, restaurant);
     }
 
     @Override
@@ -95,12 +95,12 @@ public class WebServiceImpl implements DBManager {
 
     @Override
     public boolean updateReview(Review review) {
-        return false;
+        return WebServiceUtils.put(Path.PUT_UPDATE_REVIEW, review);
     }
 
     @Override
     public boolean deleteReview(long reviewId) {
-        return false;
+        return WebServiceUtils.delete(Path.DELETE_REVIEW + reviewId);
     }
 
     @Override
@@ -110,12 +110,12 @@ public class WebServiceImpl implements DBManager {
 
     @Override
     public boolean updateItem(Item item) {
-        return false;
+        return WebServiceUtils.put(Path.PUT_UPDATE_ITEM, item);
     }
 
     @Override
     public boolean deleteItem(long itemId) {
-        return false;
+        return WebServiceUtils.delete(Path.DELETE_ITEM + itemId);
     }
 
     @Override
@@ -140,7 +140,7 @@ public class WebServiceImpl implements DBManager {
 
     @Override
     public boolean deleteMenuItem(MenuItem menuItem) {
-        return false;
+        return WebServiceUtils.delete(Path.DELETE_MENU_ITEM + menuItem);
     }
 
     @Override
@@ -155,12 +155,12 @@ public class WebServiceImpl implements DBManager {
 
     @Override
     public boolean updateItemCategory(ItemCategory itemCategory) {
-        return false;
+        return WebServiceUtils.put(Path.PUT_UPDATE_ITEM_CATEGORY, itemCategory);
     }
 
     @Override
-    public boolean deleteItemCategory(long id) {
-        return false;
+    public boolean deleteItemCategory(long itemCategoryId) {
+        return WebServiceUtils.delete(Path.DELETE_ITEM_CATEGORY + itemCategoryId);
     }
 
     @Override

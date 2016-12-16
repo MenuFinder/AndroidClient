@@ -18,14 +18,14 @@ import java.util.List;
 
 public abstract class WebServiceUtils {
     public static final String TAG = WebServiceUtils.class.getSimpleName();
-    public static final String baseUrl = "http://127.0.0.1:8080/MenuFinderWeb/webservice/menufinderws";// /restaurantMenus/2
+    public static final String baseUrl = "http://172.16.113.185:8080/MenuFinderWeb/webservice/menufinderws";// /restaurantMenus/2
 
     public static String get(String acction) {
         String result = null;
         try {
             URL url = new URL(baseUrl + acction);
             HttpURLConnection conn = (HttpURLConnection) url.openConnection();
-            conn.setRequestMethod("GET");
+            conn.setRequestMethod(Path.GET_METHOD);
             conn.setRequestProperty("Accept", "application/json; charset=UTF-8");
             if (conn.getResponseCode() != 200) {
                 throw new RuntimeException("Failed : HTTP error code " + conn.getResponseCode());
@@ -51,12 +51,35 @@ public abstract class WebServiceUtils {
     }
 
     public static <T> boolean post(String acction, T object) {
+        return sendBean(Path.POST_METHOD, acction, object);
+    }
 
+    public static boolean delete(String acction) {
+        try {
+            URL url = new URL(baseUrl + acction);
+            HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+            conn.setRequestMethod(Path.DELETE_METHOD);
+            conn.setRequestProperty("Content-Type", "application/json");
+            conn.getResponseCode();
+            String result = getResponse(conn);
+            Log.d(TAG, result);
+        } catch (IOException e) {
+            e.printStackTrace();
+            return false;
+        }
+        return true;
+    }
+
+    public static <T> boolean put(String acction, T object) {
+        return sendBean(Path.PUT_METHOD, acction, object);
+    }
+
+    private static <T> boolean sendBean(String method, String acction, T object) {
         Gson gson = new Gson();
         try {
             URL url = new URL(baseUrl + acction);
             HttpURLConnection conn = (HttpURLConnection) url.openConnection();
-            conn.setRequestMethod("POST");
+            conn.setRequestMethod(method);
             conn.setRequestProperty("Content-Type", "application/json");
             conn.setDoOutput(true);
             DataOutputStream wr = new DataOutputStream(conn.getOutputStream());
@@ -65,6 +88,7 @@ public abstract class WebServiceUtils {
             wr.close();
             conn.getResponseCode();
             String result = getResponse(conn);
+            Log.d(TAG, result);
         } catch (IOException e) {
             e.printStackTrace();
             return false;
