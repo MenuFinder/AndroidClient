@@ -40,7 +40,7 @@ public abstract class ItemCategoryDataSource implements DBManager {
 
     public ItemCategory getItemCategoryById(Long id) {
 
-        Cursor cursor = dbHelper.getReadableDatabase().query
+        Cursor cursor = database.query
                 (ItemCategoryTable.TABLE_NAME,
                         allColumns, ItemCategoryTable.ID + " =" +
                                 id, null, null, null, null
@@ -53,7 +53,7 @@ public abstract class ItemCategoryDataSource implements DBManager {
 
     public List<ItemCategory> getItemCategories() {
         List<ItemCategory> itemCategories = new ArrayList<ItemCategory>();
-        Cursor cursor = dbHelper.getReadableDatabase().query(
+        Cursor cursor = database.query(
                 ItemCategoryTable.TABLE_NAME,
                 allColumns,
                 null, null, null, null, null);
@@ -71,7 +71,7 @@ public abstract class ItemCategoryDataSource implements DBManager {
 
     public boolean updateItemCategory(ItemCategory itemCategory, Long id) {
         try {
-            long ItemId = dbHelper.getWritableDatabase().update(
+            long ItemId = database.update(
                     ItemCategoryTable.TABLE_NAME,
                     toContentValues(itemCategory),
                     ItemCategoryTable.ID + " =" + id,
@@ -86,7 +86,7 @@ public abstract class ItemCategoryDataSource implements DBManager {
 
     public boolean deleteItemCategory(Long id) {
         try {
-            long ItemId = dbHelper.getWritableDatabase().delete(
+            long ItemId = database.delete(
                     ItemCategoryTable.TABLE_NAME,
                     ItemCategoryTable.ID + " =" + id,
                     null);
@@ -98,7 +98,7 @@ public abstract class ItemCategoryDataSource implements DBManager {
 
     public boolean addItemCategory(ItemCategory itemCategory) {
         try {
-            dbHelper.getWritableDatabase().insert(
+            database.insert(
                     ItemCategoryTable.TABLE_NAME,
                     null,
                     toContentValues(itemCategory));

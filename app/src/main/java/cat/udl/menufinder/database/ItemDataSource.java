@@ -43,7 +43,7 @@ public abstract class ItemDataSource implements DBManager {
 
     public Item getItemById(Long id) {
 
-        Cursor cursor = dbHelper.getReadableDatabase().query
+        Cursor cursor = database.query
                 (ItemTable.TABLE_NAME,
                         allColumns, ItemTable.ID + " =" +
                                 id, null, null, null, null
@@ -56,7 +56,7 @@ public abstract class ItemDataSource implements DBManager {
 
     public List<Item> getRestaurantItems(long restaurantId) {
         List<Item> items = new ArrayList<Item>();
-        Cursor cursor = dbHelper.getReadableDatabase().query(
+        Cursor cursor = database.query(
                 ItemTable.TABLE_NAME,
                 allColumns,
                 ItemTable.RESTAURANT + " =" + restaurantId, null, null, null, null);
@@ -74,7 +74,7 @@ public abstract class ItemDataSource implements DBManager {
 
     public Boolean updateItem(Item item, Long id) {
         try {
-            long ItemId = dbHelper.getWritableDatabase().update(
+            long ItemId = database.update(
                     ItemTable.TABLE_NAME,
                     toContentValues(item),
                     ItemTable.ID + " =" + id,
@@ -89,7 +89,7 @@ public abstract class ItemDataSource implements DBManager {
 
     public Boolean deleteItem(Long id) {
         try {
-            long ItemId = dbHelper.getWritableDatabase().delete(
+            long ItemId = database.delete(
                     ItemTable.TABLE_NAME,
                     ItemTable.ID + " =" + id,
                     null);
@@ -101,7 +101,7 @@ public abstract class ItemDataSource implements DBManager {
 
     public boolean addItem(Item item) {
         try {
-            dbHelper.getWritableDatabase().insert(
+            database.insert(
                     ItemTable.TABLE_NAME,
                     null,
                     toContentValues(item));

@@ -44,7 +44,7 @@ public abstract class MenuDataSource implements DBManager {
 
     public List<Menu> getMenusByRestaurantId(long restaurantId) {
         List<Menu> allMenus = new ArrayList<Menu>();
-        Cursor cursor = dbHelper.getReadableDatabase().query(
+        Cursor cursor = database.query(
                 MenuTable.TABLE_NAME,
                 allColumns,
                 MenuTable.RESTAURANT + " =" +
@@ -63,7 +63,7 @@ public abstract class MenuDataSource implements DBManager {
     }
 
     public Menu getMenuById(Long menuId) {
-        Cursor cursor = dbHelper.getReadableDatabase().query
+        Cursor cursor = database.query
                 (MenuTable.TABLE_NAME,
                         allColumns, MenuTable.ID + " =" +
                                 menuId, null, null, null, null
@@ -76,7 +76,7 @@ public abstract class MenuDataSource implements DBManager {
 
     public List<Menu> getMenus() {
         List<Menu> allMenus = new ArrayList<Menu>();
-        Cursor cursor = dbHelper.getReadableDatabase().query(
+        Cursor cursor = database.query(
                 MenuTable.TABLE_NAME,
                 allColumns,
                 null, null, null, null, null);
@@ -94,7 +94,7 @@ public abstract class MenuDataSource implements DBManager {
 
     public boolean updateMenu(Menu menu, Long id) {
         try {
-            long MeuId = dbHelper.getWritableDatabase().update(
+            long MeuId = database.update(
                     MenuTable.TABLE_NAME,
                     toContentValues(menu),
                     MenuTable.ID + " =" + id,
@@ -108,7 +108,7 @@ public abstract class MenuDataSource implements DBManager {
 
     public boolean deleteMenu(long menuId) {
         try {
-            long ItemId = dbHelper.getWritableDatabase().delete(
+            long ItemId = database.delete(
                     MenuTable.TABLE_NAME,
                     MenuTable.ID + " =" + menuId,
                     null);
@@ -120,7 +120,7 @@ public abstract class MenuDataSource implements DBManager {
 
     public boolean addMenu(Menu menu) {
         try {
-            dbHelper.getWritableDatabase().insert(
+            database.insert(
                     MenuTable.TABLE_NAME,
                     null,
                     toContentValues(menu));

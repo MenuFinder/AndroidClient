@@ -12,6 +12,7 @@ import java.util.List;
 import cat.udl.menufinder.models.Restaurant;
 
 public abstract class RestaurantDataSource implements DBManager {
+
     private SQLiteDatabase database;
     private ManagerDbHelper dbHelper;
     private String[] allColumns =
@@ -31,7 +32,7 @@ public abstract class RestaurantDataSource implements DBManager {
 
             };
 
-    public RestaurantDataSource() {
+    public RestaurantDataSource(){
     }
 
     public RestaurantDataSource(Context context) {
@@ -46,9 +47,8 @@ public abstract class RestaurantDataSource implements DBManager {
         dbHelper.close();
     }
 
-
-    public Restaurant getRestaurantById(long restaurantId) {
-        Cursor cursor = dbHelper.getReadableDatabase().query
+    public Restaurant getRestaurantById(long restaurantId){
+        Cursor cursor = database.query
                 (RestaurantContract.RestaurantTable.TABLE_NAME,
                         allColumns, MenuContract.MenuTable.ID + " =" +
                                 restaurantId, null, null, null, null
@@ -61,7 +61,7 @@ public abstract class RestaurantDataSource implements DBManager {
 
     public List<Restaurant> getRestaurants() {
         List<Restaurant> allRestaurant = new ArrayList<Restaurant>();
-        Cursor cursor = dbHelper.getReadableDatabase().query(
+        Cursor cursor = database.query(
                 RestaurantContract.RestaurantTable.TABLE_NAME,
                 allColumns,
                 null, null, null, null, null);
@@ -79,7 +79,7 @@ public abstract class RestaurantDataSource implements DBManager {
 
     public boolean updateRestaurant(Restaurant restaurant, long id) {
         try {
-            long RestaurantId = dbHelper.getWritableDatabase().update(
+            long RestaurantId = database.update(
                     RestaurantContract.RestaurantTable.TABLE_NAME,
                     toContentValues(restaurant),
                     RestaurantContract.RestaurantTable.ID + " =" + id,
@@ -93,7 +93,7 @@ public abstract class RestaurantDataSource implements DBManager {
 
     public boolean deleteRestaurant(long restaurantId) {
         try {
-            long RestaurantId = dbHelper.getWritableDatabase().delete(
+            long RestaurantId = database.delete(
                     RestaurantContract.RestaurantTable.TABLE_NAME,
                     RestaurantContract.RestaurantTable.ID + " =" + restaurantId,
                     null);
@@ -105,7 +105,7 @@ public abstract class RestaurantDataSource implements DBManager {
 
     public boolean addRestaurant(Restaurant restaurant) {
         try {
-            dbHelper.getWritableDatabase().insert(
+            database.insert(
                     RestaurantContract.RestaurantTable.TABLE_NAME,
                     null,
                     toContentValues(restaurant));
