@@ -20,7 +20,7 @@ public class WebServiceImpl implements DBManager {
 
     @Override
     public List<Menu> getMenusByRestaurantId(long restaurantId) {
-        return WebServiceUtils.getBeanList(WebServiceUtils.get(Path.GET_MENUS_BY_RESTAURANT_ID + restaurantId));
+        return WebServiceUtils.getBeanList(WebServiceUtils.get(Path.GET_MENUS_BY_RESTAURANT_ID + restaurantId), Menu[].class);
     }
 
     @Override
@@ -35,7 +35,7 @@ public class WebServiceImpl implements DBManager {
 
     @Override
     public List<Menu> getMenus() {
-        return WebServiceUtils.getBeanList(WebServiceUtils.get(Path.GET_MENUS));
+        return WebServiceUtils.getBeanList(WebServiceUtils.get(Path.GET_MENUS), Menu[].class);
     }
 
     @Override
@@ -60,7 +60,7 @@ public class WebServiceImpl implements DBManager {
 
     @Override
     public List<Restaurant> getRestaurants() {
-        return WebServiceUtils.getBeanList(WebServiceUtils.get(Path.GET_RESTAURANTS));
+        return WebServiceUtils.getBeanList(WebServiceUtils.get(Path.GET_RESTAURANTS), Restaurant[].class);
     }
 
     @Override
@@ -80,17 +80,17 @@ public class WebServiceImpl implements DBManager {
 
     @Override
     public List<Review> getReviewsOfItem(long itemId) {
-        return WebServiceUtils.getBeanList(WebServiceUtils.get(Path.GET_REVIEWS_OF_ITEM + itemId));
+        return WebServiceUtils.getBeanList(WebServiceUtils.get(Path.GET_REVIEWS_OF_ITEM + itemId), Review[].class);
     }
 
     @Override
     public List<Review> getReviewsOfMenu(long menuId) {
-        return WebServiceUtils.getBeanList(WebServiceUtils.get(Path.GET_REVIEWS_OF_MENU + menuId));
+        return WebServiceUtils.getBeanList(WebServiceUtils.get(Path.GET_REVIEWS_OF_MENU + menuId), Review[].class);
     }
 
     @Override
     public List<Review> getReviewsOfRestaurant(long restaurantId) {
-        return WebServiceUtils.getBeanList(WebServiceUtils.get(Path.GET_REVIEWS_OF_RESTAURANT + restaurantId));
+        return WebServiceUtils.getBeanList(WebServiceUtils.get(Path.GET_REVIEWS_OF_RESTAURANT + restaurantId), Review[].class);
     }
 
     @Override
@@ -130,7 +130,7 @@ public class WebServiceImpl implements DBManager {
 
     @Override
     public List<Item> getRestaurantItems(long restaurantId) {
-        return WebServiceUtils.getBeanList(WebServiceUtils.get(Path.GET_RESTAURANT_ITEMS + restaurantId));
+        return WebServiceUtils.getBeanList(WebServiceUtils.get(Path.GET_RESTAURANT_ITEMS + restaurantId), Item[].class);
     }
 
     @Override
@@ -170,6 +170,6 @@ public class WebServiceImpl implements DBManager {
 
     @Override
     public List<ItemCategory> getItemCategories() {
-        return WebServiceUtils.getBeanList(WebServiceUtils.get(Path.GET_ITEM_CATEGORIES));
+        return WebServiceUtils.getBeanList(WebServiceUtils.get(Path.GET_ITEM_CATEGORIES), ItemCategory[].class);
     }
 }
