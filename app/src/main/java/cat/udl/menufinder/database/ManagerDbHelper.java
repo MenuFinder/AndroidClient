@@ -10,7 +10,7 @@ import cat.udl.menufinder.database.ItemContract.ItemTable;
 import cat.udl.menufinder.database.MenuContract.MenuTable;
 import cat.udl.menufinder.database.MenuItemContract.MenuItemTable;
 import cat.udl.menufinder.database.RestaurantContract.RestaurantTable;
-import cat.udl.menufinder.database.SuscriptionContract.SuscriptionTable;
+import cat.udl.menufinder.database.SubscriptionContract.SuscriptionTable;
 
 /**
  * Created by MEUSBURGGER on 14/12/2016.
@@ -26,8 +26,6 @@ public class ManagerDbHelper extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        //Create DataBase
-        db.execSQL("CREATE DATABASE " + ManagerDbHelper.DATABASE_NAME);
         //Create Tables
         db.execSQL("CREATE TABLE " + ItemCategoryTable.TABLE_NAME + " ("
                 + ItemCategoryTable._ID + " INTEGER PRIMARY KEY AUTOINCREMENT,"
@@ -61,7 +59,7 @@ public class ManagerDbHelper extends SQLiteOpenHelper {
                 + MenuItemTable._ID + " INTEGER PRIMARY KEY AUTOINCREMENT,"
                 + MenuItemTable.MENU + " INTEGER NOT NULL,"
                 + MenuItemTable.ITEM + " INTEGER NOT NULL,"
-                + MenuItemTable.ITEMCATEGORY + " INTEGER NOT NULL," + "))");
+                + MenuItemTable.ITEMCATEGORY + " INTEGER NOT NULL" + ")");
 
         db.execSQL("CREATE TABLE " + RestaurantTable.TABLE_NAME + " ("
                 + RestaurantTable._ID + " INTEGER PRIMARY KEY AUTOINCREMENT,"
@@ -82,7 +80,7 @@ public class ManagerDbHelper extends SQLiteOpenHelper {
         db.execSQL("CREATE TABLE " + SuscriptionTable.TABLE_NAME + " ("
                 + SuscriptionTable._ID + " INTEGER PRIMARY KEY AUTOINCREMENT,"
                 + SuscriptionTable.ACCOUNT + " INTEGER NOT NULL,"
-                + SuscriptionTable.RESTAURANT + " TEXT NOT NULL," + "))");
+                + SuscriptionTable.RESTAURANT + " TEXT NOT NULL" + ")");
 
     }
 
