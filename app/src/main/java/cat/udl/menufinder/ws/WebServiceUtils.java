@@ -59,7 +59,7 @@ public abstract class WebServiceUtils {
             URL url = new URL(baseUrl + acction);
             HttpURLConnection conn = (HttpURLConnection) url.openConnection();
             conn.setRequestMethod(Path.DELETE_METHOD);
-            conn.setRequestProperty("Content-Type", "application/json");
+            conn.setRequestProperty("Content-Type", "application/json; charset=UTF-8");
             conn.getResponseCode();
             String result = getResponse(conn);
             Log.d(TAG, result);
@@ -80,7 +80,7 @@ public abstract class WebServiceUtils {
             URL url = new URL(baseUrl + acction);
             HttpURLConnection conn = (HttpURLConnection) url.openConnection();
             conn.setRequestMethod(method);
-            conn.setRequestProperty("Content-Type", "application/json");
+            conn.setRequestProperty("Content-Type", "application/json; charset=UTF-8");
             conn.setDoOutput(true);
             DataOutputStream wr = new DataOutputStream(conn.getOutputStream());
             wr.writeBytes(gson.toJson(object));
