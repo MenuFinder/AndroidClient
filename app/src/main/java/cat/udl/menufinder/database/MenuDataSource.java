@@ -75,12 +75,27 @@ public class MenuDataSource extends DataSource {
         return menu;
     }
 
-    public boolean updateMenu(Menu menu, long menuId) {
+    public List<Menu> getMenus(){
+        List<Menu> Allmenus = new ArrayList<>();
+        Cursor cursor = database.query(
+                MenuTable.TABLE_NAME,
+                allColumns,
+                null, null, null, null, null);
+
+        while (cursor.moveToNext()) {
+            Menu itemCategory = cuToMenu(cursor);
+            Allmenus.add(itemCategory);
+        }
+        cursor.close();
+        return Allmenus;
+    }
+
+    public boolean updateMenu(Menu menu) {
         database.update(
                 MenuTable.TABLE_NAME,
                 toContentValues(menu),
                 MenuTable.ID + " = ?",
-                new String[]{String.valueOf(menuId)}
+                new String[]{String.valueOf(menu.getId())}
         );
         return true;
     }
@@ -102,7 +117,7 @@ public class MenuDataSource extends DataSource {
         menu.setDescription(cursor.getString(3));
         menu.setPrice(cursor.getLong(4));
         menu.setScore(cursor.getLong(5));
-        menu.setVisible(cursor.getInt(5));
+        menu.setVisible(cursor.getInt(6));
         return menu;
     }
 

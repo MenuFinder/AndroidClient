@@ -5,6 +5,9 @@ import android.content.res.Resources;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteConstraintException;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import cat.udl.menufinder.models.Restaurant;
 
 public class RestaurantDataSource extends DataSource {
@@ -30,6 +33,21 @@ public class RestaurantDataSource extends DataSource {
         super();
     }
 
+    public List<Restaurant> getRestaurants() {
+        List<Restaurant> Allrestaurant = new ArrayList<>();
+        Cursor cursor = database.query(
+                RestaurantContract.RestaurantTable.TABLE_NAME,
+                allColumns,
+                null, null, null, null, null);
+
+        while (cursor.moveToNext()) {
+            Restaurant restaurant = cuToRestaurant(cursor);
+            Allrestaurant.add(restaurant);
+        }
+        cursor.close();
+        return Allrestaurant;
+    }
+
     public boolean addRestaurant(Restaurant restaurant) {
         try {
             database.insertOrThrow(
@@ -53,18 +71,19 @@ public class RestaurantDataSource extends DataSource {
         );
 
         if (cursor.moveToNext()) restaurant = cuToRestaurant(cursor);
-        else throw new Resources.NotFoundException("Restaurant with ID " + restaurantId + " not found");
+        else
+            throw new Resources.NotFoundException("Restaurant with ID " + restaurantId + " not found");
 
         cursor.close();
         return restaurant;
     }
 
-    public boolean updateRestaurant(Restaurant restaurant, long restaurantId) {
+    public boolean updateRestaurant(Restaurant restaurant) {
         database.update(
                 RestaurantContract.RestaurantTable.TABLE_NAME,
                 toContentValues(restaurant),
                 RestaurantContract.RestaurantTable.ID + " = ?",
-                new String[]{String.valueOf(restaurantId)}
+                new String[]{String.valueOf(restaurant.getId())}
         );
         return true;
     }

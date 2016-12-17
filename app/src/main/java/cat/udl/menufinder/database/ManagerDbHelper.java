@@ -12,9 +12,6 @@ import cat.udl.menufinder.database.MenuItemContract.MenuItemTable;
 import cat.udl.menufinder.database.RestaurantContract.RestaurantTable;
 import cat.udl.menufinder.database.SubscriptionContract.SuscriptionTable;
 
-/**
- * Created by MEUSBURGGER on 14/12/2016.
- */
 
 public class ManagerDbHelper extends SQLiteOpenHelper {
     public static final int DATABASE_VERSION = 1;

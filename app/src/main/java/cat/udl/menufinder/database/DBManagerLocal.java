@@ -16,7 +16,23 @@ public class DBManagerLocal implements DBManager {
 
     private static DBManager ourInstance = new DBManagerLocal();
 
+    private ItemCategoryDataSource itemCategoryDataSource;
+    private ItemDataSource itemDataSource;
+    private MenuDataSource menuDataSource;
+    private MenuItemDataSource menuItemDataSource;
+    private RestaurantDataSource restaurantDataSource;
+    private ReviewDataSource reviewDataSource;
+    private SubscriptionDataSource subscriptionDataSource;
+
     private DBManagerLocal() {
+
+        itemCategoryDataSource = new ItemCategoryDataSource();
+        itemDataSource = new ItemDataSource();
+        menuDataSource = new MenuDataSource();
+        menuItemDataSource = new MenuItemDataSource();
+        restaurantDataSource = new RestaurantDataSource();
+        reviewDataSource = new ReviewDataSource();
+        subscriptionDataSource = new SubscriptionDataSource();
     }
 
     public static DBManager getInstance() {
@@ -30,112 +46,112 @@ public class DBManagerLocal implements DBManager {
 
     @Override
     public List<Menu> getMenusByRestaurantId(long restaurantId) {
-        return null;
+        return menuDataSource.getMenusByRestaurantId(restaurantId);
     }
 
     @Override
     public Menu getMenuById(long menuId) {
-        return null;
+        return menuDataSource.getMenuById(menuId);
     }
 
     @Override
     public boolean addMenu(Menu menu) {
-        return false;
+        return menuDataSource.addMenu(menu);
     }
 
     @Override
     public List<Menu> getMenus() {
-        return null;
+        return menuDataSource.getMenus();
     }
 
     @Override
     public boolean deleteMenu(long menuId) {
-        return false;
+        return menuDataSource.deleteMenu(menuId);
     }
 
     @Override
     public boolean updateMenu(Menu menu) {
-        return false;
+        return menuDataSource.updateMenu(menu);
     }
 
     @Override
     public Restaurant getRestaurantById(long restaurantId) {
-        return null;
+        return restaurantDataSource.getRestaurantById(restaurantId);
     }
 
     @Override
     public boolean addRestaurant(Restaurant restaurant) {
-        return false;
+        return restaurantDataSource.addRestaurant(restaurant);
     }
 
     @Override
     public List<Restaurant> getRestaurants() {
-        return null;
+        return restaurantDataSource.getRestaurants();
     }
 
     @Override
     public boolean deleteRestaurant(long restaurantId) {
-        return false;
+        return restaurantDataSource.deleteRestaurant(restaurantId);
     }
 
     @Override
     public boolean updateRestaurant(Restaurant restaurant) {
-        return false;
+        return restaurantDataSource.updateRestaurant(restaurant);
     }
 
     @Override
     public Review getReviewById(long reviewId) {
-        return null;
+        return reviewDataSource.getReviewById(reviewId);
     }
 
     @Override
     public List<Review> getReviewsOfItem(long itemId) {
-        return null;
+        return reviewDataSource.getReviewsOfItem(itemId);
     }
 
     @Override
     public List<Review> getReviewsOfMenu(long menuId) {
-        return null;
+        return reviewDataSource.getReviewsOfMenu(menuId);
     }
 
     @Override
     public List<Review> getReviewsOfRestaurant(long restaurantId) {
-        return null;
+        return reviewDataSource.getReviewsOfRestaurant(restaurantId);
     }
 
     @Override
     public boolean updateReview(Review review) {
-        return false;
+        return reviewDataSource.updateReview(review);
     }
 
     @Override
     public boolean deleteReview(long reviewId) {
-        return false;
+        return reviewDataSource.deleteReview(reviewId);
     }
 
     @Override
     public boolean addReview(Review review) {
-        return false;
+        return reviewDataSource.addReview(review);
     }
 
     @Override
     public boolean updateItem(Item item) {
-        return false;
+        return itemDataSource.updateItem(item);
     }
 
     @Override
     public boolean deleteItem(long itemId) {
-        return false;
+        return itemDataSource.deleteItem(itemId);
     }
 
     @Override
     public boolean addItem(Item item) {
-        return false;
+        return itemDataSource.addItem(item);
     }
 
     @Override
     public Item getItemById(long itemId) {
-        return null;
+        return itemDataSource.getItemById(itemId);
     }
 
     @Override
@@ -150,36 +166,36 @@ public class DBManagerLocal implements DBManager {
 
     @Override
     public boolean deleteMenuItem(MenuItem menuItem) {
-        return false;
+        return menuItemDataSource.deleteMenuItem(menuItem);
     }
 
     @Override
     public boolean addMenuItem(MenuItem menuItem) {
-        return false;
+        return menuItemDataSource.addMenuItem(menuItem);
     }
 
     @Override
     public ItemCategory getItemCategoryById(long itemCategoryId) {
-        return null;
+        return itemCategoryDataSource.getItemCategoryById(itemCategoryId);
     }
 
     @Override
     public boolean updateItemCategory(ItemCategory itemCategory) {
-        return false;
+        return itemCategoryDataSource.updateItemCategory(itemCategory);
     }
 
     @Override
     public boolean deleteItemCategory(long itemCategoryId) {
-        return false;
+        return itemCategoryDataSource.deleteItemCategory(itemCategoryId);
     }
 
     @Override
     public boolean addItemCategory(ItemCategory itemCategory) {
-        return false;
+        return itemCategoryDataSource.addItemCategory(itemCategory);
     }
 
     @Override
     public List<ItemCategory> getItemCategories() {
-        return null;
+        return itemCategoryDataSource.getItemCategories();
     }
 }

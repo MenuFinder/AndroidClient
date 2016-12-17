@@ -20,6 +20,7 @@ public class SplashActivity extends MasterActivity {
         setContentView(R.layout.activity_splash);
         getSupportActionBar().hide();
         final ImageView logo = (ImageView) findViewById(R.id.logo);
+
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {

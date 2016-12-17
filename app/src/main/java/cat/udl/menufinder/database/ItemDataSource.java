@@ -72,16 +72,15 @@ public class ItemDataSource extends DataSource {
         return items;
     }
 
-    public Boolean updateItem(Item item, long itemId) {
+    public Boolean updateItem(Item item) {
         database.update(
                 ItemTable.TABLE_NAME,
                 toContentValues(item),
                 ItemTable.ID + " = ?",
-                new String[]{String.valueOf(itemId)}
+                new String[]{String.valueOf(item.getId())}
         );
         return true;
     }
-
 
     public Boolean deleteItem(long itemId) {
         database.delete(

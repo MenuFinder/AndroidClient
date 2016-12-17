@@ -68,12 +68,12 @@ public class ItemCategoryDataSource extends DataSource {
         return itemCategories;
     }
 
-    public boolean updateItemCategory(ItemCategory itemCategory, long itemCategoryId) {
+    public boolean updateItemCategory(ItemCategory itemCategory) {
         database.update(
                 ItemCategoryTable.TABLE_NAME,
                 toContentValues(itemCategory),
                 ItemCategoryTable.ID + " = ?",
-                new String[]{String.valueOf(itemCategoryId)}
+                new String[]{String.valueOf(itemCategory.getId())}
         );
         return true;
     }
