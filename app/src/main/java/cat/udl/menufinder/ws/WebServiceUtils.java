@@ -11,11 +11,12 @@ import java.io.DataOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.lang.reflect.Type;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import cat.udl.menufinder.models.Item;
 
@@ -109,6 +110,11 @@ public abstract class WebServiceUtils {
 
         inputStream.close();
         return sBuilder.toString();
+    }
+
+    public static Map<Long, List<Item>> getMenuItemsByCategory(String json) {
+        return new Gson().fromJson(json, new TypeToken<HashMap<Long, List<Item>>>() {
+        }.getType());
     }
 
 }

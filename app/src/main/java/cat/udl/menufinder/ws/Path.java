@@ -1,7 +1,7 @@
 package cat.udl.menufinder.ws;
 
 abstract class Path {
-
+    static final String baseUrl = "http://ws.menufinder.tk:8080/MenuFinderWeb/webservice/menufinderws";
     //GET
     static final String GET_METHOD = "GET";
     static final String GET_MENUS_BY_RESTAURANT_ID = "/restaurantMenus/";
@@ -20,7 +20,6 @@ abstract class Path {
     static final String GET_ITEM_CATEGORIES = "/itemCategories";
     static final String GET_RATING_OF_ITEM = "/itemRating/";
     static final String GET_ITEM_RATING_OF_ITEM = "/itemRatingItem/";
-
     //POST
     static final String POST_METHOD = "POST";
     static final String GET_VALID_LOGIN = "/login";
@@ -32,7 +31,6 @@ abstract class Path {
     static final String POST_ADD_ITEM_CATEGORY = "/addItemCategory";
     static final String POST_ADD_ITEM_RATING = "/addItemRating";
     static final String POST_ADD_ACCOUNT_SUBSCRIPTION = "/addAccountSubscription";
-
     //PUT
     static final String PUT_METHOD = "PUT";
     static final String PUT_UPDATE_MENU = "/updateMenu";
@@ -41,7 +39,6 @@ abstract class Path {
     static final String PUT_UPDATE_ITEM = "/updateItem";
     static final String PUT_UPDATE_ITEM_CATEGORY = "/updateItemCategory";
     static final String PUT_UPDATE_ITEM_RATING = "/updateItemRating";
-
     //DELETE
     static final String DELETE_METHOD = "DELETE";
     static final String DELETE_MENU = "/deleteMenu/";

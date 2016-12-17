@@ -135,7 +135,7 @@ public class WebServiceImpl implements DBManager {
 
     @Override
     public Map<Long, List<Item>> getMenuItemsByCategory(long menuId) {
-        return null;
+        return WebServiceUtils.getMenuItemsByCategory(WebServiceUtils.get(Path.GET_MENU_ITEMS_BY_CATEGORY + menuId));
     }
 
     @Override
