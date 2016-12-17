@@ -14,11 +14,15 @@ import java.io.InputStreamReader;
 import java.lang.reflect.Type;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.Arrays;
 import java.util.List;
+
+import cat.udl.menufinder.models.Item;
+
+import static cat.udl.menufinder.ws.Path.baseUrl;
 
 public abstract class WebServiceUtils {
     public static final String TAG = WebServiceUtils.class.getSimpleName();
-    public static final String baseUrl = "http://172.16.113.185:8080/MenuFinderWeb/webservice/menufinderws";// /restaurantMenus/2
 
     public static String get(String acction) {
         String result = null;
@@ -39,15 +43,11 @@ public abstract class WebServiceUtils {
     }
 
     public static <T> T getBean(String json, Class<T> type) {
-        Gson gson = new Gson();
-        return gson.fromJson(json, type);
+        return new Gson().fromJson(json, type);
     }
 
-    public static <T> List<T> getBeanList(String json) {
-        Gson gson = new Gson();
-        Type listType = new TypeToken<List<T>>() {
-        }.getType();
-        return gson.fromJson(json, listType);
+    public static <T> List<T> getBeanList(String json, Class<T[]> type) {
+        return Arrays.asList(new Gson().fromJson(json, type));
     }
 
     public static <T> boolean post(String acction, T object) {
