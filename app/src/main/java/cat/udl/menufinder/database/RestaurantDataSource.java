@@ -1,20 +1,14 @@
 package cat.udl.menufinder.database;
 
 import android.content.ContentValues;
-import android.content.Context;
+import android.content.res.Resources;
 import android.database.Cursor;
-import android.database.SQLException;
-import android.database.sqlite.SQLiteDatabase;
-
-import java.util.ArrayList;
-import java.util.List;
+import android.database.sqlite.SQLiteConstraintException;
 
 import cat.udl.menufinder.models.Restaurant;
 
-public abstract class RestaurantDataSource implements DBManager {
+public class RestaurantDataSource extends DataSource {
 
-    private SQLiteDatabase database;
-    private ManagerDbHelper dbHelper;
     private String[] allColumns =
             {
                     RestaurantContract.RestaurantTable.ID,
@@ -32,86 +26,55 @@ public abstract class RestaurantDataSource implements DBManager {
 
             };
 
-    public RestaurantDataSource(){
-    }
-
-    public RestaurantDataSource(Context context) {
-        dbHelper = new ManagerDbHelper(context);
-    }
-
-    public void open() throws SQLException {
-        database = dbHelper.getWritableDatabase();
-    }
-
-    public void close() {
-        dbHelper.close();
-    }
-
-    public Restaurant getRestaurantById(long restaurantId){
-        Cursor cursor = database.query
-                (RestaurantContract.RestaurantTable.TABLE_NAME,
-                        allColumns, MenuContract.MenuTable.ID + " =" +
-                                restaurantId, null, null, null, null
-                );
-        cursor.moveToFirst();
-        Restaurant restaurant = cuToRestaurant(cursor);
-        cursor.close();
-        return restaurant;
-    }
-
-    public List<Restaurant> getRestaurants() {
-        List<Restaurant> allRestaurant = new ArrayList<Restaurant>();
-        Cursor cursor = database.query(
-                RestaurantContract.RestaurantTable.TABLE_NAME,
-                allColumns,
-                null, null, null, null, null);
-        cursor.moveToFirst();
-
-        while (!cursor.isAfterLast()) {
-            Restaurant restaurant = cuToRestaurant(cursor);
-            allRestaurant.add(restaurant);
-            cursor.moveToNext();
-        }
-        // Make sure to close the cursor
-        cursor.close();
-        return allRestaurant;
-    }
-
-    public boolean updateRestaurant(Restaurant restaurant, long id) {
-        try {
-            long RestaurantId = database.update(
-                    RestaurantContract.RestaurantTable.TABLE_NAME,
-                    toContentValues(restaurant),
-                    RestaurantContract.RestaurantTable.ID + " =" + id,
-                    null
-            );
-        } catch (Exception exp) {
-            throw (exp);
-        }
-        return true;
-    }
-
-    public boolean deleteRestaurant(long restaurantId) {
-        try {
-            long RestaurantId = database.delete(
-                    RestaurantContract.RestaurantTable.TABLE_NAME,
-                    RestaurantContract.RestaurantTable.ID + " =" + restaurantId,
-                    null);
-        } catch (Exception exp) {
-            throw (exp);
-        }
-        return true;
+    public RestaurantDataSource() {
+        super();
     }
 
     public boolean addRestaurant(Restaurant restaurant) {
         try {
-            database.insert(
+            database.insertOrThrow(
                     RestaurantContract.RestaurantTable.TABLE_NAME,
                     null,
                     toContentValues(restaurant));
-        } catch (Exception exp) {
-            throw (exp);
+        } catch (SQLiteConstraintException e) {
+            return false;
         }
+        return true;
+    }
+
+    public Restaurant getRestaurantById(long restaurantId) {
+        Restaurant restaurant;
+        Cursor cursor = database.query(
+                RestaurantContract.RestaurantTable.TABLE_NAME,
+                allColumns,
+                MenuContract.MenuTable.ID + " = ?",
+                new String[]{String.valueOf(restaurantId)},
+                null, null, null
+        );
+
+        if (cursor.moveToNext()) restaurant = cuToRestaurant(cursor);
+        else throw new Resources.NotFoundException("Restaurant with ID " + restaurantId + " not found");
+
+        cursor.close();
+        return restaurant;
+    }
+
+    public boolean updateRestaurant(Restaurant restaurant, long restaurantId) {
+        database.update(
+                RestaurantContract.RestaurantTable.TABLE_NAME,
+                toContentValues(restaurant),
+                RestaurantContract.RestaurantTable.ID + " = ?",
+                new String[]{String.valueOf(restaurantId)}
+        );
+        return true;
+    }
+
+    public boolean deleteRestaurant(long restaurantId) {
+        database.delete(
+                RestaurantContract.RestaurantTable.TABLE_NAME,
+                RestaurantContract.RestaurantTable.ID + " = ?",
+                new String[]{String.valueOf(restaurantId)}
+        );
         return true;
     }
 
@@ -131,7 +94,7 @@ public abstract class RestaurantDataSource implements DBManager {
         return restaurant;
     }
 
-    public ContentValues toContentValues(Restaurant restaurant) {
+    private ContentValues toContentValues(Restaurant restaurant) {
         ContentValues values = new ContentValues();
         values.put(RestaurantContract.RestaurantTable.ID, restaurant.getId());
         values.put(RestaurantContract.RestaurantTable.NAME, restaurant.getName());

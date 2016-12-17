@@ -1,22 +1,19 @@
 package cat.udl.menufinder.database;
 
 import android.content.ContentValues;
-import android.content.Context;
+import android.content.res.Resources;
 import android.database.Cursor;
-import android.database.SQLException;
-import android.database.sqlite.SQLiteDatabase;
+import android.database.sqlite.SQLiteConstraintException;
 
-import java.util.List;
 import java.util.ArrayList;
+import java.util.List;
 
-import cat.udl.menufinder.models.Item;
 import cat.udl.menufinder.database.ItemContract.ItemTable;
+import cat.udl.menufinder.models.Item;
 
-public abstract class ItemDataSource implements DBManager {
+public class ItemDataSource extends DataSource {
 
-    private SQLiteDatabase database;
-    private ManagerDbHelper dbHelper;
-    private String[] allColumns =
+    private final String[] allColumns =
             {
                     ItemContract.ItemTable.ID,
                     ItemContract.ItemTable.NAME,
@@ -27,87 +24,71 @@ public abstract class ItemDataSource implements DBManager {
             };
 
     public ItemDataSource() {
-    }
-
-    public ItemDataSource(Context context) {
-        dbHelper = new ManagerDbHelper(context);
-    }
-
-    public void open() throws SQLException {
-        database = dbHelper.getWritableDatabase();
-    }
-
-    public void close() {
-        dbHelper.close();
-    }
-
-    public Item getItemById(Long id) {
-
-        Cursor cursor = database.query
-                (ItemTable.TABLE_NAME,
-                        allColumns, ItemTable.ID + " =" +
-                                id, null, null, null, null
-                );
-        cursor.moveToFirst();
-        Item item = cuToItem(cursor);
-        cursor.close();
-        return item;
-    }
-
-    public List<Item> getRestaurantItems(long restaurantId) {
-        List<Item> items = new ArrayList<Item>();
-        Cursor cursor = database.query(
-                ItemTable.TABLE_NAME,
-                allColumns,
-                ItemTable.RESTAURANT + " =" + restaurantId, null, null, null, null);
-        cursor.moveToFirst();
-
-        while (!cursor.isAfterLast()) {
-            Item itemCategory = cuToItem(cursor);
-            items.add(itemCategory);
-            cursor.moveToNext();
-        }
-        // Make sure to close the cursor
-        cursor.close();
-        return items;
-    }
-
-    public Boolean updateItem(Item item, Long id) {
-        try {
-            long ItemId = database.update(
-                    ItemTable.TABLE_NAME,
-                    toContentValues(item),
-                    ItemTable.ID + " =" + id,
-                    null
-            );
-        } catch (Exception exp) {
-            throw (exp);
-        }
-        return true;
-    }
-
-
-    public Boolean deleteItem(Long id) {
-        try {
-            long ItemId = database.delete(
-                    ItemTable.TABLE_NAME,
-                    ItemTable.ID + " =" + id,
-                    null);
-        } catch (Exception exp) {
-            throw (exp);
-        }
-        return true;
+        super();
     }
 
     public boolean addItem(Item item) {
         try {
-            database.insert(
+            database.insertOrThrow(
                     ItemTable.TABLE_NAME,
                     null,
                     toContentValues(item));
-        } catch (Exception exp) {
-            throw (exp);
+        } catch (SQLiteConstraintException e) {
+            return false;
         }
+        return true;
+    }
+
+    public Item getItemById(long itemId) {
+        Item item;
+        Cursor cursor = database.query(
+                ItemTable.TABLE_NAME,
+                allColumns,
+                ItemTable.ID + " = ?",
+                new String[]{String.valueOf(itemId)},
+                null, null, null, null
+        );
+
+        if (cursor.moveToNext()) item = cuToItem(cursor);
+        else throw new Resources.NotFoundException("Item with ID " + itemId + " not found");
+
+        cursor.close();
+        return item;
+    }
+
+    public List<Item> getItemsByRestaurantId(long restaurantId) {
+        List<Item> items = new ArrayList<>();
+        Cursor cursor = database.query(
+                ItemTable.TABLE_NAME,
+                allColumns,
+                ItemTable.RESTAURANT + " = ?",
+                new String[]{String.valueOf(restaurantId)}, null, null, null);
+
+        while (cursor.moveToNext()) {
+            Item itemCategory = cuToItem(cursor);
+            items.add(itemCategory);
+        }
+        cursor.close();
+        return items;
+    }
+
+    public Boolean updateItem(Item item, long itemId) {
+        database.update(
+                ItemTable.TABLE_NAME,
+                toContentValues(item),
+                ItemTable.ID + " = ?",
+                new String[]{String.valueOf(itemId)}
+        );
+        return true;
+    }
+
+
+    public Boolean deleteItem(long itemId) {
+        database.delete(
+                ItemTable.TABLE_NAME,
+                ItemTable.ID + " = ?",
+                new String[]{String.valueOf(itemId)}
+        );
         return true;
     }
 
@@ -122,7 +103,7 @@ public abstract class ItemDataSource implements DBManager {
         return item;
     }
 
-    public ContentValues toContentValues(Item item) {
+    private ContentValues toContentValues(Item item) {
         ContentValues values = new ContentValues();
         values.put(ItemContract.ItemTable.ID, item.getId());
         values.put(ItemContract.ItemTable.NAME, item.getName());

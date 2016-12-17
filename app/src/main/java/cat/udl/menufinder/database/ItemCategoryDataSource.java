@@ -1,10 +1,9 @@
 package cat.udl.menufinder.database;
 
-import android.content.Context;
 import android.content.ContentValues;
+import android.content.res.Resources;
 import android.database.Cursor;
-import android.database.SQLException;
-import android.database.sqlite.SQLiteDatabase;
+import android.database.sqlite.SQLiteConstraintException;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -12,11 +11,9 @@ import java.util.List;
 import cat.udl.menufinder.database.ItemCategoryContract.ItemCategoryTable;
 import cat.udl.menufinder.models.ItemCategory;
 
-public abstract class ItemCategoryDataSource implements DBManager {
+public class ItemCategoryDataSource extends DataSource {
 
-    private SQLiteDatabase database;
-    private ManagerDbHelper dbHelper;
-    private String[] allColumns =
+    private final String[] allColumns =
             {
                     ItemCategoryTable.ID,
                     ItemCategoryTable.DESCRIPTION,
@@ -24,87 +21,69 @@ public abstract class ItemCategoryDataSource implements DBManager {
             };
 
     public ItemCategoryDataSource() {
+        super();
     }
 
-    public ItemCategoryDataSource(Context context) {
-        dbHelper = new ManagerDbHelper(context);
+    public boolean addItemCategory(ItemCategory itemCategory) {
+        try {
+            database.insertOrThrow(
+                    ItemCategoryTable.TABLE_NAME,
+                    null,
+                    toContentValues(itemCategory));
+        } catch (SQLiteConstraintException e) {
+            return false;
+        }
+        return true;
     }
 
-    public void open() throws SQLException {
-        database = dbHelper.getWritableDatabase();
-    }
+    public ItemCategory getItemCategoryById(long itemCategoryId) {
+        ItemCategory itemCategory;
+        Cursor cursor = database.query(
+                ItemCategoryTable.TABLE_NAME,
+                allColumns, ItemCategoryTable.ID + " = ?",
+                new String[]{String.valueOf(itemCategoryId)},
+                null, null, null
+        );
 
-    public void close() {
-        dbHelper.close();
-    }
+        if (cursor.moveToNext()) itemCategory = cuToItemCategory(cursor);
+        else
+            throw new Resources.NotFoundException("Item Category with ID " + itemCategoryId + " not found");
 
-    public ItemCategory getItemCategoryById(Long id) {
-
-        Cursor cursor = database.query
-                (ItemCategoryTable.TABLE_NAME,
-                        allColumns, ItemCategoryTable.ID + " =" +
-                                id, null, null, null, null
-                );
-        cursor.moveToFirst();
-        ItemCategory itemCategory = cuToItemCategory(cursor);
         cursor.close();
         return itemCategory;
     }
 
     public List<ItemCategory> getItemCategories() {
-        List<ItemCategory> itemCategories = new ArrayList<ItemCategory>();
+        List<ItemCategory> itemCategories = new ArrayList<>();
         Cursor cursor = database.query(
                 ItemCategoryTable.TABLE_NAME,
                 allColumns,
                 null, null, null, null, null);
-        cursor.moveToFirst();
 
-        while (!cursor.isAfterLast()) {
+        while (cursor.moveToNext()) {
             ItemCategory itemCategory = cuToItemCategory(cursor);
             itemCategories.add(itemCategory);
-            cursor.moveToNext();
         }
-        // Make sure to close the cursor
         cursor.close();
         return itemCategories;
     }
 
-    public boolean updateItemCategory(ItemCategory itemCategory, Long id) {
-        try {
-            long ItemId = database.update(
-                    ItemCategoryTable.TABLE_NAME,
-                    toContentValues(itemCategory),
-                    ItemCategoryTable.ID + " =" + id,
-                    null
-            );
-        } catch (Exception exp) {
-            throw (exp);
-        }
+    public boolean updateItemCategory(ItemCategory itemCategory, long itemCategoryId) {
+        database.update(
+                ItemCategoryTable.TABLE_NAME,
+                toContentValues(itemCategory),
+                ItemCategoryTable.ID + " = ?",
+                new String[]{String.valueOf(itemCategoryId)}
+        );
         return true;
     }
 
-
-    public boolean deleteItemCategory(Long id) {
-        try {
-            long ItemId = database.delete(
-                    ItemCategoryTable.TABLE_NAME,
-                    ItemCategoryTable.ID + " =" + id,
-                    null);
-        } catch (Exception exp) {
-            throw (exp);
-        }
-        return true;
-    }
-
-    public boolean addItemCategory(ItemCategory itemCategory) {
-        try {
-            database.insert(
-                    ItemCategoryTable.TABLE_NAME,
-                    null,
-                    toContentValues(itemCategory));
-        } catch (Exception exp) {
-            throw (exp);
-        }
+    public boolean deleteItemCategory(long itemCategoryId) {
+        database.delete(
+                ItemCategoryTable.TABLE_NAME,
+                ItemCategoryTable.ID + " = ?",
+                new String[]{String.valueOf(itemCategoryId)}
+        );
         return true;
     }
 
@@ -116,8 +95,7 @@ public abstract class ItemCategoryDataSource implements DBManager {
         return itemCategory;
     }
 
-
-    public ContentValues toContentValues(ItemCategory itemcategory) {
+    private ContentValues toContentValues(ItemCategory itemcategory) {
         ContentValues values = new ContentValues();
         values.put(ItemCategoryTable.ID, itemcategory.getId());
         values.put(ItemCategoryTable.NAME, itemcategory.getName());
