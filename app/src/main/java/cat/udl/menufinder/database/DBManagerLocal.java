@@ -156,7 +156,7 @@ public class DBManagerLocal implements DBManager {
 
     @Override
     public List<Item> getRestaurantItems(long restaurantId) {
-        return null;
+        return itemDataSource.getItemsByRestaurantId(restaurantId);
     }
 
     @Override
