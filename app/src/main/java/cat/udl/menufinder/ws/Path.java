@@ -20,6 +20,7 @@ abstract class Path {
     static final String GET_ITEM_CATEGORIES = "/itemCategories";
     static final String GET_RATING_OF_ITEM = "/itemRating/";
     static final String GET_ITEM_RATING_OF_ITEM = "/itemRatingItem/";
+    static final String GET_SUBSCRIBED_RESTAURANTS_OF_ACCOUNT = "/subscribedRestaurantsOfAccount/";
     //POST
     static final String POST_METHOD = "POST";
     static final String GET_VALID_LOGIN = "/login";

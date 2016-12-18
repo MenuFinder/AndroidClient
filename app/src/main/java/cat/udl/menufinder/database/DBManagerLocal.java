@@ -198,4 +198,10 @@ public class DBManagerLocal implements DBManager {
     public List<ItemCategory> getItemCategories() {
         return itemCategoryDataSource.getItemCategories();
     }
+
+    @Override
+    public List<Restaurant> getSubscribedRestaurantsOfAccount(String accountId) {
+        return restaurantDataSource.getSubscribedRestaurants();
+    }
+    }
 }

@@ -78,6 +78,10 @@ public class RestaurantDataSource extends DataSource {
         return restaurant;
     }
 
+    public List<Restaurant> getSubscribedRestaurants() {
+        return null;
+    }
+
     public boolean updateRestaurant(Restaurant restaurant) {
         database.update(
                 RestaurantContract.RestaurantTable.TABLE_NAME,

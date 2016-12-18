@@ -172,4 +172,9 @@ public class WebServiceImpl implements DBManager {
     public List<ItemCategory> getItemCategories() {
         return WebServiceUtils.getBeanList(WebServiceUtils.get(Path.GET_ITEM_CATEGORIES), ItemCategory[].class);
     }
+
+    @Override
+    public List<Restaurant> getSubscribedRestaurantsOfAccount(String accountId) {
+        return WebServiceUtils.getBeanList(WebServiceUtils.get(Path.GET_SUBSCRIBED_RESTAURANTS_OF_ACCOUNT + accountId), Restaurant[].class);
+    }
 }
