@@ -131,7 +131,7 @@ public class RegisterActivity extends MasterActivity {
             Restaurant restaurant = new Restaurant(restaurantName, cif, address, city, postalCode,
                     state, country, emailRestaurant, phone, username);
 
-            account.addRestaurant(restaurant);
+            getDbManager().addRestaurant(restaurant);
         }
 
         if (cancel) {

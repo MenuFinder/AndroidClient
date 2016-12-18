@@ -35,7 +35,7 @@ public class ReviewActivity extends MasterActivity {
         Item item = (Item) getIntent().getSerializableExtra(KEY_ITEM);
         ((TextView) findViewById(R.id.name)).setText(item.getName());
         ((TextView) findViewById(R.id.description)).setText(item.getDescription());
-        configList(item.getReviews());
+        configList(getDbManager().getReviewsOfItem(item.getId()));
         configFAB(item);
     }
 

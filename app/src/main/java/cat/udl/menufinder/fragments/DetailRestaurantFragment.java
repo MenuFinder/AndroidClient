@@ -66,7 +66,7 @@ public class DetailRestaurantFragment extends MasterFragment {
                 getActivity(), DividerItemDecoration.VERTICAL);
         recyclerView.addItemDecoration(itemDecoration);
 
-        List<Menu> menus = restaurant.getVisibleMenus();
+        List<Menu> menus = getDbManager().getMenusByRestaurantId(restaurant.getId());
 
         MenusAdapter adapter = new MenusAdapter(getActivity(), menus, new ManageMenusFragment.OnMenuClickListener() {
             @Override
