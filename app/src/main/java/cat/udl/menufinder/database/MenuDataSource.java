@@ -35,7 +35,7 @@ public class MenuDataSource extends DataSource {
                     null,
                     toContentValues(menu));
         } catch (SQLiteConstraintException e) {
-            return false;
+            return updateMenu(menu);
         }
         return true;
     }
@@ -128,7 +128,7 @@ public class MenuDataSource extends DataSource {
         values.put(MenuTable.NAME, menu.getName());
         values.put(MenuTable.DESCRIPTION, menu.getDescription());
         values.put(MenuTable.PRICE, menu.getScore());
-        values.put(MenuTable.VISIBLE, menu.isVisible());
+        values.put(MenuTable.VISIBLE, menu.getVisible());
         return values;
     }
 }

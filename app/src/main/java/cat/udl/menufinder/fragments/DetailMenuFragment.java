@@ -11,14 +11,17 @@ import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import java.util.List;
+import java.util.Map;
+
 import cat.udl.menufinder.R;
 import cat.udl.menufinder.activities.ReviewActivity;
 import cat.udl.menufinder.application.MasterActivity;
 import cat.udl.menufinder.application.MasterFragment;
+import cat.udl.menufinder.database.DBManager;
 import cat.udl.menufinder.models.Item;
 import cat.udl.menufinder.models.ItemCategory;
 import cat.udl.menufinder.models.Menu;
-import cat.udl.menufinder.utils.Constants;
 
 import static android.view.Gravity.CENTER;
 import static cat.udl.menufinder.utils.Constants.KEY_ITEM;
@@ -38,17 +41,18 @@ public class DetailMenuFragment extends MasterFragment {
         container = (LinearLayout) getView().findViewById(R.id.container);
     }
 
-    public void update(Menu menu) {
+    public void update(final Menu menu) {
         ((TextView) getView().findViewById(R.id.price)).setText(String.valueOf(menu.getPrice() + "€"));
         ((MasterActivity) getActivity()).getSupportActionBar().setTitle(menu.getName());
         container.removeAllViews();
 
-
-        for (ItemCategory ic : menu.getItemCategories()) {
-            String categoria = ic.getName();
+        DBManager dbManager = getDbManager();
+        for (Map.Entry<Long, List<Item>> entry : dbManager.getMenuItemsByCategory(menu.getId()).entrySet()) {
+            ItemCategory itemCategory = dbManager.getItemCategoryById(entry.getKey());
+            String categoria = itemCategory.getName();
             LinearLayout layout = getNewLayout();
             layout.addView(getCategory(categoria));
-            for (final Item item : menu.getItemsByCategory(ic)) {
+            for (final Item item : entry.getValue()) {
                 String itemName = item.getName();
                 View view = getItem(itemName);
                 view.setOnClickListener(new View.OnClickListener() {

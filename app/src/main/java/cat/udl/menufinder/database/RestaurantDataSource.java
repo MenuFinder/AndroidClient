@@ -8,6 +8,7 @@ import android.database.sqlite.SQLiteConstraintException;
 import java.util.ArrayList;
 import java.util.List;
 
+import cat.udl.menufinder.application.MasterApplication;
 import cat.udl.menufinder.models.Restaurant;
 
 public class RestaurantDataSource extends DataSource {
@@ -34,7 +35,7 @@ public class RestaurantDataSource extends DataSource {
     }
 
     public List<Restaurant> getRestaurants() {
-        List<Restaurant> Allrestaurant = new ArrayList<>();
+        List<Restaurant> allRestaurants = new ArrayList<>();
         Cursor cursor = database.query(
                 RestaurantContract.RestaurantTable.TABLE_NAME,
                 allColumns,
@@ -42,10 +43,10 @@ public class RestaurantDataSource extends DataSource {
 
         while (cursor.moveToNext()) {
             Restaurant restaurant = cuToRestaurant(cursor);
-            Allrestaurant.add(restaurant);
+            allRestaurants.add(restaurant);
         }
         cursor.close();
-        return Allrestaurant;
+        return allRestaurants;
     }
 
     public boolean addRestaurant(Restaurant restaurant) {
@@ -79,7 +80,19 @@ public class RestaurantDataSource extends DataSource {
     }
 
     public List<Restaurant> getSubscribedRestaurants() {
-        return null;
+        List<Restaurant> allRestaurants = new ArrayList<>();
+        Cursor cursor = database.rawQuery(
+                "SELECT r.* FROM " + RestaurantContract.RestaurantTable.TABLE_NAME + " r, " +
+                        SubscriptionContract.SuscriptionTable.TABLE_NAME +
+                        " us WHERE us.account = ? AND r.id = us.restaurant",
+                new String[]{MasterApplication.getContext().getUsername()});
+
+        while (cursor.moveToNext()) {
+            Restaurant restaurant = cuToRestaurant(cursor);
+            allRestaurants.add(restaurant);
+        }
+        cursor.close();
+        return allRestaurants;
     }
 
     public boolean updateRestaurant(Restaurant restaurant) {

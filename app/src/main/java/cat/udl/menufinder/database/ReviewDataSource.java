@@ -73,55 +73,35 @@ public class ReviewDataSource extends DataSource {
     }
 
     List<Review> getReviewsOfItem(long itemId) {
-        List<Review> Allreview = new ArrayList<>();
-        Cursor cursor = database.query(
-                ReviewContract.ReviewTable.TABLE_NAME + "," + ReviewTypeContract.ReviewTypeTable.TABLE_NAME,
-                allColumns,
-                ReviewContract.ReviewTable.PARENT_TYPE + " = " + ReviewTypeContract.ReviewTypeTable.ID + " AND" +
-                        ReviewTypeContract.ReviewTypeTable.ID + " = " + itemId,
-                null, null, null, null);
-
-        while (cursor.moveToNext()) {
-            Review review = cuToReview(cursor);
-            Allreview.add(review);
-        }
-        cursor.close();
-        return Allreview;
+        return getReviews(itemId, "item");
     }
 
     List<Review> getReviewsOfMenu(long menuId) {
-        List<Review> Allreview = new ArrayList<>();
-        Cursor cursor = database.query(
-                ReviewContract.ReviewTable.TABLE_NAME + "," + ReviewTypeContract.ReviewTypeTable.TABLE_NAME,
-                allColumns,
-                ReviewContract.ReviewTable.PARENT_TYPE + " = " + ReviewTypeContract.ReviewTypeTable.ID + " AND" +
-                        ReviewTypeContract.ReviewTypeTable.ID + " = " + menuId,
-                null, null, null, null);
-
-        while (cursor.moveToNext()) {
-            Review review = cuToReview(cursor);
-            Allreview.add(review);
-        }
-        cursor.close();
-        return Allreview;
+        return getReviews(menuId, "menu");
     }
 
     List<Review> getReviewsOfRestaurant(long restaurantId) {
-        List<Review> Allreview = new ArrayList<>();
+        return getReviews(restaurantId, "restaurant");
+    }
+
+    List<Review> getReviews(long id, String reviewType) {
+        List<Review> restaurantReviews = new ArrayList<>();
         Cursor cursor = database.query(
-                ReviewContract.ReviewTable.TABLE_NAME + "," + ReviewTypeContract.ReviewTypeTable.TABLE_NAME,
+                ReviewContract.ReviewTable.TABLE_NAME,
                 allColumns,
-                ReviewContract.ReviewTable.PARENT_TYPE + " = " + ReviewTypeContract.ReviewTypeTable.ID + " AND" +
-                        ReviewTypeContract.ReviewTypeTable.ID + " = " + restaurantId,
-                null, null, null, null);
+                ReviewContract.ReviewTable.PARENT_TYPE + " = ?" + " AND " +
+                        ReviewTypeContract.ReviewTypeTable.ID + " = ?",
+                new String[]{reviewType, String.valueOf(id)},
+                null, null, null);
 
         while (cursor.moveToNext()) {
             Review review = cuToReview(cursor);
-            Allreview.add(review);
+            restaurantReviews.add(review);
         }
         cursor.close();
-        return Allreview;
+        return restaurantReviews;
     }
+
 
     private Review cuToReview(Cursor cursor) {
         Review review = new Review();

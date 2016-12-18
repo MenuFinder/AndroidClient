@@ -10,7 +10,7 @@ public class Menu implements Serializable {
     private String description;
     private double price;
     private double score;
-    private boolean isVisible;
+    private boolean visible;
 
     public Menu() {
     }
@@ -21,7 +21,7 @@ public class Menu implements Serializable {
         this.description = description;
         this.price = price;
         this.score = 0;
-        this.isVisible = true;
+        this.visible = true;
     }
 
     public long getId() {
@@ -72,12 +72,12 @@ public class Menu implements Serializable {
         this.score = score;
     }
 
-    public boolean getIsVisible() {
-        return isVisible;
+    public boolean isVisible() {
+        return visible;
     }
 
     public void setVisible(boolean visible) {
-        isVisible = visible;
+        this.visible = visible;
     }
 
     @Override
@@ -89,15 +89,15 @@ public class Menu implements Serializable {
                 ", description='" + description + '\'' +
                 ", price=" + price +
                 ", score=" + score +
-                ", isVisible=" + isVisible +
+                ", visible=" + visible +
                 '}';
     }
 
     public void setVisible(int visible) {
-        isVisible = visible == 1;
+        this.visible = visible == 1;
     }
 
-    public int isVisible() {
-        return isVisible ? 1 : 0;
+    public int getVisible() {
+        return visible ? 1 : 0;
     }
 }

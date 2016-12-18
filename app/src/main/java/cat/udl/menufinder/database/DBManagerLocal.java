@@ -240,5 +240,5 @@ public class DBManagerLocal implements DBManager {
     public List<Restaurant> getSubscribedRestaurantsOfAccount(String accountId) {
         return restaurantDataSource.getSubscribedRestaurants();
     }
-    }
+
 }

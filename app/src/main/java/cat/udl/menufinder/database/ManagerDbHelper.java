@@ -10,6 +10,7 @@ import cat.udl.menufinder.database.ItemContract.ItemTable;
 import cat.udl.menufinder.database.MenuContract.MenuTable;
 import cat.udl.menufinder.database.MenuItemContract.MenuItemTable;
 import cat.udl.menufinder.database.RestaurantContract.RestaurantTable;
+import cat.udl.menufinder.database.ReviewContract.ReviewTable;
 import cat.udl.menufinder.database.SubscriptionContract.SuscriptionTable;
 
 
@@ -28,7 +29,7 @@ public class ManagerDbHelper extends SQLiteOpenHelper {
                 + ItemCategoryTable._ID + " INTEGER PRIMARY KEY AUTOINCREMENT,"
                 + ItemCategoryTable.ID + " INTEGER NOT NULL,"
                 + ItemCategoryTable.NAME + " TEXT NOT NULL,"
-                + ItemCategoryTable.DESCRIPTION + " TEXT NOT NULL,"
+                + ItemCategoryTable.DESCRIPTION + " TEXT,"
                 + "UNIQUE (" + ItemCategoryTable.ID + "))");
 
         db.execSQL("CREATE TABLE " + ItemTable.TABLE_NAME + " ("
@@ -78,6 +79,15 @@ public class ManagerDbHelper extends SQLiteOpenHelper {
                 + SuscriptionTable._ID + " INTEGER PRIMARY KEY AUTOINCREMENT,"
                 + SuscriptionTable.ACCOUNT + " INTEGER NOT NULL,"
                 + SuscriptionTable.RESTAURANT + " TEXT NOT NULL" + ")");
+
+        db.execSQL("CREATE TABLE " + ReviewTable.TABLE_NAME + " (" +
+                ReviewTable._ID + " INTEGER PRIMARY KEY AUTOINCREMENT," +
+                ReviewTable.ID + " INTEGER NOT NULL," +
+                ReviewTable.REVIEW + " TEXT," +
+                ReviewTable.PARENT_TYPE + "  TEXT," +
+                ReviewTable.PARENT_ID + " INTEGER," +
+                ReviewTable.ACCOUNT + "  TEXT" +
+                "UNIQUE (" + ReviewTable.ID + "))");
 
     }
 

@@ -46,7 +46,7 @@ public class MenusAdapter extends RecyclerView.Adapter<MenusAdapter.ViewHolder> 
         holder.name.setText(menu.getName());
         holder.price.setText(String.valueOf(menu.getPrice()));
         if (userType != RESTAURANT) holder.is_visible.setVisibility(GONE);
-        holder.is_visible.setChecked(menu.getIsVisible());
+        holder.is_visible.setChecked(menu.isVisible());
         holder.is_visible.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
