@@ -1,38 +1,43 @@
 package cat.udl.menufinder.models;
 
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
 
 public class Menu implements Serializable {
 
     private long id;
+    private long restaurant;
     private String name;
     private String description;
     private double price;
     private double score;
     private boolean isVisible;
-    private long restaurant_id;
-    private Map<ItemCategory, List<Item>> itemsCategory;
 
-    public Menu(String name, String description, double price, boolean isVisible) {
+    public Menu() {
+    }
+
+    public Menu(long restaurant, String name, String description, double price) {
+        this.restaurant = restaurant;
         this.name = name;
         this.description = description;
         this.price = price;
-        this.isVisible = isVisible;
-        itemsCategory = new HashMap<ItemCategory, List<Item>>();
+        this.score = 0;
+        this.isVisible = true;
     }
 
     public long getId() {
-
         return id;
     }
 
     public void setId(long id) {
         this.id = id;
+    }
+
+    public long getRestaurant() {
+        return restaurant;
+    }
+
+    public void setRestaurant(long restaurant) {
+        this.restaurant = restaurant;
     }
 
     public String getName() {
@@ -67,7 +72,7 @@ public class Menu implements Serializable {
         this.score = score;
     }
 
-    public boolean isVisible() {
+    public boolean getIsVisible() {
         return isVisible;
     }
 
@@ -75,44 +80,24 @@ public class Menu implements Serializable {
         isVisible = visible;
     }
 
-    public long getRestaurant_id() {
-        return restaurant_id;
-    }
-
-    public void setRestaurant_id(long restaurant_id) {
-        this.restaurant_id = restaurant_id;
-    }
-
-    public void addMenuItem(MenuItem menuItem) {
-        if (!itemsCategory.containsKey(menuItem.getItemCategory())) {
-            itemsCategory.put(menuItem.getItemCategory(), new ArrayList<Item>());
-        }
-        itemsCategory.get(menuItem.getItemCategory()).add(menuItem.getItem());
-    }
-
-    public List<Item> getItemsByCategory(ItemCategory itemCategory) {
-        return itemsCategory.get(itemCategory);
-    }
-
-    public Map<ItemCategory, List<Item>> getItemsCategory() {
-        return itemsCategory;
-    }
-
-    public Set<ItemCategory> getItemCategories() {
-        return itemsCategory.keySet();
-    }
-
     @Override
     public String toString() {
         return "Menu{" +
                 "id=" + id +
+                ", restaurant=" + restaurant +
                 ", name='" + name + '\'' +
                 ", description='" + description + '\'' +
                 ", price=" + price +
                 ", score=" + score +
                 ", isVisible=" + isVisible +
-                ", restaurant_id=" + restaurant_id +
                 '}';
     }
 
+    public void setVisible(int visible) {
+        isVisible = visible == 1;
+    }
+
+    public int isVisible() {
+        return isVisible ? 1 : 0;
+    }
 }

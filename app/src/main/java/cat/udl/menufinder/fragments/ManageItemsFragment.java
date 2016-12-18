@@ -60,7 +60,7 @@ public class ManageItemsFragment extends MasterFragment {
         animator.setAddDuration(1000);
         recyclerView.setItemAnimator(animator);
 
-        items = getDbManager().getAllItemsOfRestaurant(0);
+        items = getDbManager().getRestaurantItems(0);
         adapter = new ItemsAdapter(getActivity(), items, new OnItemClick() {
             @Override
             public void onItem(Item item, int position) {
@@ -187,7 +187,8 @@ public class ManageItemsFragment extends MasterFragment {
 
                 if (closeDialog) {
                     alertDialog.dismiss();
-                    saveToDB(new Item(name, description, Double.valueOf(price)));
+                    //TODO Posar la id del restaurant
+                    saveToDB(new Item(name, description, Double.valueOf(price), 0));
                 }
             }
         });

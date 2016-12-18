@@ -4,28 +4,49 @@ import java.io.Serializable;
 
 public class MenuItem implements Serializable {
 
-    private Item item;
-    private ItemCategory itemCategory;
+    private long menu;
+    private long item;
+    private long itemCategory;
 
-    public MenuItem(Item item, ItemCategory itemCategory) {
+    public MenuItem() {
+    }
+
+    public MenuItem(long menu, long item, long itemCategory) {
+        this.menu = menu;
         this.item = item;
         this.itemCategory = itemCategory;
     }
 
-    public Item getItem() {
+    public long getMenu() {
+        return menu;
+    }
+
+    public void setMenu(long menu) {
+        this.menu = menu;
+    }
+
+    public long getItem() {
         return item;
     }
 
-    public void setItem(Item item) {
+    public void setItem(long item) {
         this.item = item;
     }
 
-    public ItemCategory getItemCategory() {
+    public long getItemCategory() {
         return itemCategory;
     }
 
-    public void setItemCategory(ItemCategory itemCategory) {
+    public void setItemCategory(long itemCategory) {
         this.itemCategory = itemCategory;
     }
 
+    @Override
+    public String toString() {
+        return "MenuItem{" +
+                "menu=" + menu +
+                ", item=" + item +
+                ", itemCategory=" + itemCategory +
+                '}';
+    }
 }

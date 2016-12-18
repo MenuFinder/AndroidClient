@@ -149,7 +149,8 @@ public class RestaurantsFragment extends MasterFragment {
     private void filterRestaurants(SearchCriteria searchCriteria) {
         restaurants.clear();
         Restaurant filteredRestaurant = new Restaurant("Filtered Restaurant", "123456789X",
-                "Plaça Major", "Talladell", "25301", "Spaña", "Lleida", "", "973 973 973");
+                "Plaça Major", "Talladell", "25301", "Spaña", "Lleida", "", "973 973 973",
+                getMasterApplication().getUsername());
         restaurants.add(filteredRestaurant);
         adapter.notifyDataSetChanged();
     }

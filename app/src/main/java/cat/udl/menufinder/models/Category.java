@@ -8,7 +8,11 @@ public class Category implements Serializable {
     private String name;
     private String description;
 
-    public Category(String name, String description) {
+    public Category() {
+    }
+
+    public Category(long id, String name, String description) {
+        this.id = id;
         this.name = name;
         this.description = description;
     }
@@ -40,10 +44,9 @@ public class Category implements Serializable {
     @Override
     public String toString() {
         return "Category{" +
-                "id=" + id +
+                "description='" + description + '\'' +
                 ", name='" + name + '\'' +
-                ", description='" + description + '\'' +
+                ", id=" + id +
                 '}';
     }
-
 }

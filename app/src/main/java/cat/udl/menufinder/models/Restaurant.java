@@ -1,8 +1,6 @@
 package cat.udl.menufinder.models;
 
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.List;
 
 public class Restaurant implements Serializable {
 
@@ -16,12 +14,14 @@ public class Restaurant implements Serializable {
     private String country;
     private String email;
     private String phone;
-    private List<Menu> menus;
-    private List<Category> categories;
+    private String account;
     private double score;
 
+    public Restaurant() {
+    }
+
     public Restaurant(String name, String cif, String address, String city, String postalCode,
-                      String state, String country, String email, String phone) {
+                      String state, String country, String email, String phone, String account) {
         this.name = name;
         this.cif = cif;
         this.address = address;
@@ -31,8 +31,8 @@ public class Restaurant implements Serializable {
         this.country = country;
         this.email = email;
         this.phone = phone;
-        menus = new ArrayList<Menu>();
-        categories = new ArrayList<Category>();
+        this.account = account;
+        this.score = 0;
     }
 
     public long getId() {
@@ -115,20 +115,12 @@ public class Restaurant implements Serializable {
         this.phone = phone;
     }
 
-    public List<Menu> getMenus() {
-        return menus;
+    public String getAccount() {
+        return account;
     }
 
-    public List<Category> getCategories() {
-        return categories;
-    }
-
-    public void addCategory(Category category) {
-        categories.add(category);
-    }
-
-    public void addMenu(Menu menu) {
-        menus.add(menu);
+    public void setAccount(String account) {
+        this.account = account;
     }
 
     public double getScore() {
@@ -152,16 +144,9 @@ public class Restaurant implements Serializable {
                 ", country='" + country + '\'' +
                 ", email='" + email + '\'' +
                 ", phone='" + phone + '\'' +
+                ", account='" + account + '\'' +
                 ", score=" + score +
                 '}';
-    }
-
-    public List<Menu> getVisibleMenus() {
-        List<Menu> visibleMenus = new ArrayList<>();
-        for (Menu menu : menus) {
-            if (menu.isVisible()) visibleMenus.add(menu);
-        }
-        return visibleMenus;
     }
 
     public String getAddressWithCity() {

@@ -61,7 +61,7 @@ public class ManageMenusFragment extends MasterFragment {
         animator.setAddDuration(1000);
         recyclerView.setItemAnimator(animator);
 
-        menus = getDbManager().getAllMenusOfRestaurant(0);
+        menus = getDbManager().getMenusByRestaurantId(0);
         adapter = new MenusAdapter(getActivity(), menus, new OnMenuClickListener() {
             @Override
             public void onMenuClick(Menu menu, int adapterPosition) {
@@ -177,7 +177,8 @@ public class ManageMenusFragment extends MasterFragment {
                         .toString().trim();
                 if (closeDialog) {
                     alertDialog.dismiss();
-                    saveToDB(new Menu(name, description, Double.parseDouble(price), true));
+                    //TODO Posar la id del restaurant
+                    saveToDB(new Menu(0,name, description, Double.parseDouble(price)));
                 }
             }
         });

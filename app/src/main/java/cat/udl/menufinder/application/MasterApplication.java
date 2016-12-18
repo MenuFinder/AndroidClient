@@ -5,7 +5,7 @@ import android.content.Context;
 import android.content.SharedPreferences;
 
 import cat.udl.menufinder.database.DBManager;
-import cat.udl.menufinder.database.FakeDB;
+import cat.udl.menufinder.database.DBManagerLocal;
 import cat.udl.menufinder.enums.UserType;
 import cat.udl.menufinder.utils.Constants;
 
@@ -25,7 +25,7 @@ public class MasterApplication extends Application {
     }
 
     public DBManager getDbManager() {
-        return FakeDB.getInstance();
+        return DBManagerLocal.getInstance();
     }
 
     public SharedPreferences getPestormixSharedPreferences() {

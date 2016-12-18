@@ -1,9 +1,9 @@
 package cat.udl.menufinder.enums;
 
 public enum UserType {
-    CLIENT("CLIENT"),
-    RESTAURANT("RESTAURANT"),
-    GUEST("GUEST");
+    CLIENT("client"),
+    RESTAURANT("restaurant"),
+    GUEST("guest");
 
     private String text;
 
