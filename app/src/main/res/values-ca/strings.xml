@@ -11,6 +11,7 @@
     <string name="action_sign_in_without_username">Iniciar sessió sense usuari</string>
     <string name="action_view_map">Mapa</string>
     <string name="action_view_restaurants">Restaurants</string>
+    <string name="action_view_subscriptions">Subscripcions</string>
     <string name="delete">Borrar</string>
     <string name="deleteConfirmation">Borrar \"%s\"</string>
     <string name="deleteNotification">\"%s\" borrat</string>

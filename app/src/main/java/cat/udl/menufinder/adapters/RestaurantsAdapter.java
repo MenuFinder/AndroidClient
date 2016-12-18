@@ -6,7 +6,8 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.ImageButton;
 import android.widget.TextView;
 
 import java.util.List;
@@ -56,12 +57,14 @@ public class RestaurantsAdapter extends RecyclerView.Adapter<RestaurantsAdapter.
         TextView name;
         TextView address;
 
-        public ViewHolder(View itemView) {
+        ViewHolder(View itemView) {
             super(itemView);
             name = (TextView) itemView.findViewById(R.id.name);
             address = (TextView) itemView.findViewById(R.id.address);
-            Button share_button = (Button) itemView.findViewById(R.id.share_button);
-            Button view_map_button = (Button) itemView.findViewById(R.id.view_map_button);
+            ImageButton share_button = (ImageButton) itemView.findViewById(R.id.share_button);
+            ImageButton view_map_button = (ImageButton) itemView.findViewById(R.id.view_map_button);
+            View favourite_button = itemView.findViewById(R.id.favourite_button);
+            final CheckBox favourite_checkbox = (CheckBox) itemView.findViewById(R.id.favourite_checkbox);
             CardView cardView = (CardView) itemView.findViewById(R.id.card_view);
             share_button.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -73,6 +76,13 @@ public class RestaurantsAdapter extends RecyclerView.Adapter<RestaurantsAdapter.
                 @Override
                 public void onClick(View view) {
                     listener.onViewMapClick(getRestaurant(getAdapterPosition()));
+                }
+            });
+            favourite_button.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    favourite_checkbox.setChecked(!favourite_checkbox.isChecked());
+                    listener.onFavouriteClick(getRestaurant(getAdapterPosition()));
                 }
             });
             cardView.setOnClickListener(new View.OnClickListener() {

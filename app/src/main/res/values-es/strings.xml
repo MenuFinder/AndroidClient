@@ -9,6 +9,7 @@
     <string name="action_settings">Configuración</string>
     <string name="action_view_map">Mapa</string>
     <string name="action_view_restaurants">Restaurantes</string>
+    <string name="action_view_subscriptions">Subscripciones</string>
     <string name="action_logout">Cerrar sesión</string>
     <string name="action_sign_in">Iniciar sesión</string>
     <string name="action_sign_in_short">Iniciar sesión</string>

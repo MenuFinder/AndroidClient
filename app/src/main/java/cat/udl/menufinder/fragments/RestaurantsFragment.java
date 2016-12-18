@@ -104,13 +104,16 @@ public class RestaurantsFragment extends MasterFragment {
 
             @Override
             public void onShareClick(Restaurant restaurant) {
-                showToast("SHARE");
                 startActivity(Utils.getShareIntent(getString(R.string.share_text, restaurant.getName())));
             }
 
             @Override
             public void onViewMapClick(Restaurant restaurant) {
                 showToast("MAP");
+            }
+
+            @Override
+            public void onFavouriteClick(Restaurant restaurant) {
             }
         });
         recyclerView.setAdapter(adapter);
@@ -161,6 +164,8 @@ public class RestaurantsFragment extends MasterFragment {
         void onShareClick(Restaurant restaurant);
 
         void onViewMapClick(Restaurant restaurant);
+
+        void onFavouriteClick(Restaurant restaurant);
     }
 
 }

@@ -30,6 +30,7 @@
     <string name="action_settings">Settings</string>
     <string name="action_view_map">Map</string>
     <string name="action_view_restaurants">Restaurants</string>
+    <string name="action_view_subscriptions">Subscriptions</string>
     <string name="action_sign_in_without_username">Sign in without username</string>
 
     <!-- Error -->
