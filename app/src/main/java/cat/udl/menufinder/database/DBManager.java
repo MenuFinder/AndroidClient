@@ -4,8 +4,10 @@ import java.util.List;
 import java.util.Map;
 
 import cat.udl.menufinder.models.Account;
+import cat.udl.menufinder.models.AccountSubscription;
 import cat.udl.menufinder.models.Item;
 import cat.udl.menufinder.models.ItemCategory;
+import cat.udl.menufinder.models.ItemRating;
 import cat.udl.menufinder.models.Menu;
 import cat.udl.menufinder.models.MenuItem;
 import cat.udl.menufinder.models.Restaurant;
@@ -77,19 +79,19 @@ public interface DBManager {
 
     List<ItemCategory> getItemCategories();
 
-//    boolean updateItemRating(ItemRating itemRating);
-//
-//    boolean deleteItemRating(ItemRating itemRating);
-//
-//    boolean addItemRating(ItemRating itemRating);
-//
-//    List<ItemRating> getRatingsOfItem(long itemId);
-//
-//    double getItemRatingOfItem(long itemId);
-//
-//    boolean deleteAccountSubscription(AccountSubscription accountSubscription);
-//
-//    boolean addAccountSubscription(AccountSubscription accountSubscription);
+    boolean updateItemRating(ItemRating itemRating);
+
+    boolean deleteItemRating(ItemRating itemRating);
+
+    boolean addItemRating(ItemRating itemRating);
+
+    List<ItemRating> getRatingsOfItem(long itemId);
+
+    double getItemRatingOfItem(long itemId);
+
+    boolean deleteAccountSubscription(AccountSubscription accountSubscription);
+
+    boolean addAccountSubscription(AccountSubscription accountSubscription);
 
     List<Restaurant> getSubscribedRestaurantsOfAccount(String accountId);
 }

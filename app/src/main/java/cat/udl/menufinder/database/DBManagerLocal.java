@@ -5,8 +5,10 @@ import java.util.List;
 import java.util.Map;
 
 import cat.udl.menufinder.models.Account;
+import cat.udl.menufinder.models.AccountSubscription;
 import cat.udl.menufinder.models.Item;
 import cat.udl.menufinder.models.ItemCategory;
+import cat.udl.menufinder.models.ItemRating;
 import cat.udl.menufinder.models.Menu;
 import cat.udl.menufinder.models.MenuItem;
 import cat.udl.menufinder.models.Restaurant;
@@ -197,6 +199,41 @@ public class DBManagerLocal implements DBManager {
     @Override
     public List<ItemCategory> getItemCategories() {
         return itemCategoryDataSource.getItemCategories();
+    }
+
+    @Override
+    public boolean updateItemRating(ItemRating itemRating) {
+        return false;
+    }
+
+    @Override
+    public boolean deleteItemRating(ItemRating itemRating) {
+        return false;
+    }
+
+    @Override
+    public boolean addItemRating(ItemRating itemRating) {
+        return false;
+    }
+
+    @Override
+    public List<ItemRating> getRatingsOfItem(long itemId) {
+        return null;
+    }
+
+    @Override
+    public double getItemRatingOfItem(long itemId) {
+        return 0;
+    }
+
+    @Override
+    public boolean deleteAccountSubscription(AccountSubscription accountSubscription) {
+        return false;
+    }
+
+    @Override
+    public boolean addAccountSubscription(AccountSubscription accountSubscription) {
+        return false;
     }
 
     @Override

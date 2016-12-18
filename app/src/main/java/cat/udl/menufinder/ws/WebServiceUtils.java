@@ -117,4 +117,7 @@ public abstract class WebServiceUtils {
         }.getType());
     }
 
+    public static double getItemRatingOfItem(String number) {
+        return Double.parseDouble(number);
+    }
 }

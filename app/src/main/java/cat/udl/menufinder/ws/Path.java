@@ -18,7 +18,7 @@ abstract class Path {
     static final String GET_MENU_ITEMS_BY_CATEGORY = "/menuItemsByCategory/";
     static final String GET_ITEM_CATEGORY_BY_ID = "/itemCategory/";
     static final String GET_ITEM_CATEGORIES = "/itemCategories";
-    static final String GET_RATING_OF_ITEM = "/itemRating/";
+    static final String GET_RATINGS_OF_ITEM = "/itemRating/";
     static final String GET_ITEM_RATING_OF_ITEM = "/itemRatingItem/";
     static final String GET_SUBSCRIBED_RESTAURANTS_OF_ACCOUNT = "/subscribedRestaurantsOfAccount/";
     //POST
