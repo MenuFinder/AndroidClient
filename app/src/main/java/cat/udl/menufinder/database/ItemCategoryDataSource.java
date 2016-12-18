@@ -16,8 +16,8 @@ public class ItemCategoryDataSource extends DataSource {
     private final String[] allColumns =
             {
                     ItemCategoryTable.ID,
-                    ItemCategoryTable.DESCRIPTION,
-                    ItemCategoryTable.NAME
+                    ItemCategoryTable.NAME,
+                    ItemCategoryTable.DESCRIPTION
             };
 
     public ItemCategoryDataSource() {
