@@ -86,7 +86,7 @@ public class ManagerDbHelper extends SQLiteOpenHelper {
                 ReviewTable.REVIEW + " TEXT," +
                 ReviewTable.PARENT_TYPE + "  TEXT," +
                 ReviewTable.PARENT_ID + " INTEGER," +
-                ReviewTable.ACCOUNT + "  TEXT" +
+                ReviewTable.ACCOUNT + "  TEXT," +
                 "UNIQUE (" + ReviewTable.ID + "))");
 
     }
