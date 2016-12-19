@@ -149,6 +149,49 @@ public class Restaurant implements Serializable {
                 '}';
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Restaurant that = (Restaurant) o;
+
+        if (id != that.id) return false;
+        if (Double.compare(that.score, score) != 0) return false;
+        if (name != null ? !name.equals(that.name) : that.name != null) return false;
+        if (cif != null ? !cif.equals(that.cif) : that.cif != null) return false;
+        if (address != null ? !address.equals(that.address) : that.address != null) return false;
+        if (city != null ? !city.equals(that.city) : that.city != null) return false;
+        if (postalCode != null ? !postalCode.equals(that.postalCode) : that.postalCode != null)
+            return false;
+        if (state != null ? !state.equals(that.state) : that.state != null) return false;
+        if (country != null ? !country.equals(that.country) : that.country != null) return false;
+        if (email != null ? !email.equals(that.email) : that.email != null) return false;
+        if (phone != null ? !phone.equals(that.phone) : that.phone != null) return false;
+        return account != null ? account.equals(that.account) : that.account == null;
+
+    }
+
+    @Override
+    public int hashCode() {
+        int result;
+        long temp;
+        result = (int) (id ^ (id >>> 32));
+        result = 31 * result + (name != null ? name.hashCode() : 0);
+        result = 31 * result + (cif != null ? cif.hashCode() : 0);
+        result = 31 * result + (address != null ? address.hashCode() : 0);
+        result = 31 * result + (city != null ? city.hashCode() : 0);
+        result = 31 * result + (postalCode != null ? postalCode.hashCode() : 0);
+        result = 31 * result + (state != null ? state.hashCode() : 0);
+        result = 31 * result + (country != null ? country.hashCode() : 0);
+        result = 31 * result + (email != null ? email.hashCode() : 0);
+        result = 31 * result + (phone != null ? phone.hashCode() : 0);
+        result = 31 * result + (account != null ? account.hashCode() : 0);
+        temp = Double.doubleToLongBits(score);
+        result = 31 * result + (int) (temp ^ (temp >>> 32));
+        return result;
+    }
+
     public String getAddressWithCity() {
         return address + "," + city;
     }
