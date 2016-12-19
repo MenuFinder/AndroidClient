@@ -96,4 +96,6 @@ public interface DBManager {
     boolean addAccountSubscription(AccountSubscription accountSubscription);
 
     List<Restaurant> getSubscribedRestaurantsOfAccount(String accountId);
+
+    void deleteAll();
 }

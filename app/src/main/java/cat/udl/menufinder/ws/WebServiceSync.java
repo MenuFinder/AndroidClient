@@ -8,7 +8,7 @@ import java.util.Map;
 
 import cat.udl.menufinder.application.MasterApplication;
 import cat.udl.menufinder.database.DBManager;
-import cat.udl.menufinder.models.Account;
+import cat.udl.menufinder.enums.UserType;
 import cat.udl.menufinder.models.AccountSubscription;
 import cat.udl.menufinder.models.Item;
 import cat.udl.menufinder.models.ItemCategory;
@@ -33,10 +33,6 @@ public class WebServiceSync {
 
     public static WebServiceSync getInstance() {
         return ourInstance;
-    }
-
-    public Account getValidLogin(String id, String password) {
-        return null;
     }
 
     public void syncMenusByRestaurantId(final long restaurantId) {
@@ -343,20 +339,28 @@ public class WebServiceSync {
     }
 
     public void syncAllData() {
+        dbManager.deleteAll();
         syncRestaurants();
         syncMenus();
-        syncItemCategories();
         syncItems();
+        syncItemCategories();
         syncReviews();
+        String username = MasterApplication.getContext().getUsername();
+        if (!username.equalsIgnoreCase(UserType.GUEST.getText()))
+            syncSubscribedRestaurantsOfAccount(username);
     }
 
     public void syncReviews() {
         new AsyncTask<Void, Void, Void>() {
             @Override
             protected Void doInBackground(Void... voids) {
-                for (Restaurant restaurant : webService.getRestaurants())
+                for (Restaurant restaurant : webService.getRestaurants()) {
+                    syncReviewsOfRestaurant(restaurant.getId());
+                    for (Menu menu : webService.getMenusByRestaurantId(restaurant.getId()))
+                        syncReviewsOfMenu(menu.getId());
                     for (Item item : webService.getRestaurantItems(restaurant.getId()))
                         syncReviewsOfItem(item.getId());
+                }
                 return null;
             }
         }.execute();

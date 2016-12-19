@@ -130,4 +130,7 @@ public class RestaurantDataSource extends DataSource {
         return values;
     }
 
+    public void deleteRestaurants() {
+        database.delete(RestaurantContract.RestaurantTable.TABLE_NAME, null, null);
+    }
 }

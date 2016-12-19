@@ -84,4 +84,8 @@ public class MenuItemDataSource extends DataSource {
         values.put(MenuItemContract.MenuItemTable.ITEMCATEGORY, menuItem.getItemCategory());
         return values;
     }
+
+    public void deleteMenuItems() {
+        database.delete(MenuItemContract.MenuItemTable.TABLE_NAME, null, null);
+    }
 }

@@ -246,4 +246,15 @@ public class DBManagerLocal implements DBManager {
         return subscriptionDataSource.getSubscribedRestaurants(accountId);
     }
 
+    @Override
+    public void deleteAll() {
+        restaurantDataSource.deleteRestaurants();
+        menuDataSource.deleteMenus();
+        itemDataSource.deleteItems();
+        menuItemDataSource.deleteMenuItems();
+        itemCategoryDataSource.deleteItemCategories();
+        reviewDataSource.deleteReviews();
+        subscriptionDataSource.deleteSubscriptions();
+    }
+
 }

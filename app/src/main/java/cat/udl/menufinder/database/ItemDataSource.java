@@ -112,4 +112,8 @@ public class ItemDataSource extends DataSource {
         values.put(ItemContract.ItemTable.RESTAURANT, item.getRestaurant());
         return values;
     }
+
+    public void deleteItems() {
+        database.delete(ItemContract.ItemTable.TABLE_NAME, null, null);
+    }
 }

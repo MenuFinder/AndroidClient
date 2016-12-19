@@ -122,4 +122,8 @@ public class ReviewDataSource extends DataSource {
         values.put(ReviewContract.ReviewTable.ACCOUNT, review.getReview());
         return values;
     }
+
+    public void deleteReviews() {
+        database.delete(ReviewContract.ReviewTable.TABLE_NAME, null, null);
+    }
 }

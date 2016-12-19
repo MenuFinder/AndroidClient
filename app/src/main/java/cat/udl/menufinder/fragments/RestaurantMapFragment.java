@@ -63,9 +63,11 @@ public class RestaurantMapFragment extends MasterFragment implements OnMapReadyC
     private void putRestaurantsInMap(GoogleMap googleMap) {
         List<Restaurant> restaurants = getDbManager().getRestaurants();
         for (Restaurant restaurant : restaurants) {
-            googleMap.addMarker(new MarkerOptions().position(
-                    getLatLngOfRestaurant(restaurant))
-                    .title(getString(R.string.marker_title, restaurant.getName())));
+            LatLng latLng = getLatLngOfRestaurant(restaurant);
+            if (latLng != null)
+                googleMap.addMarker(new MarkerOptions().position(
+                        latLng)
+                        .title(getString(R.string.marker_title, restaurant.getName())));
         }
     }
 

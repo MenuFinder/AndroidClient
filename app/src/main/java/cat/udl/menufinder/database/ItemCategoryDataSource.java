@@ -103,4 +103,7 @@ public class ItemCategoryDataSource extends DataSource {
         return values;
     }
 
+    public void deleteItemCategories() {
+        database.delete(ItemCategoryContract.ItemCategoryTable.TABLE_NAME, null, null);
+    }
 }

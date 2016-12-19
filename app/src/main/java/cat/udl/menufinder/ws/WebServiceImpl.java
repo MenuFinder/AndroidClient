@@ -219,4 +219,9 @@ public class WebServiceImpl implements DBManager {
     public List<Restaurant> getSubscribedRestaurantsOfAccount(String accountId) {
         return WebServiceUtils.getBeanList(WebServiceUtils.get(Path.GET_SUBSCRIBED_RESTAURANTS_OF_ACCOUNT + accountId), Restaurant[].class);
     }
+
+    @Override
+    public void deleteAll() {
+    }
+
 }

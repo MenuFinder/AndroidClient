@@ -79,4 +79,8 @@ public class SubscriptionDataSource extends DataSource {
         values.put(SubscriptionContract.SubscriptionTable.RESTAURANT, subscription.getRestaurant());
         return values;
     }
+
+    public void deleteSubscriptions() {
+        database.delete(SubscriptionContract.SubscriptionTable.TABLE_NAME, null, null);
+    }
 }

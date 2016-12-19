@@ -75,7 +75,7 @@ public class MenuDataSource extends DataSource {
         return menu;
     }
 
-    public List<Menu> getMenus(){
+    public List<Menu> getMenus() {
         List<Menu> Allmenus = new ArrayList<>();
         Cursor cursor = database.query(
                 MenuTable.TABLE_NAME,
@@ -131,5 +131,9 @@ public class MenuDataSource extends DataSource {
         values.put(MenuTable.SCORE, menu.getScore());
         values.put(MenuTable.VISIBLE, menu.getVisible());
         return values;
+    }
+
+    public void deleteMenus() {
+        database.delete(MenuContract.MenuTable.TABLE_NAME, null, null);
     }
 }
