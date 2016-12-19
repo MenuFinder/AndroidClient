@@ -25,6 +25,7 @@ public class WebServiceImpl implements DBManager {
         } else if (id.equals("restaurant") && password.equals("restaurant")) {
             account.setType(UserType.RESTAURANT);
         }
+        account.setId(id);
         return account;
     }
 
