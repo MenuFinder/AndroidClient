@@ -127,7 +127,8 @@ public class MenuDataSource extends DataSource {
         values.put(MenuTable.RESTAURANT, menu.getRestaurant());
         values.put(MenuTable.NAME, menu.getName());
         values.put(MenuTable.DESCRIPTION, menu.getDescription());
-        values.put(MenuTable.PRICE, menu.getScore());
+        values.put(MenuTable.PRICE, menu.getPrice());
+        values.put(MenuTable.SCORE, menu.getScore());
         values.put(MenuTable.VISIBLE, menu.getVisible());
         return values;
     }

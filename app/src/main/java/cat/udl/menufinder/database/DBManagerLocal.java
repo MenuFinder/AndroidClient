@@ -163,7 +163,7 @@ public class DBManagerLocal implements DBManager {
 
     @Override
     public Map<Long, List<Item>> getMenuItemsByCategory(long menuId) {
-        return null;
+        return menuItemDataSource.getMenuItemsByCategory(menuId);
     }
 
     @Override
