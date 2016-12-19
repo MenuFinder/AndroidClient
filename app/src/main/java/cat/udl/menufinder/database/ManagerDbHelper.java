@@ -11,7 +11,7 @@ import cat.udl.menufinder.database.MenuContract.MenuTable;
 import cat.udl.menufinder.database.MenuItemContract.MenuItemTable;
 import cat.udl.menufinder.database.RestaurantContract.RestaurantTable;
 import cat.udl.menufinder.database.ReviewContract.ReviewTable;
-import cat.udl.menufinder.database.SubscriptionContract.SuscriptionTable;
+import cat.udl.menufinder.database.SubscriptionContract.SubscriptionTable;
 
 
 public class ManagerDbHelper extends SQLiteOpenHelper {
@@ -75,10 +75,10 @@ public class ManagerDbHelper extends SQLiteOpenHelper {
                 + RestaurantTable.SCORE + " TEXT NOT NULL,"
                 + "UNIQUE (" + RestaurantTable.ID + "))");
 
-        db.execSQL("CREATE TABLE " + SuscriptionTable.TABLE_NAME + " ("
-                + SuscriptionTable._ID + " INTEGER PRIMARY KEY AUTOINCREMENT,"
-                + SuscriptionTable.ACCOUNT + " INTEGER NOT NULL,"
-                + SuscriptionTable.RESTAURANT + " TEXT NOT NULL" + ")");
+        db.execSQL("CREATE TABLE " + SubscriptionTable.TABLE_NAME + " ("
+                + SubscriptionTable._ID + " INTEGER PRIMARY KEY AUTOINCREMENT,"
+                + SubscriptionTable.ACCOUNT + " TEXT NOT NULL,"
+                + SubscriptionTable.RESTAURANT + " INTEGER NOT NULL" + ")");
 
         db.execSQL("CREATE TABLE " + ReviewTable.TABLE_NAME + " (" +
                 ReviewTable._ID + " INTEGER PRIMARY KEY AUTOINCREMENT," +
@@ -101,7 +101,7 @@ public class ManagerDbHelper extends SQLiteOpenHelper {
         db.execSQL("DROP TABLE IF EXISTS " + MenuTable.TABLE_NAME);
         db.execSQL("DROP TABLE IF EXISTS " + MenuItemTable.TABLE_NAME);
         db.execSQL("DROP TABLE IF EXISTS " + RestaurantTable.TABLE_NAME);
-        db.execSQL("DROP TABLE IF EXISTS " + SuscriptionTable.TABLE_NAME);
+        db.execSQL("DROP TABLE IF EXISTS " + SubscriptionTable.TABLE_NAME);
 
         onCreate(db);
     }

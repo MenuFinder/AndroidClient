@@ -18,6 +18,7 @@ import cat.udl.menufinder.R;
 import cat.udl.menufinder.activities.DetailRestaurantActivity;
 import cat.udl.menufinder.adapters.RestaurantsAdapter;
 import cat.udl.menufinder.application.MasterFragment;
+import cat.udl.menufinder.models.AccountSubscription;
 import cat.udl.menufinder.models.Restaurant;
 import cat.udl.menufinder.utils.Utils;
 
@@ -49,7 +50,7 @@ public class SubscriptionsFragment extends MasterFragment {
         animator.setAddDuration(1000);
         recyclerView.setItemAnimator(animator);
 
-        restaurants = getDbManager().getRestaurants();
+        restaurants = getRestaurants();
         adapter = new RestaurantsAdapter(getActivity(), restaurants, new RestaurantsFragment.OnRestaurantClickListener() {
             @Override
             public void onRestaurantClick(Restaurant restaurant, View view) {
@@ -83,10 +84,27 @@ public class SubscriptionsFragment extends MasterFragment {
             }
 
             @Override
-            public void onFavouriteClick(Restaurant restaurant) {
+            public void onFavouriteClick(Restaurant restaurant, boolean checked) {
+                AccountSubscription subscription = new AccountSubscription(getMasterApplication().getUsername(), restaurant.getId());
+                if (checked) getDbManager().addAccountSubscription(subscription);
+                else getDbManager().deleteAccountSubscription(subscription);
             }
         });
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+    }
+
+    public List<Restaurant> getRestaurants() {
+        return getDbManager().getSubscribedRestaurantsOfAccount(getMasterApplication().getUsername());
+    }
+
+    public interface OnRestaurantClickListener {
+        void onRestaurantClick(Restaurant restaurant, View view);
+
+        void onShareClick(Restaurant restaurant);
+
+        void onViewMapClick(Restaurant restaurant);
+
+        void onFavouriteClick(Restaurant restaurant, boolean checked);
     }
 }

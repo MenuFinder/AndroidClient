@@ -8,7 +8,6 @@ import android.database.sqlite.SQLiteConstraintException;
 import java.util.ArrayList;
 import java.util.List;
 
-import cat.udl.menufinder.application.MasterApplication;
 import cat.udl.menufinder.models.Restaurant;
 
 public class RestaurantDataSource extends DataSource {
@@ -77,22 +76,6 @@ public class RestaurantDataSource extends DataSource {
 
         cursor.close();
         return restaurant;
-    }
-
-    public List<Restaurant> getSubscribedRestaurants() {
-        List<Restaurant> allRestaurants = new ArrayList<>();
-        Cursor cursor = database.rawQuery(
-                "SELECT r.* FROM " + RestaurantContract.RestaurantTable.TABLE_NAME + " r, " +
-                        SubscriptionContract.SuscriptionTable.TABLE_NAME +
-                        " us WHERE us.account = ? AND r.id = us.restaurant",
-                new String[]{MasterApplication.getContext().getUsername()});
-
-        while (cursor.moveToNext()) {
-            Restaurant restaurant = cuToRestaurant(cursor);
-            allRestaurants.add(restaurant);
-        }
-        cursor.close();
-        return allRestaurants;
     }
 
     public boolean updateRestaurant(Restaurant restaurant) {

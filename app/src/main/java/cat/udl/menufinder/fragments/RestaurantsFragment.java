@@ -11,6 +11,8 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
 
+import java.util.List;
+
 import cat.udl.menufinder.R;
 import cat.udl.menufinder.builders.SearchCriteriaBuilder;
 import cat.udl.menufinder.models.Restaurant;
@@ -75,14 +77,8 @@ public class RestaurantsFragment extends SubscriptionsFragment {
         adapter.notifyDataSetChanged();
     }
 
-    public interface OnRestaurantClickListener {
-        void onRestaurantClick(Restaurant restaurant, View view);
-
-        void onShareClick(Restaurant restaurant);
-
-        void onViewMapClick(Restaurant restaurant);
-
-        void onFavouriteClick(Restaurant restaurant);
+    @Override
+    public List<Restaurant> getRestaurants() {
+        return getDbManager().getRestaurants();
     }
-
 }

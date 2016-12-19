@@ -228,17 +228,17 @@ public class DBManagerLocal implements DBManager {
 
     @Override
     public boolean deleteAccountSubscription(AccountSubscription accountSubscription) {
-        return false;
+        return subscriptionDataSource.deleteSubscription(accountSubscription);
     }
 
     @Override
     public boolean addAccountSubscription(AccountSubscription accountSubscription) {
-        return false;
+        return subscriptionDataSource.addSubscription(accountSubscription);
     }
 
     @Override
     public List<Restaurant> getSubscribedRestaurantsOfAccount(String accountId) {
-        return restaurantDataSource.getSubscribedRestaurants();
+        return subscriptionDataSource.getSubscribedRestaurants(accountId);
     }
 
 }
