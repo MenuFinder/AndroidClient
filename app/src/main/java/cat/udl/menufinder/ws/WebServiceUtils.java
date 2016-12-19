@@ -16,6 +16,7 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
@@ -52,6 +53,7 @@ public abstract class WebServiceUtils {
     }
 
     public static <T> List<T> getBeanList(String json, Class<T[]> type) {
+        if (json == null) return new ArrayList<>();
         return Arrays.asList(new Gson().fromJson(json, type));
     }
 
