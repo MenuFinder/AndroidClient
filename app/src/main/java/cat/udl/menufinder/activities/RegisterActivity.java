@@ -16,6 +16,7 @@ import cat.udl.menufinder.application.MasterActivity;
 import cat.udl.menufinder.enums.UserType;
 import cat.udl.menufinder.models.Account;
 import cat.udl.menufinder.models.Restaurant;
+import cat.udl.menufinder.ws.WebServiceImpl;
 
 import static cat.udl.menufinder.R.id.address;
 import static cat.udl.menufinder.enums.UserType.CLIENT;
@@ -96,7 +97,7 @@ public class RegisterActivity extends MasterActivity {
         checkEmail(emailUser, emailUserView);
 
         UserType userType = (checkedTextView.isChecked()) ? RESTAURANT : CLIENT;
-        Account account = new Account(username, password, userType, emailUser);
+        Account account = new Account(username, password, userType.getText(), emailUser);
 
         if (checkedTextView.isChecked()) {
             String restaurantName = restaurantNameView.getText().toString().trim();
@@ -178,14 +179,14 @@ public class RegisterActivity extends MasterActivity {
 
         @Override
         protected Boolean doInBackground(Void... params) {
-            return true;
+            return new WebServiceImpl().addAccount(account);
         }
 
         @Override
         protected void onPostExecute(final Boolean ok) {
             authTask = null;
             if (ok) {
-                getMasterApplication().login(account.getType(), account.getId());
+                getMasterApplication().login(account);
                 startActivity(new Intent(RegisterActivity.this, HomeActivity.class));
             }
         }

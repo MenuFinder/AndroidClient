@@ -8,14 +8,14 @@ public class Account implements Serializable {
 
     private String id;
     private String password;
-    private UserType type;
+    private String type;
     private String token;
     private String email;
 
     public Account() {
     }
 
-    public Account(String id, String password, UserType type, String email) {
+    public Account(String id, String password, String type, String email) {
         this.id = id;
         this.password = password;
         this.type = type;
@@ -38,12 +38,16 @@ public class Account implements Serializable {
         this.password = password;
     }
 
-    public UserType getType() {
+    public String getType() {
         return type;
     }
 
-    public void setType(UserType type) {
+    public void setType(String type) {
         this.type = type;
+    }
+
+    public void setType(UserType type) {
+        this.type = type.getText();
     }
 
     public String getToken() {

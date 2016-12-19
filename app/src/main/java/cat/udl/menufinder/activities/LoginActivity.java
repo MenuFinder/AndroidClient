@@ -108,7 +108,7 @@ public class LoginActivity extends MasterActivity {
     }
 
     private void loginSuccess(Account account) {
-        getMasterApplication().login(account.getType(), account.getId());
+        getMasterApplication().login(account);
         Intent intent = new Intent(LoginActivity.this, HomeActivity.class);
         startActivity(intent);
         finish();

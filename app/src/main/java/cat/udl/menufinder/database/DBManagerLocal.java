@@ -47,6 +47,11 @@ public class DBManagerLocal implements DBManager {
     }
 
     @Override
+    public boolean addAccount(Account account) {
+        return false;
+    }
+
+    @Override
     public List<Menu> getMenusByRestaurantId(long restaurantId) {
         return menuDataSource.getMenusByRestaurantId(restaurantId);
     }

@@ -4,7 +4,6 @@ import java.util.List;
 import java.util.Map;
 
 import cat.udl.menufinder.database.DBManager;
-import cat.udl.menufinder.enums.UserType;
 import cat.udl.menufinder.models.Account;
 import cat.udl.menufinder.models.AccountSubscription;
 import cat.udl.menufinder.models.Item;
@@ -18,15 +17,12 @@ import cat.udl.menufinder.models.Review;
 public class WebServiceImpl implements DBManager {
     @Override
     public Account getValidLogin(String id, String password) {
-//        return WebServiceUtils.getBean(WebServiceUtils.login(Path.GET_VALID_LOGIN, id, password), Account.class);
-        Account account = new Account();
-        if (id.equals("client") && password.equals("client")) {
-            account.setType(UserType.CLIENT);
-        } else if (id.equals("restaurant") && password.equals("restaurant")) {
-            account.setType(UserType.RESTAURANT);
-        }
-        account.setId(id);
-        return account;
+        return WebServiceUtils.getBean(WebServiceUtils.login(Path.GET_VALID_LOGIN, id, password), Account.class);
+    }
+
+    @Override
+    public boolean addAccount(Account account) {
+        return WebServiceUtils.post(Path.POST_ADD_ACCOUNT, account);
     }
 
     @Override

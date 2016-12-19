@@ -17,6 +17,8 @@ public interface DBManager {
 
     Account getValidLogin(String id, String password);
 
+    boolean addAccount(Account account);
+
     List<Menu> getMenusByRestaurantId(long restaurantId);
 
     Menu getMenuById(long menuId);

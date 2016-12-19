@@ -34,6 +34,7 @@ abstract class Path {
     static final String POST_ADD_ACCOUNT_SUBSCRIPTION = "/addAccountSubscription";
     //PUT
     static final String PUT_METHOD = "PUT";
+    static final String POST_ADD_ACCOUNT = "/register";
     static final String PUT_UPDATE_MENU = "/updateMenu";
     static final String PUT_UPDATE_RESTAURANT = "/updateRestaurant";
     static final String PUT_UPDATE_REVIEW = "/updateReview";

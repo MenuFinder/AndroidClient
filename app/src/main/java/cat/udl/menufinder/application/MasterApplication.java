@@ -7,6 +7,7 @@ import android.content.SharedPreferences;
 import cat.udl.menufinder.database.DBManager;
 import cat.udl.menufinder.database.DBManagerLocal;
 import cat.udl.menufinder.enums.UserType;
+import cat.udl.menufinder.models.Account;
 import cat.udl.menufinder.utils.Constants;
 import cat.udl.menufinder.utils.FakeData;
 
@@ -54,9 +55,9 @@ public class MasterApplication extends Application {
         getPestormixSharedPreferences().edit().remove(key).apply();
     }
 
-    public void login(UserType userType, String username) {
-        putString(Constants.PREFERENCES_USER_TYPE, userType.toString());
-        putString(Constants.PREFERENCES_USERNAME, username);
+    public void login(Account account) {
+        putString(Constants.PREFERENCES_USER_TYPE, account.getType());
+        putString(Constants.PREFERENCES_USERNAME, account.getId());
     }
 
     public void logout() {
