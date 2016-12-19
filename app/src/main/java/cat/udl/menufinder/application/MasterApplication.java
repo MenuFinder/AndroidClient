@@ -8,6 +8,7 @@ import cat.udl.menufinder.database.DBManager;
 import cat.udl.menufinder.database.DBManagerLocal;
 import cat.udl.menufinder.enums.UserType;
 import cat.udl.menufinder.utils.Constants;
+import cat.udl.menufinder.utils.FakeData;
 
 public class MasterApplication extends Application {
 
@@ -22,6 +23,7 @@ public class MasterApplication extends Application {
     public void onCreate() {
         super.onCreate();
         MasterApplication.context = this;
+        firstTime();
     }
 
     public DBManager getDbManager() {
@@ -74,4 +76,11 @@ public class MasterApplication extends Application {
         return getString(Constants.PREFERENCES_USERNAME, "");
     }
 
+    private void firstTime() {
+        String key = "first_time";
+        if (getBoolean(key, true)) {
+            putBoolean(key, false);
+            new FakeData(getDbManager());
+        }
+    }
 }
