@@ -16,6 +16,7 @@ import java.util.List;
 
 import cat.udl.menufinder.R;
 import cat.udl.menufinder.activities.DetailRestaurantActivity;
+import cat.udl.menufinder.activities.HomeActivity;
 import cat.udl.menufinder.adapters.RestaurantsAdapter;
 import cat.udl.menufinder.application.MasterFragment;
 import cat.udl.menufinder.models.AccountSubscription;
@@ -80,7 +81,8 @@ public class SubscriptionsFragment extends MasterFragment {
 
             @Override
             public void onViewMapClick(Restaurant restaurant) {
-                showToast("MAP");
+                HomeActivity activity = (HomeActivity) getActivity();
+                activity.loadFragment(R.id.content, RestaurantMapFragment.newInstance(restaurant));
             }
 
             @Override

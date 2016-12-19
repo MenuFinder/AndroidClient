@@ -93,7 +93,7 @@ public class HomeActivity extends MasterActivity
             loadFragment(itemId, new SubscriptionsFragment());
         } else if (id == R.id.view_map) {
             toolbar.setTitle(R.string.view_on_map);
-            loadFragment(itemId, new RestaurantMapFragment());
+            loadFragment(itemId, RestaurantMapFragment.newInstance());
         } else if (id == R.id.settings) {
             toolbar.setTitle(R.string.action_settings);
             loadFragment(itemId, new PreferencesFragment());

@@ -24,6 +24,18 @@ import cat.udl.menufinder.models.Restaurant;
 
 public class RestaurantMapFragment extends MasterFragment implements OnMapReadyCallback {
     private static final String TAG = RestaurantMapFragment.class.getName();
+    private Restaurant restaurant;
+
+    public static RestaurantMapFragment newInstance() {
+        RestaurantMapFragment myFragment = new RestaurantMapFragment();
+        return myFragment;
+    }
+
+    public static RestaurantMapFragment newInstance(Restaurant restaurant) {
+        RestaurantMapFragment myFragment = new RestaurantMapFragment();
+        myFragment.restaurant = restaurant;
+        return myFragment;
+    }
 
     @Nullable
     @Override
@@ -40,26 +52,35 @@ public class RestaurantMapFragment extends MasterFragment implements OnMapReadyC
 
     @Override
     public void onMapReady(GoogleMap googleMap) {
-        LatLng lleida = new LatLng(41.6175899, 0.6200145999999904);
-        googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(lleida, 13));
+        LatLng r = new LatLng(41.6175899, 0.6200145999999904);
+        if (restaurant != null) {
+            r = getLatLngOfRestaurant(restaurant);
+        }
+        googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(r, 14));
         putRestaurantsInMap(googleMap);
     }
 
     private void putRestaurantsInMap(GoogleMap googleMap) {
-        Geocoder geocoder = new Geocoder(getActivity());
         List<Restaurant> restaurants = getDbManager().getRestaurants();
         for (Restaurant restaurant : restaurants) {
-            try {
-                List<Address> addresses = geocoder.getFromLocationName(restaurant.getAddressWithCity(), 1);
-                if (addresses.size() > 0) {
-                    double latitude = addresses.get(0).getLatitude();
-                    double longitude = addresses.get(0).getLongitude();
-                    googleMap.addMarker(new MarkerOptions().position(new LatLng(latitude, longitude))
-                            .title(getString(R.string.marker_title, restaurant.getName())));
-                }
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
+            googleMap.addMarker(new MarkerOptions().position(
+                    getLatLngOfRestaurant(restaurant))
+                    .title(getString(R.string.marker_title, restaurant.getName())));
         }
+    }
+
+    private LatLng getLatLngOfRestaurant(Restaurant restaurant) {
+        Geocoder geocoder = new Geocoder(getActivity());
+        try {
+            List<Address> addresses = geocoder.getFromLocationName(restaurant.getAddressWithCity(), 1);
+            if (addresses.size() > 0) {
+                double latitude = addresses.get(0).getLatitude();
+                double longitude = addresses.get(0).getLongitude();
+                return new LatLng(latitude, longitude);
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 }
