@@ -138,7 +138,7 @@ public class RegisterActivity extends MasterActivity {
             focusView.requestFocus();
         } else {
             authTask = new UserRegisterTask(account);
-            authTask.execute((Void) null);
+            authTask.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
         }
     }
 
@@ -187,6 +187,8 @@ public class RegisterActivity extends MasterActivity {
             if (ok) {
                 getMasterApplication().login(account);
                 startActivity(new Intent(RegisterActivity.this, HomeActivity.class));
+            }else{
+                showToast(getString(R.string.error_no_connection_server));
             }
         }
 

@@ -132,7 +132,10 @@ public class LoginActivity extends MasterActivity {
         @Override
         protected void onPostExecute(Account account) {
             authTask = null;
-
+            if (account == null) {
+                showToast(getString(R.string.error_no_connection_server));
+                return;
+            }
             if (account.getType() == null) {
                 passwordView.setError(getString(R.string.error_incorrect_password));
                 passwordView.requestFocus();

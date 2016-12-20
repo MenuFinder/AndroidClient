@@ -61,4 +61,8 @@
     <string name="view_on_map">Veure al mapa</string>
     <string name="visible">Visible</string>
     <string name="you_are_the_owner_of_a_restaurant">Ets propietari d\'un restaurant?</string>
+    <string name="error_no_connection_server">No connection with server</string>
+    <string name="marker_title">Marker a %s</string>
+    <string name="share_text">Vaig menjar molt bé a %s — Estic utilitzant Menu Finder</string>
+    <string name="updateNotification">\"%s\" actualitzat</string>
 </resources>

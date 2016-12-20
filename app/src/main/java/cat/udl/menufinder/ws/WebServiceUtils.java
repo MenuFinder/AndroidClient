@@ -69,7 +69,6 @@ public abstract class WebServiceUtils {
             conn.setRequestProperty("Content-Type", "application/json; charset=UTF-8");
             conn.getResponseCode();
             String result = getResponse(conn);
-            Log.d(TAG, result);
         } catch (IOException e) {
             e.printStackTrace();
             return false;
@@ -87,6 +86,7 @@ public abstract class WebServiceUtils {
             URL url = new URL(baseUrl + acction);
             HttpURLConnection conn = (HttpURLConnection) url.openConnection();
             conn.setRequestMethod(method);
+            conn.setConnectTimeout(10000);
             conn.setRequestProperty("Content-Type", "application/json; charset=UTF-8");
             conn.setDoOutput(true);
             DataOutputStream wr = new DataOutputStream(conn.getOutputStream());
@@ -95,7 +95,6 @@ public abstract class WebServiceUtils {
             wr.close();
             conn.getResponseCode();
             String result = getResponse(conn);
-            Log.d(TAG, result);
         } catch (IOException e) {
             e.printStackTrace();
             return false;
@@ -138,6 +137,7 @@ public abstract class WebServiceUtils {
             URL url = new URL(baseUrl + acction);
             HttpURLConnection conn = (HttpURLConnection) url.openConnection();
             conn.setRequestMethod("POST");
+            conn.setConnectTimeout(10000);
             conn.setRequestProperty("Content-Type", "application/json; charset=UTF-8");
             conn.setDoOutput(true);
             DataOutputStream wr = new DataOutputStream(conn.getOutputStream());
@@ -146,7 +146,6 @@ public abstract class WebServiceUtils {
             wr.close();
             conn.getResponseCode();
             result = getResponse(conn);
-            Log.d(TAG, result);
         } catch (IOException e) {
             e.printStackTrace();
         }

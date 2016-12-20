@@ -40,15 +40,16 @@
     <string name="error_invalid_password">The password is too short</string>
     <string name="error_email_format">This email has a wrong format</string>
     <string name="error_phone_format">This phone has a wrong format</string>
+    <string name="error_no_connection_server">No connection with server</string>
 
     <!-- Navigation drawer -->
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
 
     <!-- Delete -->
+    <string name="delete">Delete</string>
     <string name="deleteConfirmation">Delete \"%s\"?</string>
     <string name="deleteNotification">\"%s\" deleted</string>
-    <string name="delete">Delete</string>
     <string name="general_information">General information</string>
     <string name="key_totifications">notifications</string>
     <string name="item_saved">Item saved</string>
@@ -73,7 +74,6 @@
     <string name="saveNotification">\"%s\" saved</string>
     <string name="updateNotification">\"%s\" updated</string>
     <string name="search">Search</string>
-    <string name="share">Share</string>
     <string name="shared_logo" translatable="false">logo</string>
     <string name="image_restaurant" translatable="false">image_restaurant</string>
     <string name="you_are_the_owner_of_a_restaurant">You are the owner of a restaurant?</string>
@@ -83,9 +83,10 @@
     <string name="review">Review</string>
 
     <!-- Social media -->
+    <string name="share">Share</string>
     <string name="share_text">I ate very well at %s — I\'m using Menu Finder</string>
 
-    <!-- Map-->
+    <!-- Map -->
     <string name="marker_title">Marker in %s</string>
 
 </resources>
