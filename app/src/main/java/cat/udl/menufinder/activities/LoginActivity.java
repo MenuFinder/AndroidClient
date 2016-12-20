@@ -15,6 +15,8 @@ import android.widget.TextView;
 import cat.udl.menufinder.R;
 import cat.udl.menufinder.application.MasterActivity;
 import cat.udl.menufinder.enums.UserType;
+import cat.udl.menufinder.models.Account;
+import cat.udl.menufinder.ws.WebServiceImpl;
 
 public class LoginActivity extends MasterActivity {
 
@@ -63,7 +65,10 @@ public class LoginActivity extends MasterActivity {
         signInWithouUserName.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View view) {
-                loginSuccess(UserType.GUEST, UserType.GUEST.toString());
+                Account account = new Account();
+                account.setType(UserType.GUEST);
+                account.setId(UserType.GUEST.toString());
+                loginSuccess(account);
             }
         });
     }
@@ -98,46 +103,44 @@ public class LoginActivity extends MasterActivity {
             focusView.requestFocus();
         } else {
             authTask = new UserLoginTask(username, password);
-            authTask.execute((Void) null);
+            authTask.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
         }
     }
 
-    private void loginSuccess(UserType userType, String username) {
-        getMasterApplication().login(userType, username);
+    private void loginSuccess(Account account) {
+        getMasterApplication().login(account);
         Intent intent = new Intent(LoginActivity.this, HomeActivity.class);
         startActivity(intent);
         finish();
     }
 
-    public class UserLoginTask extends AsyncTask<Void, Void, UserType> {
+    public class UserLoginTask extends AsyncTask<Void, Void, Account> {
 
-        private final String mUsername;
-        private final String mPassword;
+        private final String username;
+        private final String password;
 
-        UserLoginTask(String email, String password) {
-            mUsername = email;
-            mPassword = password;
+        UserLoginTask(String username, String password) {
+            this.username = username;
+            this.password = password;
         }
 
         @Override
-        protected UserType doInBackground(Void... params) {
-            UserType userType = null;
-            if (mUsername.equals("client") && mPassword.equals("client"))
-                userType = UserType.CLIENT;
-            else if (mUsername.equals("restaurant") && mPassword.equals("restaurant"))
-                userType = UserType.RESTAURANT;
-            return userType;
+        protected Account doInBackground(Void... voids) {
+            return new WebServiceImpl().getValidLogin(username, password);
         }
 
         @Override
-        protected void onPostExecute(final UserType userType) {
+        protected void onPostExecute(Account account) {
             authTask = null;
-
-            if (userType == null) {
+            if (account == null) {
+                showToast(getString(R.string.error_no_connection_server));
+                return;
+            }
+            if (account.getType() == null) {
                 passwordView.setError(getString(R.string.error_incorrect_password));
                 passwordView.requestFocus();
             } else {
-                loginSuccess(userType, mUsername);
+                loginSuccess(account);
             }
         }
 

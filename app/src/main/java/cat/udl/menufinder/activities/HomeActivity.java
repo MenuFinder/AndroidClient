@@ -18,6 +18,7 @@ import cat.udl.menufinder.fragments.ManageMenusFragment;
 import cat.udl.menufinder.fragments.PreferencesFragment;
 import cat.udl.menufinder.fragments.RestaurantMapFragment;
 import cat.udl.menufinder.fragments.RestaurantsFragment;
+import cat.udl.menufinder.fragments.SubscriptionsFragment;
 
 import static cat.udl.menufinder.enums.UserType.CLIENT;
 import static cat.udl.menufinder.enums.UserType.GUEST;
@@ -87,9 +88,12 @@ public class HomeActivity extends MasterActivity
         } else if (id == R.id.view_restaurants) {
             toolbar.setTitle(R.string.action_view_restaurants);
             loadFragment(itemId, new RestaurantsFragment());
+        } else if (id == R.id.view_subscriptions) {
+            toolbar.setTitle(R.string.action_view_subscriptions);
+            loadFragment(itemId, new SubscriptionsFragment());
         } else if (id == R.id.view_map) {
             toolbar.setTitle(R.string.view_on_map);
-            loadFragment(itemId, new RestaurantMapFragment());
+            loadFragment(itemId, RestaurantMapFragment.newInstance());
         } else if (id == R.id.settings) {
             toolbar.setTitle(R.string.action_settings);
             loadFragment(itemId, new PreferencesFragment());

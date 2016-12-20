@@ -10,8 +10,10 @@ import android.widget.ImageView;
 import cat.udl.menufinder.R;
 import cat.udl.menufinder.application.MasterActivity;
 import cat.udl.menufinder.enums.UserType;
+import cat.udl.menufinder.ws.WebServiceSync;
 
 public class SplashActivity extends MasterActivity {
+    public static final String TAG = SplashActivity.class.getSimpleName();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,5 +48,7 @@ public class SplashActivity extends MasterActivity {
                 }
             }
         }, 1000);
+
+        WebServiceSync.getInstance().syncAllData();
     }
 }

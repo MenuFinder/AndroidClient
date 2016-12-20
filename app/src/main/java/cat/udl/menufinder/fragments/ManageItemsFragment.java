@@ -22,6 +22,7 @@ import cat.udl.menufinder.R;
 import cat.udl.menufinder.adapters.ItemsAdapter;
 import cat.udl.menufinder.application.MasterFragment;
 import cat.udl.menufinder.models.Item;
+import cat.udl.menufinder.models.Restaurant;
 
 public class ManageItemsFragment extends MasterFragment {
     private List<Item> items;
@@ -60,7 +61,9 @@ public class ManageItemsFragment extends MasterFragment {
         animator.setAddDuration(1000);
         recyclerView.setItemAnimator(animator);
 
-        items = getDbManager().getRestaurantItems(0);
+        // TODO Posar la id del restaurant
+        Restaurant restaurant = getDbManager().getRestaurantsOfAccount(getMasterApplication().getUsername()).get(0);
+        items = getDbManager().getRestaurantItems(restaurant.getId());
         adapter = new ItemsAdapter(getActivity(), items, new OnItemClick() {
             @Override
             public void onItem(Item item, int position) {
@@ -144,10 +147,6 @@ public class ManageItemsFragment extends MasterFragment {
         });
     }
 
-    private void editToDB(Item item) {
-        adapter.notifyDataSetChanged();
-    }
-
     private void showAddDialog() {
         LayoutInflater inflater = getActivity().getLayoutInflater();
         final View dialogView = inflater.inflate(R.layout.view_manage_item, null);
@@ -188,7 +187,8 @@ public class ManageItemsFragment extends MasterFragment {
                 if (closeDialog) {
                     alertDialog.dismiss();
                     //TODO Posar la id del restaurant
-                    saveToDB(new Item(name, description, Double.valueOf(price), 0));
+                    Restaurant restaurant = getDbManager().getRestaurantsOfAccount(getMasterApplication().getUsername()).get(0);
+                    saveToDB(new Item(name, description, Double.valueOf(price), restaurant.getId()));
                 }
             }
         });
@@ -197,11 +197,18 @@ public class ManageItemsFragment extends MasterFragment {
     private void saveToDB(Item item) {
         showToast(R.string.item_saved);
         adapter.addItem(item);
+        getDbManager().addItem(item);
+    }
+
+    private void editToDB(Item item) {
+        adapter.notifyDataSetChanged();
+        getDbManager().updateItem(item);
     }
 
     private void removeOfDB(int position) {
         showToast(R.string.item_saved);
         adapter.removeItem(position);
+        getDbManager().deleteItem(adapter.getItemId(position));
     }
 
     public interface OnItemClick {

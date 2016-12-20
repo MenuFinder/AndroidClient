@@ -96,7 +96,7 @@ public class RegisterActivity extends MasterActivity {
         checkEmail(emailUser, emailUserView);
 
         UserType userType = (checkedTextView.isChecked()) ? RESTAURANT : CLIENT;
-        Account account = new Account(username, password, userType, emailUser);
+        Account account = new Account(username, password, userType.getText(), emailUser);
 
         if (checkedTextView.isChecked()) {
             String restaurantName = restaurantNameView.getText().toString().trim();
@@ -131,14 +131,14 @@ public class RegisterActivity extends MasterActivity {
             Restaurant restaurant = new Restaurant(restaurantName, cif, address, city, postalCode,
                     state, country, emailRestaurant, phone, username);
 
-            account.addRestaurant(restaurant);
+            getDbManager().addRestaurant(restaurant);
         }
 
         if (cancel) {
             focusView.requestFocus();
         } else {
             authTask = new UserRegisterTask(account);
-            authTask.execute((Void) null);
+            authTask.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
         }
     }
 
@@ -178,15 +178,17 @@ public class RegisterActivity extends MasterActivity {
 
         @Override
         protected Boolean doInBackground(Void... params) {
-            return true;
+            return getDbManager().addAccount(account);
         }
 
         @Override
         protected void onPostExecute(final Boolean ok) {
             authTask = null;
             if (ok) {
-                getMasterApplication().login(account.getType(), account.getId());
+                getMasterApplication().login(account);
                 startActivity(new Intent(RegisterActivity.this, HomeActivity.class));
+            }else{
+                showToast(getString(R.string.error_no_connection_server));
             }
         }
 

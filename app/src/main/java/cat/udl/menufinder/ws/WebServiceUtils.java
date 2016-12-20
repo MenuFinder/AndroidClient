@@ -11,13 +11,18 @@ import java.io.DataOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.math.BigInteger;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import cat.udl.menufinder.models.Account;
 import cat.udl.menufinder.models.Item;
 
 import static cat.udl.menufinder.ws.Path.baseUrl;
@@ -48,6 +53,7 @@ public abstract class WebServiceUtils {
     }
 
     public static <T> List<T> getBeanList(String json, Class<T[]> type) {
+        if (json == null) return new ArrayList<>();
         return Arrays.asList(new Gson().fromJson(json, type));
     }
 
@@ -63,7 +69,6 @@ public abstract class WebServiceUtils {
             conn.setRequestProperty("Content-Type", "application/json; charset=UTF-8");
             conn.getResponseCode();
             String result = getResponse(conn);
-            Log.d(TAG, result);
         } catch (IOException e) {
             e.printStackTrace();
             return false;
@@ -81,6 +86,7 @@ public abstract class WebServiceUtils {
             URL url = new URL(baseUrl + acction);
             HttpURLConnection conn = (HttpURLConnection) url.openConnection();
             conn.setRequestMethod(method);
+            conn.setConnectTimeout(10000);
             conn.setRequestProperty("Content-Type", "application/json; charset=UTF-8");
             conn.setDoOutput(true);
             DataOutputStream wr = new DataOutputStream(conn.getOutputStream());
@@ -89,7 +95,6 @@ public abstract class WebServiceUtils {
             wr.close();
             conn.getResponseCode();
             String result = getResponse(conn);
-            Log.d(TAG, result);
         } catch (IOException e) {
             e.printStackTrace();
             return false;
@@ -117,4 +122,57 @@ public abstract class WebServiceUtils {
         }.getType());
     }
 
+    public static double getItemRatingOfItem(String number) {
+        return Double.parseDouble(number);
+    }
+
+    public static String login(String acction, String username, String password) {
+        Account account = new Account();
+        account.setId(username);
+//        account.setPassword(md5(password));
+        account.setPassword(password);
+        Gson gson = new Gson();
+        String result = null;
+        try {
+            URL url = new URL(baseUrl + acction);
+            HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+            conn.setRequestMethod("POST");
+            conn.setConnectTimeout(10000);
+            conn.setRequestProperty("Content-Type", "application/json; charset=UTF-8");
+            conn.setDoOutput(true);
+            DataOutputStream wr = new DataOutputStream(conn.getOutputStream());
+            wr.writeBytes(gson.toJson(account));
+            wr.flush();
+            wr.close();
+            conn.getResponseCode();
+            result = getResponse(conn);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return result;
+    }
+
+    private static String md5(String input) {
+
+        String md5 = null;
+
+        if (input == null) return null;
+
+        try {
+
+            //Create MessageDigest object for MD5
+            MessageDigest digest = MessageDigest.getInstance("MD5");
+
+            //Update input string in message digest
+            digest.update(input.getBytes(), 0, input.length());
+
+            //Converts message digest value in base 16 (hex)
+            md5 = new BigInteger(1, digest.digest()).toString(16);
+
+        } catch (NoSuchAlgorithmException e) {
+
+            e.printStackTrace();
+        }
+        return md5;
+    }
 }

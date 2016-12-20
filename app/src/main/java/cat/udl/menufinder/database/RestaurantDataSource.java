@@ -34,7 +34,7 @@ public class RestaurantDataSource extends DataSource {
     }
 
     public List<Restaurant> getRestaurants() {
-        List<Restaurant> Allrestaurant = new ArrayList<>();
+        List<Restaurant> allRestaurants = new ArrayList<>();
         Cursor cursor = database.query(
                 RestaurantContract.RestaurantTable.TABLE_NAME,
                 allColumns,
@@ -42,10 +42,27 @@ public class RestaurantDataSource extends DataSource {
 
         while (cursor.moveToNext()) {
             Restaurant restaurant = cuToRestaurant(cursor);
-            Allrestaurant.add(restaurant);
+            allRestaurants.add(restaurant);
         }
         cursor.close();
-        return Allrestaurant;
+        return allRestaurants;
+    }
+
+    public List<Restaurant> getRestaurantsOfAccount(String accountId) {
+        List<Restaurant> allRestaurants = new ArrayList<>();
+        Cursor cursor = database.query(
+                RestaurantContract.RestaurantTable.TABLE_NAME,
+                allColumns,
+                RestaurantContract.RestaurantTable.ACCOUNT + " = ?",
+                new String[]{accountId},
+                null, null, null);
+
+        while (cursor.moveToNext()) {
+            Restaurant restaurant = cuToRestaurant(cursor);
+            allRestaurants.add(restaurant);
+        }
+        cursor.close();
+        return allRestaurants;
     }
 
     public boolean addRestaurant(Restaurant restaurant) {
@@ -130,4 +147,7 @@ public class RestaurantDataSource extends DataSource {
         return values;
     }
 
+    public void deleteRestaurants() {
+        database.delete(RestaurantContract.RestaurantTable.TABLE_NAME, null, null);
+    }
 }

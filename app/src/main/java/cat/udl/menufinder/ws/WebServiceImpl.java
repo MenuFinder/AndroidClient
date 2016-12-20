@@ -5,8 +5,10 @@ import java.util.Map;
 
 import cat.udl.menufinder.database.DBManager;
 import cat.udl.menufinder.models.Account;
+import cat.udl.menufinder.models.AccountSubscription;
 import cat.udl.menufinder.models.Item;
 import cat.udl.menufinder.models.ItemCategory;
+import cat.udl.menufinder.models.ItemRating;
 import cat.udl.menufinder.models.Menu;
 import cat.udl.menufinder.models.MenuItem;
 import cat.udl.menufinder.models.Restaurant;
@@ -15,7 +17,12 @@ import cat.udl.menufinder.models.Review;
 public class WebServiceImpl implements DBManager {
     @Override
     public Account getValidLogin(String id, String password) {
-        return null;
+        return WebServiceUtils.getBean(WebServiceUtils.login(Path.GET_VALID_LOGIN, id, password), Account.class);
+    }
+
+    @Override
+    public boolean addAccount(Account account) {
+        return WebServiceUtils.post(Path.POST_ADD_ACCOUNT, account);
     }
 
     @Override
@@ -46,6 +53,11 @@ public class WebServiceImpl implements DBManager {
     @Override
     public boolean updateMenu(Menu menu) {
         return WebServiceUtils.put(Path.PUT_UPDATE_MENU, menu);
+    }
+
+    @Override
+    public List<Restaurant> getRestaurantsOfAccount(String accountId) {
+        return WebServiceUtils.getBeanList(WebServiceUtils.get(Path.GET_RESTAURANTS_OF_ACCOUNT + accountId), Restaurant[].class);
     }
 
     @Override
@@ -172,4 +184,54 @@ public class WebServiceImpl implements DBManager {
     public List<ItemCategory> getItemCategories() {
         return WebServiceUtils.getBeanList(WebServiceUtils.get(Path.GET_ITEM_CATEGORIES), ItemCategory[].class);
     }
+
+    @Override
+    public boolean updateItemRating(ItemRating itemRating) {
+        return WebServiceUtils.put(Path.PUT_UPDATE_ITEM_RATING, itemRating);
+    }
+
+    @Override
+    public boolean deleteItemRating(ItemRating itemRating) {
+        return WebServiceUtils.delete(Path.DELETE_ITEM_RATING + itemRating);
+    }
+
+    @Override
+    public boolean addItemRating(ItemRating itemRating) {
+        return WebServiceUtils.post(Path.POST_ADD_ITEM_RATING, itemRating);
+    }
+
+    @Override
+    public List<ItemRating> getRatingsOfItem(long itemId) {
+        return WebServiceUtils.getBeanList(WebServiceUtils.get(Path.GET_RATINGS_OF_ITEM + itemId), ItemRating[].class);
+    }
+
+    @Override
+    public double getItemRatingOfItem(long itemId) {
+        return WebServiceUtils.getItemRatingOfItem((WebServiceUtils.get(Path.GET_ITEM_RATING_OF_ITEM + itemId)));
+    }
+
+    @Override
+    public boolean deleteAccountSubscription(AccountSubscription accountSubscription) {
+        return WebServiceUtils.delete(Path.DELETE_ACCOUNT_SUBSCRIPTION + accountSubscription);
+    }
+
+    @Override
+    public boolean addAccountSubscription(AccountSubscription accountSubscription) {
+        return WebServiceUtils.post(Path.POST_ADD_ACCOUNT_SUBSCRIPTION, accountSubscription);
+    }
+
+    @Override
+    public List<Restaurant> getSubscribedRestaurantsOfAccount(String accountId) {
+        return WebServiceUtils.getBeanList(WebServiceUtils.get(Path.GET_SUBSCRIBED_RESTAURANTS_OF_ACCOUNT + accountId), Restaurant[].class);
+    }
+
+    @Override
+    public void deleteAll() {
+    }
+
+    @Override
+    public List<Menu> getAllMenusByRestaurantId(long restaurantId) {
+        return null;
+    }
+
 }

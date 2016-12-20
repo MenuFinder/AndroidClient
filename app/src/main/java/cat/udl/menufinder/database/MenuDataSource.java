@@ -35,7 +35,7 @@ public class MenuDataSource extends DataSource {
                     null,
                     toContentValues(menu));
         } catch (SQLiteConstraintException e) {
-            return false;
+            return updateMenu(menu);
         }
         return true;
     }
@@ -47,6 +47,24 @@ public class MenuDataSource extends DataSource {
                 allColumns,
                 MenuTable.RESTAURANT + " = ?" + " and " + MenuTable.VISIBLE + " = ?",
                 new String[]{String.valueOf(restaurantId), String.valueOf(1)},
+                null, null, null
+        );
+
+        while (cursor.moveToNext()) {
+            Menu menu = cuToMenu(cursor);
+            allMenus.add(menu);
+        }
+        cursor.close();
+        return allMenus;
+    }
+
+    public List<Menu> getAllMenusByRestaurantId(long restaurantId) {
+        List<Menu> allMenus = new ArrayList<>();
+        Cursor cursor = database.query(
+                MenuTable.TABLE_NAME,
+                allColumns,
+                MenuTable.RESTAURANT + " = ?" ,
+                new String[]{String.valueOf(restaurantId)},
                 null, null, null
         );
 
@@ -75,7 +93,7 @@ public class MenuDataSource extends DataSource {
         return menu;
     }
 
-    public List<Menu> getMenus(){
+    public List<Menu> getMenus() {
         List<Menu> Allmenus = new ArrayList<>();
         Cursor cursor = database.query(
                 MenuTable.TABLE_NAME,
@@ -127,8 +145,13 @@ public class MenuDataSource extends DataSource {
         values.put(MenuTable.RESTAURANT, menu.getRestaurant());
         values.put(MenuTable.NAME, menu.getName());
         values.put(MenuTable.DESCRIPTION, menu.getDescription());
-        values.put(MenuTable.PRICE, menu.getScore());
-        values.put(MenuTable.VISIBLE, menu.isVisible());
+        values.put(MenuTable.PRICE, menu.getPrice());
+        values.put(MenuTable.SCORE, menu.getScore());
+        values.put(MenuTable.VISIBLE, menu.getVisible());
         return values;
+    }
+
+    public void deleteMenus() {
+        database.delete(MenuContract.MenuTable.TABLE_NAME, null, null);
     }
 }

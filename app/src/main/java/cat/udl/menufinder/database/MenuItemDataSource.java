@@ -1,11 +1,15 @@
 package cat.udl.menufinder.database;
 
 import android.content.ContentValues;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteConstraintException;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import cat.udl.menufinder.application.MasterApplication;
 import cat.udl.menufinder.models.Item;
 import cat.udl.menufinder.models.MenuItem;
 
@@ -46,7 +50,31 @@ public class MenuItemDataSource extends DataSource {
     }
 
     public Map<Long, List<Item>> getMenuItemsByCategory(long menuId) {
-        return null;
+        Map<Long, List<Item>> map = new HashMap<>();
+        Cursor cursor = database.query(
+                MenuItemContract.MenuItemTable.TABLE_NAME,
+                allColumns,
+                MenuItemContract.MenuItemTable.MENU + " = ?",
+                new String[]{String.valueOf(menuId)},
+                null, null, null);
+
+        while (cursor.moveToNext()) {
+            MenuItem menuItem = cuToMenuItem(cursor);
+            if (!map.containsKey(menuItem.getItemCategory()))
+                map.put(menuItem.getItemCategory(), new ArrayList<Item>());
+            Item item = MasterApplication.getContext().getDbManager().getItemById(menuItem.getItem());
+            map.get(menuItem.getItemCategory()).add(item);
+        }
+        cursor.close();
+        return map;
+    }
+
+    private MenuItem cuToMenuItem(Cursor cursor) {
+        MenuItem menuItem = new MenuItem();
+        menuItem.setMenu(cursor.getLong(0));
+        menuItem.setItem(cursor.getLong(1));
+        menuItem.setItemCategory(cursor.getLong(2));
+        return menuItem;
     }
 
     private ContentValues toContentValues(MenuItem menuItem) {
@@ -54,7 +82,10 @@ public class MenuItemDataSource extends DataSource {
         values.put(MenuItemContract.MenuItemTable.MENU, menuItem.getMenu());
         values.put(MenuItemContract.MenuItemTable.ITEM, menuItem.getItem());
         values.put(MenuItemContract.MenuItemTable.ITEMCATEGORY, menuItem.getItemCategory());
-
         return values;
+    }
+
+    public void deleteMenuItems() {
+        database.delete(MenuItemContract.MenuItemTable.TABLE_NAME, null, null);
     }
 }

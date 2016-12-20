@@ -4,8 +4,10 @@ import java.util.List;
 import java.util.Map;
 
 import cat.udl.menufinder.models.Account;
+import cat.udl.menufinder.models.AccountSubscription;
 import cat.udl.menufinder.models.Item;
 import cat.udl.menufinder.models.ItemCategory;
+import cat.udl.menufinder.models.ItemRating;
 import cat.udl.menufinder.models.Menu;
 import cat.udl.menufinder.models.MenuItem;
 import cat.udl.menufinder.models.Restaurant;
@@ -14,6 +16,8 @@ import cat.udl.menufinder.models.Review;
 public interface DBManager {
 
     Account getValidLogin(String id, String password);
+
+    boolean addAccount(Account account);
 
     List<Menu> getMenusByRestaurantId(long restaurantId);
 
@@ -26,6 +30,8 @@ public interface DBManager {
     boolean deleteMenu(long menuId);
 
     boolean updateMenu(Menu menu);
+
+    List<Restaurant> getRestaurantsOfAccount(String accountId);
 
     Restaurant getRestaurantById(long restaurantId);
 
@@ -77,18 +83,23 @@ public interface DBManager {
 
     List<ItemCategory> getItemCategories();
 
-//    boolean updateItemRating(ItemRating itemRating);
-//
-//    boolean deleteItemRating(ItemRating itemRating);
-//
-//    boolean addItemRating(ItemRating itemRating);
-//
-//    List<ItemRating> getRatingsOfItem(long itemId);
-//
-//    double getItemRatingOfItem(long itemId);
-//
-//    boolean deleteAccountSubscription(AccountSubscription accountSubscription);
-//
-//    boolean addAccountSubscription(AccountSubscription accountSubscription);
+    boolean updateItemRating(ItemRating itemRating);
 
+    boolean deleteItemRating(ItemRating itemRating);
+
+    boolean addItemRating(ItemRating itemRating);
+
+    List<ItemRating> getRatingsOfItem(long itemId);
+
+    double getItemRatingOfItem(long itemId);
+
+    boolean deleteAccountSubscription(AccountSubscription accountSubscription);
+
+    boolean addAccountSubscription(AccountSubscription accountSubscription);
+
+    List<Restaurant> getSubscribedRestaurantsOfAccount(String accountId);
+
+    void deleteAll();
+
+    List<Menu> getAllMenusByRestaurantId(long restaurantId);
 }

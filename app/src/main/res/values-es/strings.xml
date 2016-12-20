@@ -1,48 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-
-    <!-- Action -->
-    <string name="action_login">Iniciar sesión</string>
-    <string name="action_manage_items">Administrar Artículos</string>
-    <string name="action_manage_menus">Administrar Menus</string>
-    <string name="action_register">Registrar</string>
-    <string name="action_settings">Configuración</string>
-    <string name="action_view_map">Mapa</string>
-    <string name="action_view_restaurants">Restaurantes</string>
-    <string name="action_logout">Cerrar sesión</string>
-    <string name="action_sign_in">Iniciar sesión</string>
-    <string name="action_sign_in_short">Iniciar sesión</string>
-    <string name="action_sign_in_without_username">Iniciar sesión sin usuario</string>
-
-    <!-- Delete -->
-    <string name="delete">Borrar</string>
-    <string name="deleteConfirmation">Borrar \"%s\"</string>
-    <string name="deleteNotification">\"%s\" borrado</string>
-
-    <!-- Error -->
-    <string name="error_email_format">Este correo tiene un formato incorrecto</string>
-    <string name="error_field_required">Este campo es obligatorio</string>
-    <string name="error_incorrect_password">Esta contraseña es incorrecta</string>
-    <string name="error_invalid_email">Esta dirección de correo es invalida</string>
-    <string name="error_invalid_password">La contraseña es demasiado corta</string>
-    <string name="error_phone_format">Este teléfono tiene un formato erroneo</string>
-    <string name="general_information">Información general</string>
-    <string name="item_saved">Item guardado</string>
-    <string name="key_totifications">notificaciones</string>
-
-    <!-- Manage -->
-    <string name="manage_item">Administrar Artículo</string>
-    <string name="manage_menu">Administrar Menu</string>
-    <string name="menu_deleted">Menu borrado</string>
-    <string name="menu_finder_guest">Invitado Menu Finder</string>
-    <string name="menu_saved">Menu guardado</string>
-    <string name="menus">Menus</string>
-    <string name="name">Nombre:</string>
-    <string name="navigation_drawer_close">Cerrar navigation drawer</string>
-    <string name="navigation_drawer_open">Abrir navigation drawer</string>
-    <string name="need_notification">¿Quiere recibir notificaciones?</string>
-    <string name="notifications">Notificaciones</string>
-    <string name="price">Precio:</string>
+    <string name="title_activity_login">Iniciar sesión</string>
 
     <!-- Prompt -->
     <string name="prompt_address">Dirección:</string>
@@ -61,15 +19,71 @@
     <string name="prompt_state">Estado</string>
     <string name="prompt_username">Usuario</string>
 
+    <!-- Action -->
+    <string name="action_login">Iniciar sesión</string>
+    <string name="action_manage_items">Administrar Artículos</string>
+    <string name="action_manage_menus">Administrar Menus</string>
+    <string name="action_register">Registrar</string>
+    <string name="action_settings">Configuración</string>
+    <string name="action_view_map">Mapa</string>
+    <string name="action_view_restaurants">Restaurantes</string>
+    <string name="action_view_subscriptions">Subscripciones</string>
+    <string name="action_logout">Cerrar sesión</string>
+    <string name="action_sign_in">Iniciar sesión</string>
+    <string name="action_sign_in_short">Iniciar sesión</string>
+    <string name="action_sign_in_without_username">Iniciar sesión sin usuario</string>
 
+    <!-- Error -->
+    <string name="error_email_format">Este correo tiene un formato incorrecto</string>
+    <string name="error_field_required">Este campo es obligatorio</string>
+    <string name="error_incorrect_password">Esta contraseña es incorrecta</string>
+    <string name="error_invalid_email">Esta dirección de correo es invalida</string>
+    <string name="error_invalid_password">La contraseña es demasiado corta</string>
+    <string name="error_phone_format">Este teléfono tiene un formato erroneo</string>
+    <string name="error_no_connection_server">No connection with server</string>
+    <string name="general_information">Información general</string>
+    <string name="item_saved">Item guardado</string>
+    <string name="key_totifications">notificaciones</string>
+
+    <!-- Navigation Drawer-->
+    <string name="navigation_drawer_open">Abrir navigation drawer</string>
+    <string name="navigation_drawer_close">Cerrar navigation drawer</string>
+
+    <!-- Delete -->
+    <string name="delete">Borrar</string>
+    <string name="deleteConfirmation">Borrar \"%s\"</string>
+    <string name="deleteNotification">\"%s\" borrado</string>
     <string name="save">Guardar</string>
-    <string name="saveNotification">\"%s\" guardado</string>
+
+    <!-- Manage -->
+    <string name="manage_item">Administrar Artículo</string>
+    <string name="manage_menu">Administrar Menu</string>
+
+    <!-- Menu -->
+    <string name="menu_deleted">Menu borrado</string>
+    <string name="menu_finder_guest">Invitado Menu Finder</string>
+    <string name="menu_saved">Menu guardado</string>
+    <string name="menus">Menus</string>
+    <string name="name">Nombre:</string>
+
+    <!-- Notification -->
+    <string name="need_notification">¿Quiere recibir notificaciones?</string>
+    <string name="notifications">Notificaciones</string>
+    <string name="price">Precio:</string>
     <string name="search">Buscar</string>
-    <string name="share">Compartir</string>
+    <string name="updateNotification">\"%s\" actualizado</string>
+    <string name="saveNotification">\"%s\" guardado</string>
     <string name="view_on_map">Ver en mapa</string>
     <string name="visible">Visible</string>
     <string name="you_are_the_owner_of_a_restaurant">¿Eres propietario de un restaurante?</string>
-    <string name="title_activity_login">Iniciar sesión</string>
     <string name="review">Crítica</string>
     <string name="review_added">Crítica añadida</string>
+
+    <!-- Social media-->
+    <string name="share">Compartir</string>
+    <string name="share_text">Comí muy bien en %s — Estoy utilitzando Menu Finder</string>
+
+    <!-- Map -->
+    <string name="marker_title">Marker en %s</string>
+
 </resources>
