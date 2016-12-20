@@ -56,6 +56,11 @@ public class WebServiceImpl implements DBManager {
     }
 
     @Override
+    public List<Restaurant> getRestaurantsOfAccount(String accountId) {
+        return WebServiceUtils.getBeanList(WebServiceUtils.get(Path.GET_RESTAURANTS_OF_ACCOUNT + accountId), Restaurant[].class);
+    }
+
+    @Override
     public Restaurant getRestaurantById(long restaurantId) {
         return WebServiceUtils.getBean(WebServiceUtils.get(Path.GET_RESTAURANT_BY_ID + restaurantId), Restaurant.class);
     }

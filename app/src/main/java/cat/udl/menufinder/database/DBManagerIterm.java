@@ -1,5 +1,6 @@
 package cat.udl.menufinder.database;
 
+import android.util.Log;
 
 import java.util.List;
 import java.util.Map;
@@ -13,252 +14,262 @@ import cat.udl.menufinder.models.Menu;
 import cat.udl.menufinder.models.MenuItem;
 import cat.udl.menufinder.models.Restaurant;
 import cat.udl.menufinder.models.Review;
+import cat.udl.menufinder.ws.WebServiceImpl;
+import cat.udl.menufinder.ws.WebServiceSync;
 
-public class DBManagerLocal implements DBManager {
+public class DBManagerIterm implements DBManager {
 
-    private static DBManagerLocal ourInstance = new DBManagerLocal();
+    private static DBManagerIterm ourInstance = new DBManagerIterm();
+    private final WebServiceSync sync;
+    private final DBManager local;
+    private final WebServiceImpl remote;
 
-    private ItemCategoryDataSource itemCategoryDataSource;
-    private ItemDataSource itemDataSource;
-    private MenuDataSource menuDataSource;
-    private MenuItemDataSource menuItemDataSource;
-    private RestaurantDataSource restaurantDataSource;
-    private ReviewDataSource reviewDataSource;
-    private SubscriptionDataSource subscriptionDataSource;
-
-    private DBManagerLocal() {
-        itemCategoryDataSource = new ItemCategoryDataSource();
-        itemDataSource = new ItemDataSource();
-        menuDataSource = new MenuDataSource();
-        menuItemDataSource = new MenuItemDataSource();
-        restaurantDataSource = new RestaurantDataSource();
-        reviewDataSource = new ReviewDataSource();
-        subscriptionDataSource = new SubscriptionDataSource();
+    public static DBManagerIterm getInstance() {
+        return ourInstance;
     }
 
-    public static DBManagerLocal getInstance() {
-        return ourInstance;
+    private DBManagerIterm() {
+        remote = new WebServiceImpl();
+        sync = WebServiceSync.getInstance();
+        local = DBManagerLocal.getInstance();
     }
 
     @Override
     public Account getValidLogin(String id, String password) {
-        return null;
+        return remote.getValidLogin(id, password);
     }
 
     @Override
     public boolean addAccount(Account account) {
-        return false;
+        return remote.addAccount(account);
     }
 
     @Override
     public List<Menu> getMenusByRestaurantId(long restaurantId) {
-        return menuDataSource.getMenusByRestaurantId(restaurantId);
+        return local.getMenusByRestaurantId(restaurantId);
     }
 
     @Override
     public Menu getMenuById(long menuId) {
-        return menuDataSource.getMenuById(menuId);
+        return local.getMenuById(menuId);
     }
 
     @Override
     public boolean addMenu(Menu menu) {
-        return menuDataSource.addMenu(menu);
+        sync.addMenu(menu);
+        return local.addMenu(menu);
     }
 
     @Override
     public List<Menu> getMenus() {
-        return menuDataSource.getMenus();
+        return local.getMenus();
     }
 
     @Override
     public boolean deleteMenu(long menuId) {
-        return menuDataSource.deleteMenu(menuId);
+        sync.deleteMenu(menuId);
+        return local.deleteMenu(menuId);
     }
 
     @Override
     public boolean updateMenu(Menu menu) {
-        return menuDataSource.updateMenu(menu);
+
+        Log.d("patata", menu.toString());
+        sync.updateMenu(menu);
+        return local.updateMenu(menu);
     }
 
     @Override
     public List<Restaurant> getRestaurantsOfAccount(String accountId) {
-        return restaurantDataSource.getRestaurantsOfAccount(accountId);
+        return local.getRestaurantsOfAccount(accountId);
     }
 
     @Override
     public Restaurant getRestaurantById(long restaurantId) {
-        return restaurantDataSource.getRestaurantById(restaurantId);
+        return local.getRestaurantById(restaurantId);
     }
 
     @Override
     public boolean addRestaurant(Restaurant restaurant) {
-        return restaurantDataSource.addRestaurant(restaurant);
+        sync.addRestaurant(restaurant);
+        return local.addRestaurant(restaurant);
     }
 
     @Override
     public List<Restaurant> getRestaurants() {
-        return restaurantDataSource.getRestaurants();
+        return local.getRestaurants();
     }
 
     @Override
     public boolean deleteRestaurant(long restaurantId) {
-        return restaurantDataSource.deleteRestaurant(restaurantId);
+        sync.deleteRestaurant(restaurantId);
+        return local.deleteRestaurant(restaurantId);
     }
 
     @Override
     public boolean updateRestaurant(Restaurant restaurant) {
-        return restaurantDataSource.updateRestaurant(restaurant);
+        sync.updateRestaurant(restaurant);
+        return local.updateRestaurant(restaurant);
     }
 
     @Override
     public Review getReviewById(long reviewId) {
-        return reviewDataSource.getReviewById(reviewId);
+        return local.getReviewById(reviewId);
     }
 
     @Override
     public List<Review> getReviewsOfItem(long itemId) {
-        return reviewDataSource.getReviewsOfItem(itemId);
+        return local.getReviewsOfItem(itemId);
     }
 
     @Override
     public List<Review> getReviewsOfMenu(long menuId) {
-        return reviewDataSource.getReviewsOfMenu(menuId);
+        return local.getReviewsOfMenu(menuId);
     }
 
     @Override
     public List<Review> getReviewsOfRestaurant(long restaurantId) {
-        return reviewDataSource.getReviewsOfRestaurant(restaurantId);
+        return local.getReviewsOfRestaurant(restaurantId);
     }
 
     @Override
     public boolean updateReview(Review review) {
-        return reviewDataSource.updateReview(review);
+        sync.updateReview(review);
+        return local.updateReview(review);
     }
 
     @Override
     public boolean deleteReview(long reviewId) {
-        return reviewDataSource.deleteReview(reviewId);
+        sync.deleteReview(reviewId);
+        return local.deleteReview(reviewId);
     }
 
     @Override
     public boolean addReview(Review review) {
-        return reviewDataSource.addReview(review);
+        sync.addReview(review);
+        return local.addReview(review);
     }
 
     @Override
     public boolean updateItem(Item item) {
-        return itemDataSource.updateItem(item);
+        sync.updateItem(item);
+        return local.updateItem(item);
     }
 
     @Override
     public boolean deleteItem(long itemId) {
-        return itemDataSource.deleteItem(itemId);
+        sync.deleteItem(itemId);
+        return local.deleteItem(itemId);
     }
 
     @Override
     public boolean addItem(Item item) {
-        return itemDataSource.addItem(item);
+        sync.addItem(item);
+        return local.addItem(item);
     }
 
     @Override
     public Item getItemById(long itemId) {
-        return itemDataSource.getItemById(itemId);
+        return local.getItemById(itemId);
     }
 
     @Override
     public List<Item> getRestaurantItems(long restaurantId) {
-        return itemDataSource.getItemsByRestaurantId(restaurantId);
+        return local.getRestaurantItems(restaurantId);
     }
 
     @Override
     public Map<Long, List<Item>> getMenuItemsByCategory(long menuId) {
-        return menuItemDataSource.getMenuItemsByCategory(menuId);
+        return local.getMenuItemsByCategory(menuId);
     }
 
     @Override
     public boolean deleteMenuItem(MenuItem menuItem) {
-        return menuItemDataSource.deleteMenuItem(menuItem);
+        sync.deleteMenuItem(menuItem);
+        return local.deleteMenuItem(menuItem);
     }
 
     @Override
     public boolean addMenuItem(MenuItem menuItem) {
-        return menuItemDataSource.addMenuItem(menuItem);
+        sync.addMenuItem(menuItem);
+        return local.addMenuItem(menuItem);
     }
 
     @Override
     public ItemCategory getItemCategoryById(long itemCategoryId) {
-        return itemCategoryDataSource.getItemCategoryById(itemCategoryId);
+        return local.getItemCategoryById(itemCategoryId);
     }
 
     @Override
     public boolean updateItemCategory(ItemCategory itemCategory) {
-        return itemCategoryDataSource.updateItemCategory(itemCategory);
+        sync.updateItemCategory(itemCategory);
+        return local.updateItemCategory(itemCategory);
     }
 
     @Override
     public boolean deleteItemCategory(long itemCategoryId) {
-        return itemCategoryDataSource.deleteItemCategory(itemCategoryId);
+        sync.deleteItemCategory(itemCategoryId);
+        return local.deleteItemCategory(itemCategoryId);
     }
 
     @Override
     public boolean addItemCategory(ItemCategory itemCategory) {
-        return itemCategoryDataSource.addItemCategory(itemCategory);
+        sync.addItemCategory(itemCategory);
+        return local.addItemCategory(itemCategory);
     }
 
     @Override
     public List<ItemCategory> getItemCategories() {
-        return itemCategoryDataSource.getItemCategories();
+        return local.getItemCategories();
     }
 
     @Override
     public boolean updateItemRating(ItemRating itemRating) {
-        return false;
+        sync.updateItemRating(itemRating);
+        return local.updateItemRating(itemRating);
     }
 
     @Override
     public boolean deleteItemRating(ItemRating itemRating) {
-        return false;
+        sync.deleteItemRating(itemRating);
+        return local.deleteItemRating(itemRating);
     }
 
     @Override
     public boolean addItemRating(ItemRating itemRating) {
-        return false;
+        sync.addItemRating(itemRating);
+        return local.addItemRating(itemRating);
     }
 
     @Override
     public List<ItemRating> getRatingsOfItem(long itemId) {
-        return null;
+        return local.getRatingsOfItem(itemId);
     }
 
     @Override
     public double getItemRatingOfItem(long itemId) {
-        return 0;
+        return local.getItemRatingOfItem(itemId);
     }
 
     @Override
     public boolean deleteAccountSubscription(AccountSubscription accountSubscription) {
-        return subscriptionDataSource.deleteSubscription(accountSubscription);
+        sync.deleteAccountSubscription(accountSubscription);
+        return local.deleteAccountSubscription(accountSubscription);
     }
 
     @Override
     public boolean addAccountSubscription(AccountSubscription accountSubscription) {
-        return subscriptionDataSource.addSubscription(accountSubscription);
+        sync.addAccountSubscription(accountSubscription);
+        return local.addAccountSubscription(accountSubscription);
     }
 
     @Override
     public List<Restaurant> getSubscribedRestaurantsOfAccount(String accountId) {
-        return subscriptionDataSource.getSubscribedRestaurants(accountId);
+        return local.getSubscribedRestaurantsOfAccount(accountId);
     }
 
     @Override
     public void deleteAll() {
-        restaurantDataSource.deleteRestaurants();
-        menuDataSource.deleteMenus();
-        itemDataSource.deleteItems();
-        menuItemDataSource.deleteMenuItems();
-        itemCategoryDataSource.deleteItemCategories();
-        reviewDataSource.deleteReviews();
-        subscriptionDataSource.deleteSubscriptions();
+        local.deleteAll();
     }
-
 }

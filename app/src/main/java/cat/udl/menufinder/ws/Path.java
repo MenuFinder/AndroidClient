@@ -7,6 +7,7 @@ abstract class Path {
     static final String GET_MENUS_BY_RESTAURANT_ID = "/restaurantMenus/";
     static final String GET_MENU_BY_ID = "/getMenu/";
     static final String GET_MENUS = "/getMenus";
+    static final String GET_RESTAURANTS_OF_ACCOUNT = "/restaurantsOfAccount/";
     static final String GET_RESTAURANT_BY_ID = "/restaurant/";
     static final String GET_RESTAURANTS = "/getAllRestaurants";
     static final String GET_REVIEW_BY_ID = "/review/";

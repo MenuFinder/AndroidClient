@@ -8,7 +8,7 @@ import java.util.Map;
 
 import cat.udl.menufinder.application.MasterApplication;
 import cat.udl.menufinder.database.DBManager;
-import cat.udl.menufinder.enums.UserType;
+import cat.udl.menufinder.database.DBManagerLocal;
 import cat.udl.menufinder.models.AccountSubscription;
 import cat.udl.menufinder.models.Item;
 import cat.udl.menufinder.models.ItemCategory;
@@ -27,7 +27,7 @@ public class WebServiceSync {
     private final WebServiceImpl webService;
 
     private WebServiceSync() {
-        dbManager = MasterApplication.getContext().getDbManager();
+        dbManager = DBManagerLocal.getInstance();
         webService = new WebServiceImpl();
     }
 
@@ -58,8 +58,14 @@ public class WebServiceSync {
         }.execute();
     }
 
-    public boolean addMenu(Menu menu) {
-        return false;
+    public void addMenu(final Menu menu) {
+        new AsyncTask<Void, Void, Void>() {
+            @Override
+            protected Void doInBackground(Void... voids) {
+                webService.addMenu(menu);
+                return null;
+            }
+        }.execute();
     }
 
     public void syncMenus() {
@@ -74,12 +80,36 @@ public class WebServiceSync {
         }.execute();
     }
 
-    public boolean deleteMenu(long menuId) {
-        return false;
+    public void deleteMenu(final long menuId) {
+        new AsyncTask<Void, Void, Void>() {
+            @Override
+            protected Void doInBackground(Void... voids) {
+                webService.deleteMenu(menuId);
+                return null;
+            }
+        }.execute();
     }
 
-    public boolean updateMenu(Menu menu) {
-        return false;
+    public void updateMenu(final Menu menu) {
+        new AsyncTask<Void, Void, Void>() {
+            @Override
+            protected Void doInBackground(Void... voids) {
+                webService.updateMenu(menu);
+                return null;
+            }
+        }.execute();
+    }
+
+    public void getRestaurantsOfAccount(final String accountId) {
+        new AsyncTask<Void, Void, Void>() {
+            @Override
+            protected Void doInBackground(Void... voids) {
+                for (Restaurant restaurant : webService.getRestaurantsOfAccount(accountId)) {
+                    dbManager.addRestaurant(restaurant);
+                }
+                return null;
+            }
+        }.execute();
     }
 
     public Restaurant getRestaurantById(long restaurantId) {
@@ -87,8 +117,14 @@ public class WebServiceSync {
     }
 
 
-    public boolean addRestaurant(Restaurant restaurant) {
-        return false;
+    public void addRestaurant(final Restaurant restaurant) {
+        new AsyncTask<Void, Void, Void>() {
+            @Override
+            protected Void doInBackground(Void... voids) {
+                webService.addRestaurant(restaurant);
+                return null;
+            }
+        }.execute();
     }
 
 
@@ -105,13 +141,25 @@ public class WebServiceSync {
     }
 
 
-    public boolean deleteRestaurant(long restaurantId) {
-        return false;
+    public void deleteRestaurant(final long restaurantId) {
+        new AsyncTask<Void, Void, Void>() {
+            @Override
+            protected Void doInBackground(Void... voids) {
+                webService.deleteRestaurant(restaurantId);
+                return null;
+            }
+        }.execute();
     }
 
 
-    public boolean updateRestaurant(Restaurant restaurant) {
-        return false;
+    public void updateRestaurant(final Restaurant restaurant) {
+        new AsyncTask<Void, Void, Void>() {
+            @Override
+            protected Void doInBackground(Void... voids) {
+                webService.updateRestaurant(restaurant);
+                return null;
+            }
+        }.execute();
     }
 
 
@@ -165,33 +213,69 @@ public class WebServiceSync {
     }
 
 
-    public boolean updateReview(Review review) {
-        return false;
+    public void updateReview(final Review review) {
+        new AsyncTask<Void, Void, Void>() {
+            @Override
+            protected Void doInBackground(Void... voids) {
+                webService.updateReview(review);
+                return null;
+            }
+        }.execute();
     }
 
 
-    public boolean deleteReview(long reviewId) {
-        return false;
+    public void deleteReview(final long reviewId) {
+        new AsyncTask<Void, Void, Void>() {
+            @Override
+            protected Void doInBackground(Void... voids) {
+                webService.deleteReview(reviewId);
+                return null;
+            }
+        }.execute();
     }
 
 
-    public boolean addReview(Review review) {
-        return false;
+    public void addReview(final Review review) {
+        new AsyncTask<Void, Void, Void>() {
+            @Override
+            protected Void doInBackground(Void... voids) {
+                webService.addReview(review);
+                return null;
+            }
+        }.execute();
     }
 
 
-    public boolean updateItem(Item item) {
-        return false;
+    public void updateItem(final Item item) {
+        new AsyncTask<Void, Void, Void>() {
+            @Override
+            protected Void doInBackground(Void... voids) {
+                webService.updateItem(item);
+                return null;
+            }
+        }.execute();
     }
 
 
-    public boolean deleteItem(long itemId) {
-        return false;
+    public void deleteItem(final long itemId) {
+        new AsyncTask<Void, Void, Void>() {
+            @Override
+            protected Void doInBackground(Void... voids) {
+                webService.deleteItem(itemId);
+                return null;
+            }
+        }.execute();
     }
 
 
-    public boolean addItem(Item item) {
-        return false;
+    public void addItem(final Item item) {
+        new AsyncTask<Void, Void, Void>() {
+            @Override
+            protected Void doInBackground(Void... voids) {
+                webService.addItem(item);
+                return null;
+            }
+        }.execute();
     }
 
 
@@ -246,12 +330,24 @@ public class WebServiceSync {
         }.execute();
     }
 
-    public boolean deleteMenuItem(MenuItem menuItem) {
-        return false;
+    public void deleteMenuItem(final MenuItem menuItem) {
+        new AsyncTask<Void, Void, Void>() {
+            @Override
+            protected Void doInBackground(Void... voids) {
+                webService.deleteMenuItem(menuItem);
+                return null;
+            }
+        }.execute();
     }
 
-    public boolean addMenuItem(MenuItem menuItem) {
-        return false;
+    public void addMenuItem(final MenuItem menuItem) {
+        new AsyncTask<Void, Void, Void>() {
+            @Override
+            protected Void doInBackground(Void... voids) {
+                webService.addMenuItem(menuItem);
+                return null;
+            }
+        }.execute();
     }
 
     public void syncItemCategoryById(final long itemCategoryId) {
@@ -264,16 +360,34 @@ public class WebServiceSync {
         }.execute();
     }
 
-    public boolean updateItemCategory(ItemCategory itemCategory) {
-        return false;
+    public void updateItemCategory(final ItemCategory itemCategory) {
+        new AsyncTask<Void, Void, Void>() {
+            @Override
+            protected Void doInBackground(Void... voids) {
+                webService.updateItemCategory(itemCategory);
+                return null;
+            }
+        }.execute();
     }
 
-    public boolean deleteItemCategory(long itemCategoryId) {
-        return false;
+    public void deleteItemCategory(final long itemCategoryId) {
+        new AsyncTask<Void, Void, Void>() {
+            @Override
+            protected Void doInBackground(Void... voids) {
+                webService.deleteItemCategory(itemCategoryId);
+                return null;
+            }
+        }.execute();
     }
 
-    public boolean addItemCategory(ItemCategory itemCategory) {
-        return false;
+    public void addItemCategory(final ItemCategory itemCategory) {
+        new AsyncTask<Void, Void, Void>() {
+            @Override
+            protected Void doInBackground(Void... voids) {
+                webService.addItemCategory(itemCategory);
+                return null;
+            }
+        }.execute();
     }
 
     public void syncItemCategories() {
@@ -288,16 +402,34 @@ public class WebServiceSync {
         }.execute();
     }
 
-    public boolean updateItemRating(ItemRating itemRating) {
-        return false;
+    public void updateItemRating(final ItemRating itemRating) {
+        new AsyncTask<Void, Void, Void>() {
+            @Override
+            protected Void doInBackground(Void... voids) {
+                webService.updateItemRating(itemRating);
+                return null;
+            }
+        }.execute();
     }
 
-    public boolean deleteItemRating(ItemRating itemRating) {
-        return false;
+    public void deleteItemRating(final ItemRating itemRating) {
+        new AsyncTask<Void, Void, Void>() {
+            @Override
+            protected Void doInBackground(Void... voids) {
+                webService.deleteItemRating(itemRating);
+                return null;
+            }
+        }.execute();
     }
 
-    public boolean addItemRating(ItemRating itemRating) {
-        return false;
+    public void addItemRating(final ItemRating itemRating) {
+        new AsyncTask<Void, Void, Void>() {
+            @Override
+            protected Void doInBackground(Void... voids) {
+                webService.addItemRating(itemRating);
+                return null;
+            }
+        }.execute();
     }
 
     public void syncRatingsOfItem(final long itemId) {
@@ -317,12 +449,24 @@ public class WebServiceSync {
         return 0;
     }
 
-    public boolean deleteAccountSubscription(AccountSubscription accountSubscription) {
-        return false;
+    public void deleteAccountSubscription(final AccountSubscription accountSubscription) {
+        new AsyncTask<Void, Void, Void>() {
+            @Override
+            protected Void doInBackground(Void... voids) {
+                webService.deleteAccountSubscription(accountSubscription);
+                return null;
+            }
+        }.execute();
     }
 
-    public boolean addAccountSubscription(AccountSubscription accountSubscription) {
-        return false;
+    public void addAccountSubscription(final AccountSubscription accountSubscription) {
+        new AsyncTask<Void, Void, Void>() {
+            @Override
+            protected Void doInBackground(Void... voids) {
+                webService.addAccountSubscription(accountSubscription);
+                return null;
+            }
+        }.execute();
     }
 
     public void syncSubscribedRestaurantsOfAccount(final String accountId) {
@@ -346,7 +490,7 @@ public class WebServiceSync {
         syncItemCategories();
         syncReviews();
         String username = MasterApplication.getContext().getUsername();
-        if (!username.equalsIgnoreCase(UserType.GUEST.getText()))
+        if (!username.equalsIgnoreCase(""))
             syncSubscribedRestaurantsOfAccount(username);
     }
 

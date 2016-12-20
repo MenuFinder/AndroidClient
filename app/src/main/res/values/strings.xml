@@ -71,6 +71,7 @@
     <string name="price">Price:\u0020</string>
     <string name="save">Save</string>
     <string name="saveNotification">\"%s\" saved</string>
+    <string name="updateNotification">\"%s\" updated</string>
     <string name="search">Search</string>
     <string name="share">Share</string>
     <string name="shared_logo" translatable="false">logo</string>

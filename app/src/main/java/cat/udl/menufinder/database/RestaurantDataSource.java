@@ -48,6 +48,23 @@ public class RestaurantDataSource extends DataSource {
         return allRestaurants;
     }
 
+    public List<Restaurant> getRestaurantsOfAccount(String accountId) {
+        List<Restaurant> allRestaurants = new ArrayList<>();
+        Cursor cursor = database.query(
+                RestaurantContract.RestaurantTable.TABLE_NAME,
+                allColumns,
+                RestaurantContract.RestaurantTable.ACCOUNT + " = ?",
+                new String[]{accountId},
+                null, null, null);
+
+        while (cursor.moveToNext()) {
+            Restaurant restaurant = cuToRestaurant(cursor);
+            allRestaurants.add(restaurant);
+        }
+        cursor.close();
+        return allRestaurants;
+    }
+
     public boolean addRestaurant(Restaurant restaurant) {
         try {
             database.insertOrThrow(

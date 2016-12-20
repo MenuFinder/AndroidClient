@@ -51,6 +51,11 @@ public class ItemsAdapter extends RecyclerView.Adapter<ItemsAdapter.ViewHolder> 
         return items.get(position);
     }
 
+    @Override
+    public long getItemId(int position) {
+        return getItem(position).getId();
+    }
+
     public void addItem(Item item) {
         items.add(item);
         notifyDataSetChanged();

@@ -75,6 +75,11 @@ public class DetailRestaurantFragment extends MasterFragment {
                 intent.putExtra(KEY_MENU, menu);
                 startActivity(intent);
             }
+
+            @Override
+            public void onIsVisibleClick(Menu menu, boolean visible) {
+
+            }
         }, getMasterApplication().getUserType());
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));

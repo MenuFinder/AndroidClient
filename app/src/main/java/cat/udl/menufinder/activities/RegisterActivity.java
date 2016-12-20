@@ -16,7 +16,6 @@ import cat.udl.menufinder.application.MasterActivity;
 import cat.udl.menufinder.enums.UserType;
 import cat.udl.menufinder.models.Account;
 import cat.udl.menufinder.models.Restaurant;
-import cat.udl.menufinder.ws.WebServiceImpl;
 
 import static cat.udl.menufinder.R.id.address;
 import static cat.udl.menufinder.enums.UserType.CLIENT;
@@ -179,7 +178,7 @@ public class RegisterActivity extends MasterActivity {
 
         @Override
         protected Boolean doInBackground(Void... params) {
-            return new WebServiceImpl().addAccount(account);
+            return getDbManager().addAccount(account);
         }
 
         @Override

@@ -31,6 +31,8 @@ public interface DBManager {
 
     boolean updateMenu(Menu menu);
 
+    List<Restaurant> getRestaurantsOfAccount(String accountId);
+
     Restaurant getRestaurantById(long restaurantId);
 
     boolean addRestaurant(Restaurant restaurant);

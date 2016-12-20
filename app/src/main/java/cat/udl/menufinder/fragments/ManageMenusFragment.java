@@ -10,6 +10,7 @@ import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,6 +23,7 @@ import cat.udl.menufinder.R;
 import cat.udl.menufinder.adapters.MenusAdapter;
 import cat.udl.menufinder.application.MasterFragment;
 import cat.udl.menufinder.models.Menu;
+import cat.udl.menufinder.models.Restaurant;
 
 public class ManageMenusFragment extends MasterFragment {
 
@@ -61,11 +63,20 @@ public class ManageMenusFragment extends MasterFragment {
         animator.setAddDuration(1000);
         recyclerView.setItemAnimator(animator);
 
-        menus = getDbManager().getMenusByRestaurantId(0);
+
+        // TODO Posar la id del restaurant
+        Restaurant restaurant = getDbManager().getRestaurantsOfAccount(getMasterApplication().getUsername()).get(0);
+        menus = getDbManager().getMenusByRestaurantId(restaurant.getId());
         adapter = new MenusAdapter(getActivity(), menus, new OnMenuClickListener() {
             @Override
             public void onMenuClick(Menu menu, int adapterPosition) {
                 showEditDialog(menu, adapterPosition);
+            }
+
+            @Override
+            public void onIsVisibleClick(Menu menu, boolean visible) {
+                menu.setVisible(visible);
+                editToDB(menu, false);
             }
         }, getMasterApplication().getUserType());
         recyclerView.setAdapter(adapter);
@@ -138,7 +149,7 @@ public class ManageMenusFragment extends MasterFragment {
                 m.setDescription(description);
                 if (closeDialog) {
                     alertDialog.dismiss();
-                    editToDB(m);
+                    editToDB(m, true);
                 }
             }
         });
@@ -178,29 +189,38 @@ public class ManageMenusFragment extends MasterFragment {
                 if (closeDialog) {
                     alertDialog.dismiss();
                     //TODO Posar la id del restaurant
-                    saveToDB(new Menu(0,name, description, Double.parseDouble(price)));
+                    Restaurant restaurant = getDbManager().getRestaurantsOfAccount(getMasterApplication().getUsername()).get(0);
+                    saveToDB(new Menu(restaurant.getId(), name, description, Double.parseDouble(price)));
                 }
             }
         });
     }
 
-    private void editToDB(Menu menu) {
-        showToast(String.format(getString(R.string.saveNotification), menu.getName()));
-        adapter.notifyDataSetChanged();
-    }
-
     private void saveToDB(Menu menu) {
         showToast(String.format(getString(R.string.saveNotification), menu.getName()));
         adapter.addMenu(menu);
+        getDbManager().addMenu(menu);
+    }
+
+    private void editToDB(Menu menu, boolean need) {
+        if (need) {
+            showToast(String.format(getString(R.string.updateNotification), menu.getName()));
+            adapter.notifyDataSetChanged();
+        }
+        Log.d("patata", menu.toString());
+        getDbManager().updateMenu(menu);
     }
 
     private void removeOfDB(int position) {
         showToast(String.format(getString(R.string.deleteNotification), adapter.getMenu(position).getName()));
         adapter.removeMenu(position);
+        getDbManager().deleteMenu(adapter.getItemId(position));
     }
 
     public interface OnMenuClickListener {
         void onMenuClick(Menu menu, int adapterPosition);
+
+        void onIsVisibleClick(Menu menu, boolean visible);
     }
 
 }

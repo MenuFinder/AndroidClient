@@ -42,22 +42,21 @@ public class MenusAdapter extends RecyclerView.Adapter<MenusAdapter.ViewHolder> 
 
     @Override
     public void onBindViewHolder(MenusAdapter.ViewHolder holder, final int position) {
-        Menu menu = getMenu(position);
+        final Menu menu = getMenu(position);
         holder.name.setText(menu.getName());
         holder.price.setText(String.valueOf(menu.getPrice()));
         if (userType != RESTAURANT) holder.is_visible.setVisibility(GONE);
         holder.is_visible.setChecked(menu.isVisible());
-        holder.is_visible.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
-                getMenu(position).setVisible(b);
-            }
-        });
     }
 
     @Override
     public int getItemCount() {
         return menus.size();
+    }
+
+    @Override
+    public long getItemId(int position) {
+        return getMenu(position).getId();
     }
 
     public Menu getMenu(int position) {
@@ -91,6 +90,13 @@ public class MenusAdapter extends RecyclerView.Adapter<MenusAdapter.ViewHolder> 
             name = (TextView) itemView.findViewById(R.id.name);
             price = (TextView) itemView.findViewById(R.id.price);
             is_visible = (Switch) itemView.findViewById(R.id.is_visible);
+            is_visible.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+                @Override
+                public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+                    is_visible.setChecked(b);
+                    listener.onIsVisibleClick(getMenu(getAdapterPosition()), b);
+                }
+            });
         }
     }
 

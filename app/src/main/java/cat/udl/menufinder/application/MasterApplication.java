@@ -5,7 +5,7 @@ import android.content.Context;
 import android.content.SharedPreferences;
 
 import cat.udl.menufinder.database.DBManager;
-import cat.udl.menufinder.database.DBManagerLocal;
+import cat.udl.menufinder.database.DBManagerIterm;
 import cat.udl.menufinder.enums.UserType;
 import cat.udl.menufinder.models.Account;
 import cat.udl.menufinder.utils.Constants;
@@ -28,7 +28,7 @@ public class MasterApplication extends Application {
     }
 
     public DBManager getDbManager() {
-        return DBManagerLocal.getInstance();
+        return DBManagerIterm.getInstance();
     }
 
     public SharedPreferences getPestormixSharedPreferences() {
@@ -79,7 +79,7 @@ public class MasterApplication extends Application {
 
     private void firstTime() {
         String key = "first_time";
-        if (getBoolean(key, true)) {
+        if (getBoolean(key, true) && false) {
             putBoolean(key, false);
             new FakeData(getDbManager());
         }
