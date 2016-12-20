@@ -229,4 +229,9 @@ public class WebServiceImpl implements DBManager {
     public void deleteAll() {
     }
 
+    @Override
+    public List<Menu> getAllMenusByRestaurantId(long restaurantId) {
+        return null;
+    }
+
 }

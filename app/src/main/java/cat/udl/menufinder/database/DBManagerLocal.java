@@ -56,6 +56,11 @@ public class DBManagerLocal implements DBManager {
     }
 
     @Override
+    public List<Menu> getAllMenusByRestaurantId(long restaurantId) {
+        return menuDataSource.getAllMenusByRestaurantId(restaurantId);
+    }
+
+    @Override
     public Menu getMenuById(long menuId) {
         return menuDataSource.getMenuById(menuId);
     }

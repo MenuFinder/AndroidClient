@@ -1,7 +1,5 @@
 package cat.udl.menufinder.database;
 
-import android.util.Log;
-
 import java.util.List;
 import java.util.Map;
 
@@ -73,8 +71,6 @@ public class DBManagerIterm implements DBManager {
 
     @Override
     public boolean updateMenu(Menu menu) {
-
-        Log.d("patata", menu.toString());
         sync.updateMenu(menu);
         return local.updateMenu(menu);
     }
@@ -271,5 +267,10 @@ public class DBManagerIterm implements DBManager {
     @Override
     public void deleteAll() {
         local.deleteAll();
+    }
+
+    @Override
+    public List<Menu> getAllMenusByRestaurantId(long restaurantId) {
+        return local.getAllMenusByRestaurantId(restaurantId);
     }
 }

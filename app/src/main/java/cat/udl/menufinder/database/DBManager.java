@@ -100,4 +100,6 @@ public interface DBManager {
     List<Restaurant> getSubscribedRestaurantsOfAccount(String accountId);
 
     void deleteAll();
+
+    List<Menu> getAllMenusByRestaurantId(long restaurantId);
 }

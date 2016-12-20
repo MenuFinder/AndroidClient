@@ -58,6 +58,24 @@ public class MenuDataSource extends DataSource {
         return allMenus;
     }
 
+    public List<Menu> getAllMenusByRestaurantId(long restaurantId) {
+        List<Menu> allMenus = new ArrayList<>();
+        Cursor cursor = database.query(
+                MenuTable.TABLE_NAME,
+                allColumns,
+                MenuTable.RESTAURANT + " = ?" ,
+                new String[]{String.valueOf(restaurantId)},
+                null, null, null
+        );
+
+        while (cursor.moveToNext()) {
+            Menu menu = cuToMenu(cursor);
+            allMenus.add(menu);
+        }
+        cursor.close();
+        return allMenus;
+    }
+
     public Menu getMenuById(long menuId) {
         Menu menu;
         Cursor cursor = database.query(

@@ -10,7 +10,6 @@ import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -66,7 +65,7 @@ public class ManageMenusFragment extends MasterFragment {
 
         // TODO Posar la id del restaurant
         Restaurant restaurant = getDbManager().getRestaurantsOfAccount(getMasterApplication().getUsername()).get(0);
-        menus = getDbManager().getMenusByRestaurantId(restaurant.getId());
+        menus = getDbManager().getAllMenusByRestaurantId(restaurant.getId());
         adapter = new MenusAdapter(getActivity(), menus, new OnMenuClickListener() {
             @Override
             public void onMenuClick(Menu menu, int adapterPosition) {
@@ -207,7 +206,6 @@ public class ManageMenusFragment extends MasterFragment {
             showToast(String.format(getString(R.string.updateNotification), menu.getName()));
             adapter.notifyDataSetChanged();
         }
-        Log.d("patata", menu.toString());
         getDbManager().updateMenu(menu);
     }
 
