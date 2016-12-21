@@ -23,7 +23,7 @@
     <string name="action_login">Iniciar sesión</string>
     <string name="action_manage_items">Administrar Artículos</string>
     <string name="action_manage_menus">Administrar Menus</string>
-    <string name="action_register">Registrar</string>
+    <string name="action_register">Registrar gratis</string>
     <string name="action_settings">Configuración</string>
     <string name="action_view_map">Mapa</string>
     <string name="action_view_restaurants">Restaurantes</string>

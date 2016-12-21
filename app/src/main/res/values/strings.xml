@@ -21,7 +21,7 @@
 
     <!-- Action -->
     <string name="action_sign_in">Sign in</string>
-    <string name="action_register">Register</string>
+    <string name="action_register">Register for free</string>
     <string name="action_sign_in_short">Sign in</string>
     <string name="action_manage_items">Manage Items</string>
     <string name="action_manage_menus">Manage Menus</string>
