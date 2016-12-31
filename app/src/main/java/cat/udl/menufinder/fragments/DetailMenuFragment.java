@@ -84,7 +84,7 @@ public class DetailMenuFragment extends MasterFragment {
         textView.setLayoutParams(new LinearLayout.LayoutParams(0, ViewGroup.LayoutParams.WRAP_CONTENT, weightSum - 1));
         int padding = getResources().getDimensionPixelSize(R.dimen.space_10);
         textView.setPadding(padding, padding, padding, padding);
-        textView.setBackgroundResource(R.color.title_background);
+       // textView.setBackgroundResource(R.color.title_background);
         textView.setGravity(CENTER);
         textView.setTypeface(null, Typeface.BOLD);
         textView.setTextSize(TypedValue.COMPLEX_UNIT_PX, getResources().getDimension(R.dimen.category_title));
