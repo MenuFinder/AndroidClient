@@ -98,6 +98,7 @@ public class ReviewActivity extends MasterActivity {
     }
 
     private void saveToDB(Review review) {
+        getDbManager().addReview(review);
         adapter.addReview(review);
         showToast(getString(R.string.review_added));
     }

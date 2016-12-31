@@ -12,6 +12,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.RatingBar;
 import android.widget.TextView;
 
 import java.util.List;
@@ -55,7 +56,7 @@ public class DetailRestaurantFragment extends MasterFragment {
     private void configGeneralInformation(Restaurant restaurant) {
         ((TextView) getView().findViewById(R.id.name)).setText(restaurant.getName());
         ((TextView) getView().findViewById(R.id.address)).setText(restaurant.getAddress());
-        ((TextView) getView().findViewById(R.id.score)).setText(String.valueOf(restaurant.getScore()));
+        ((RatingBar) getView().findViewById(R.id.score)).setRating((float)restaurant.getScore());
         ((TextView) getView().findViewById(R.id.phone)).setText(restaurant.getPhone());
         ((TextView) getView().findViewById(R.id.email)).setText(restaurant.getEmail());
     }
