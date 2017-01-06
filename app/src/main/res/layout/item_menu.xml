@@ -40,7 +40,11 @@
                 android:text="@string/price"
                 android:textStyle="bold" />
 
-
+            <TextView
+                android:id="@+id/price"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingTop="2dp" />
         </LinearLayout>
     </LinearLayout>
 

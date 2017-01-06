@@ -21,6 +21,7 @@ import java.util.List;
 import cat.udl.menufinder.R;
 import cat.udl.menufinder.application.MasterFragment;
 import cat.udl.menufinder.models.Restaurant;
+import cat.udl.menufinder.utils.Utils;
 
 public class RestaurantMapFragment extends MasterFragment implements OnMapReadyCallback {
     private static final String TAG = RestaurantMapFragment.class.getName();
@@ -54,7 +55,7 @@ public class RestaurantMapFragment extends MasterFragment implements OnMapReadyC
     public void onMapReady(GoogleMap googleMap) {
         LatLng r = new LatLng(41.6175899, 0.6200145999999904);
         if (restaurant != null) {
-            r = getLatLngOfRestaurant(restaurant);
+            r = Utils.getLatLngOfRestaurant(restaurant,getActivity());
         }
         googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(r, 14));
         putRestaurantsInMap(googleMap);
@@ -63,7 +64,7 @@ public class RestaurantMapFragment extends MasterFragment implements OnMapReadyC
     private void putRestaurantsInMap(GoogleMap googleMap) {
         List<Restaurant> restaurants = getDbManager().getRestaurants();
         for (Restaurant restaurant : restaurants) {
-            LatLng latLng = getLatLngOfRestaurant(restaurant);
+            LatLng latLng = Utils.getLatLngOfRestaurant(restaurant,getActivity());
             if (latLng != null)
                 googleMap.addMarker(new MarkerOptions().position(
                         latLng)
@@ -71,18 +72,5 @@ public class RestaurantMapFragment extends MasterFragment implements OnMapReadyC
         }
     }
 
-    private LatLng getLatLngOfRestaurant(Restaurant restaurant) {
-        Geocoder geocoder = new Geocoder(getActivity());
-        try {
-            List<Address> addresses = geocoder.getFromLocationName(restaurant.getAddressWithCity(), 1);
-            if (addresses.size() > 0) {
-                double latitude = addresses.get(0).getLatitude();
-                double longitude = addresses.get(0).getLongitude();
-                return new LatLng(latitude, longitude);
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        return null;
-    }
+
 }

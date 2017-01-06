@@ -1,6 +1,7 @@
 package cat.udl.menufinder.fragments;
 
 import android.content.Intent;
+import android.location.Location;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.ActivityOptionsCompat;
@@ -12,6 +13,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.google.android.gms.maps.model.LatLng;
+import com.google.maps.android.SphericalUtil;
+
+import java.util.ArrayList;
 import java.util.List;
 
 import cat.udl.menufinder.R;
@@ -21,6 +26,7 @@ import cat.udl.menufinder.adapters.RestaurantsAdapter;
 import cat.udl.menufinder.application.MasterFragment;
 import cat.udl.menufinder.models.AccountSubscription;
 import cat.udl.menufinder.models.Restaurant;
+import cat.udl.menufinder.utils.GPSTracker;
 import cat.udl.menufinder.utils.Utils;
 
 import static cat.udl.menufinder.utils.Constants.KEY_RESTAURANT;
@@ -29,6 +35,7 @@ public class SubscriptionsFragment extends MasterFragment {
 
     protected List<Restaurant> restaurants;
     protected RestaurantsAdapter adapter;
+    private GPSTracker gps;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -50,8 +57,9 @@ public class SubscriptionsFragment extends MasterFragment {
         DefaultItemAnimator animator = new DefaultItemAnimator();
         animator.setAddDuration(1000);
         recyclerView.setItemAnimator(animator);
-
-        restaurants = getRestaurants();
+        getNearbyRestaurants();
+        if(restaurants == null)
+            restaurants = getRestaurants();
         adapter = new RestaurantsAdapter(getActivity(), restaurants, new RestaurantsFragment.OnRestaurantClickListener() {
             @Override
             public void onRestaurantClick(Restaurant restaurant, View view) {
@@ -99,6 +107,49 @@ public class SubscriptionsFragment extends MasterFragment {
     public List<Restaurant> getRestaurants() {
         return getDbManager().getSubscribedRestaurantsOfAccount(getMasterApplication().getUsername());
     }
+
+
+    //function to get nearbyRestaurants
+    private void getNearbyRestaurants()
+    {
+        restaurants = new ArrayList<Restaurant>();
+        // create class object
+        gps = new GPSTracker(getActivity());
+
+        // check if GPS enabled
+        if(gps.canGetLocation()){
+
+            Location userLocation = gps.getLocation();
+            for (Restaurant restaurant : getRestaurants())
+            {
+                LatLng latLngRestaurant = Utils.getLatLngOfRestaurant(restaurant, getActivity());
+                LatLng latLngUser = new LatLng(userLocation.getLatitude(),userLocation.getLongitude());
+                double distance = SphericalUtil.computeDistanceBetween(latLngUser, latLngRestaurant);
+                if(distance <2000)
+                {
+                    restaurants.add(restaurant);
+                }
+                System.out.println("A Distancia é = "+formatNumber(distance));
+            }
+            // adapter.notifyDataSetChanged();
+        }else{
+            // can't get location
+            // GPS or Network is not enabled
+            // Ask user to enable GPS/network in settings
+            gps.showSettingsAlert();
+        }
+    }
+    private String formatNumber(double distance) {
+        String unit = "m";
+        if (distance > 1000) {
+            distance /= 1000;
+            unit = "km";
+        }
+
+        return String.format("%4.3f%s", distance, unit);
+    }
+
+
 
     public interface OnRestaurantClickListener {
         void onRestaurantClick(Restaurant restaurant, View view);
