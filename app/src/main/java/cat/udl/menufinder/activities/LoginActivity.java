@@ -18,8 +18,6 @@ import cat.udl.menufinder.enums.UserType;
 import cat.udl.menufinder.models.Account;
 import cat.udl.menufinder.ws.WebServiceImpl;
 
-import static cat.udl.menufinder.enums.UserType.CLIENT;
-
 public class LoginActivity extends MasterActivity {
 
     private static final String TAG = LoginActivity.class.getSimpleName();
@@ -128,9 +126,9 @@ public class LoginActivity extends MasterActivity {
 
         @Override
         protected Account doInBackground(Void... voids) {
-        //    return new WebServiceImpl().getValidLogin(username, password);
-            Account validLogin = new Account("asdf","asdf", CLIENT.getText(),"");
-            return validLogin;
+            return new WebServiceImpl().getValidLogin(username, password);
+//            Account validLogin = new Account("asdf","asdf", CLIENT.getText(),"");
+//            return validLogin;
         }
 
         @Override
