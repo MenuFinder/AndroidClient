@@ -60,7 +60,20 @@
                 android:layout_height="wrap_content"
                 android:paddingTop="2dp"
                 android:paddingLeft="@dimen/cast_expanded_controller_margin_between_seek_bar_and_control_buttons" />
+
         </LinearLayout>
+        <RatingBar
+            android:id="@+id/rating"
+            style="?android:attr/ratingBarStyleSmall"
+            android:layout_width="91dp"
+            android:layout_height="wrap_content"
+            android:clickable="true"
+            android:isIndicator="true"
+            android:paddingTop="8dp"
+            android:numStars="5"
+            android:progressTint="#FDDB39"
+            android:paddingLeft="@dimen/cast_expanded_controller_margin_between_seek_bar_and_control_buttons" />
+
     </LinearLayout>
 
     <LinearLayout
