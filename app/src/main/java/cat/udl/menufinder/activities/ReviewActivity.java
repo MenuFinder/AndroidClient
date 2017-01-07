@@ -11,7 +11,6 @@ import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.EditText;
-import android.widget.RatingBar;
 import android.widget.TextView;
 
 import java.util.List;
@@ -20,7 +19,6 @@ import cat.udl.menufinder.R;
 import cat.udl.menufinder.adapters.ReviewAdapter;
 import cat.udl.menufinder.application.MasterActivity;
 import cat.udl.menufinder.models.Item;
-import cat.udl.menufinder.models.ItemRating;
 import cat.udl.menufinder.models.Review;
 
 import static cat.udl.menufinder.utils.Constants.KEY_ITEM;
@@ -86,7 +84,6 @@ public class ReviewActivity extends MasterActivity {
             public void onClick(View view) {
                 boolean closeDialog = true;
                 String review = ((EditText) dialogView.findViewById(R.id.review)).getText().toString().trim();
-                float  rating = ((RatingBar) dialogView.findViewById(R.id.score)).getRating();
                 if (TextUtils.isEmpty(review)) {
                     closeDialog = false;
                 }
@@ -95,20 +92,15 @@ public class ReviewActivity extends MasterActivity {
                     alertDialog.dismiss();
                     //TODO ENUM REVIEW_PARENT {item, restaurant, menu}
                     saveToDB(new Review(review, "item", item.getId(), getMasterApplication().getUsername()));
-                    saveRatingToDB(new ItemRating(rating,item.getId(),getMasterApplication().getUsername()));
                 }
             }
         });
     }
+
     private void saveToDB(Review review) {
         getDbManager().addReview(review);
         adapter.addReview(review);
         showToast(getString(R.string.review_added));
-    }
-
-    private void saveRatingToDB(ItemRating itemRating)
-    {
-        getDbManager().addItemRating(itemRating);
     }
 
 }
