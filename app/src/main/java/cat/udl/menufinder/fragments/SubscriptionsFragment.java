@@ -1,9 +1,12 @@
 package cat.udl.menufinder.fragments;
 
+import android.Manifest;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.location.Location;
 import android.os.Build;
 import android.os.Bundle;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.DividerItemDecoration;
@@ -24,6 +27,7 @@ import cat.udl.menufinder.activities.DetailRestaurantActivity;
 import cat.udl.menufinder.activities.HomeActivity;
 import cat.udl.menufinder.adapters.RestaurantsAdapter;
 import cat.udl.menufinder.application.MasterFragment;
+import cat.udl.menufinder.enums.UserType;
 import cat.udl.menufinder.models.AccountSubscription;
 import cat.udl.menufinder.models.Restaurant;
 import cat.udl.menufinder.utils.GPSTracker;
@@ -58,7 +62,7 @@ public class SubscriptionsFragment extends MasterFragment {
         animator.setAddDuration(1000);
         recyclerView.setItemAnimator(animator);
         getNearbyRestaurants();
-        if(restaurants == null)
+        if(restaurants == null || restaurants.isEmpty())
             restaurants = getRestaurants();
         adapter = new RestaurantsAdapter(getActivity(), restaurants, new RestaurantsFragment.OnRestaurantClickListener() {
             @Override
@@ -122,14 +126,15 @@ public class SubscriptionsFragment extends MasterFragment {
             Location userLocation = gps.getLocation();
             for (Restaurant restaurant : getRestaurants())
             {
-                LatLng latLngRestaurant = Utils.getLatLngOfRestaurant(restaurant, getActivity());
-                LatLng latLngUser = new LatLng(userLocation.getLatitude(),userLocation.getLongitude());
-                double distance = SphericalUtil.computeDistanceBetween(latLngUser, latLngRestaurant);
-                if(distance <2000)
-                {
-                    restaurants.add(restaurant);
+
+                if(Utils.isNetworkAvailable(this.getActivity())) {
+                    LatLng latLngRestaurant = Utils.getLatLngOfRestaurant(restaurant, getActivity());
+                    LatLng latLngUser = new LatLng(userLocation.getLatitude(), userLocation.getLongitude());
+                    double distance = SphericalUtil.computeDistanceBetween(latLngUser, latLngRestaurant);
+                    if (distance < 2000) {
+                        restaurants.add(restaurant);
+                    }
                 }
-                System.out.println("A Distancia é = "+formatNumber(distance));
             }
             // adapter.notifyDataSetChanged();
         }else{

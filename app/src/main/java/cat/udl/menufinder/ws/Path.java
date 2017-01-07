@@ -1,7 +1,7 @@
 package cat.udl.menufinder.ws;
 
 abstract class Path {
-    static final String baseUrl = "http://ws.menufinder.tk:8080/MenuFinderWeb/webservice/menufinderws";
+    static final String baseUrl = "http://192.168.1.33:8080/MenuFinderWeb/webservice/menufinderws";
     //GET
     static final String GET_METHOD = "GET";
     static final String GET_MENUS_BY_RESTAURANT_ID = "/restaurantMenus/";
