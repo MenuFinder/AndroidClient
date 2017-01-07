@@ -90,7 +90,7 @@ public class ReviewDataSource extends DataSource {
                 ReviewContract.ReviewTable.TABLE_NAME,
                 allColumns,
                 ReviewContract.ReviewTable.PARENT_TYPE + " = ?" + " AND " +
-                        ReviewTypeContract.ReviewTypeTable.ID + " = ?",
+                        ReviewContract.ReviewTable.PARENT_ID + " = ?",
                 new String[]{reviewType, String.valueOf(id)},
                 null, null, null);
 
