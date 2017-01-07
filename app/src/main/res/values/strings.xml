@@ -53,10 +53,13 @@
     <string name="general_information">General information</string>
     <string name="key_totifications">notifications</string>
     <string name="item_saved">Item saved</string>
+    <string name="restaurant_deleted">Restaurant deleted</string>
 
     <!-- Manage -->
     <string name="manage_item">Manage Item</string>
     <string name="manage_menu">Manage Menu</string>
+    <string name="manage_restaurant">Manage Restaurant</string>
+    <string name="register_restaurant">Register new restaurant</string>
 
     <!-- Menu -->
     <string name="menu_saved">Menu saved</string>

@@ -65,4 +65,8 @@
     <string name="marker_title">Marker a %s</string>
     <string name="share_text">Vaig menjar molt bé a %s — Estic utilitzant Menu Finder</string>
     <string name="updateNotification">\"%s\" actualitzat</string>
+    <string name="manage_restaurant">Administrar Restaurant</string>
+    <string name="no_location_detected">No podem trobar la teva localització!</string>
+    <string name="register_restaurant">Registrar nou restaurant</string>
+    <string name="restaurant_deleted">Restaurant borrat</string>
 </resources>

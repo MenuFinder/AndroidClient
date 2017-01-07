@@ -15,6 +15,7 @@ import cat.udl.menufinder.R;
 import cat.udl.menufinder.application.MasterActivity;
 import cat.udl.menufinder.fragments.ManageItemsFragment;
 import cat.udl.menufinder.fragments.ManageMenusFragment;
+import cat.udl.menufinder.fragments.ManageRestaurantsFragment;
 import cat.udl.menufinder.fragments.PreferencesFragment;
 import cat.udl.menufinder.fragments.RestaurantMapFragment;
 import cat.udl.menufinder.fragments.RestaurantsFragment;
@@ -79,7 +80,10 @@ public class HomeActivity extends MasterActivity
 
     private void navigate(int id) {
         int itemId = R.id.content;
-        if (id == R.id.manage_items) {
+        if (id == R.id.manage_restaurants) {
+            toolbar.setTitle("Manage Restaurants");
+            loadFragment(itemId, new ManageRestaurantsFragment());
+        } else if (id == R.id.manage_items) {
             toolbar.setTitle(R.string.action_manage_items);
             loadFragment(itemId, new ManageItemsFragment());
         } else if (id == R.id.manage_menus) {

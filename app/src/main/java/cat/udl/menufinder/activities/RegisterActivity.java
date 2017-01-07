@@ -17,6 +17,8 @@ import cat.udl.menufinder.enums.UserType;
 import cat.udl.menufinder.models.Account;
 import cat.udl.menufinder.models.Restaurant;
 
+import static android.view.View.GONE;
+import static android.view.View.VISIBLE;
 import static cat.udl.menufinder.R.id.address;
 import static cat.udl.menufinder.enums.UserType.CLIENT;
 import static cat.udl.menufinder.enums.UserType.RESTAURANT;
@@ -34,13 +36,14 @@ public class RegisterActivity extends MasterActivity {
         changeOrientationIfIsPhone();
         setContentView(R.layout.activity_register);
         final LinearLayout linearLayout = (LinearLayout) findViewById(R.id.restaurant_linear_layout);
+        linearLayout.setVisibility(GONE);
         checkedTextView = (CheckedTextView) findViewById(R.id.is_restaurant);
         checkedTextView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 checkedTextView.setChecked(!checkedTextView.isChecked());
-                if (checkedTextView.isChecked()) linearLayout.setVisibility(View.VISIBLE);
-                else linearLayout.setVisibility(View.GONE);
+                if (checkedTextView.isChecked()) linearLayout.setVisibility(VISIBLE);
+                else linearLayout.setVisibility(GONE);
             }
         });
         Button register = (Button) findViewById(R.id.register);
@@ -59,6 +62,7 @@ public class RegisterActivity extends MasterActivity {
         EditText usernameView = (EditText) findViewById(R.id.username);
         EditText passwordView = (EditText) findViewById(R.id.password);
         EditText emailUserView = (EditText) findViewById(R.id.email_user);
+
         EditText restaurantNameView = (EditText) findViewById(R.id.restaurant_name);
         EditText cifView = (EditText) findViewById(R.id.cif);
         EditText addressView = (EditText) findViewById(address);
@@ -187,7 +191,7 @@ public class RegisterActivity extends MasterActivity {
             if (ok) {
                 getMasterApplication().login(account);
                 startActivity(new Intent(RegisterActivity.this, HomeActivity.class));
-            }else{
+            } else {
                 showToast(getString(R.string.error_no_connection_server));
             }
         }

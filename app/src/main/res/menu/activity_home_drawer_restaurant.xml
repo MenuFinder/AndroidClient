@@ -3,8 +3,12 @@
 
     <group android:checkableBehavior="single">
         <item
-            android:id="@+id/manage_menus"
+            android:id="@+id/manage_restaurants"
             android:checked="true"
+            android:icon="@drawable/ic_restaurant"
+            android:title="@string/action_manage_menus" />
+        <item
+            android:id="@+id/manage_menus"
             android:icon="@drawable/ic_menu"
             android:title="@string/action_manage_menus" />
         <item

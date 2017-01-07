@@ -85,5 +85,9 @@
 
     <!-- Map -->
     <string name="marker_title">Marker en %s</string>
+    <string name="manage_restaurant">Administrar Restaurante</string>
+    <string name="no_location_detected">No podemos encontrar tu localización!</string>
+    <string name="register_restaurant">Registrar nuevo restaurante</string>
+    <string name="restaurant_deleted">Restaurante borrado</string>
 
 </resources>

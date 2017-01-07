@@ -69,6 +69,7 @@ public abstract class WebServiceUtils {
             conn.setRequestProperty("Content-Type", "application/json; charset=UTF-8");
             conn.getResponseCode();
             String result = getResponse(conn);
+            Log.d(TAG, result);
         } catch (IOException e) {
             e.printStackTrace();
             return false;
@@ -95,6 +96,7 @@ public abstract class WebServiceUtils {
             wr.close();
             conn.getResponseCode();
             String result = getResponse(conn);
+            Log.d(TAG, result);
         } catch (IOException e) {
             e.printStackTrace();
             return false;
