@@ -122,11 +122,12 @@ public class RestaurantDataSource extends DataSource {
         restaurant.setAddress(cursor.getString(3));
         restaurant.setCity(cursor.getString(4));
         restaurant.setPostalCode(cursor.getString(5));
-        restaurant.setCountry(cursor.getString(6));
-        restaurant.setEmail(cursor.getString(7));
-        restaurant.setPhone(cursor.getString(8));
-        restaurant.setAccount(cursor.getString(9));
-        restaurant.setScore(cursor.getLong(10));
+        restaurant.setState(cursor.getString(6));
+        restaurant.setCountry(cursor.getString(7));
+        restaurant.setEmail(cursor.getString(8));
+        restaurant.setPhone(cursor.getString(9));
+        restaurant.setAccount(cursor.getString(10));
+        restaurant.setScore(cursor.getLong(11));
         return restaurant;
     }
 
