@@ -71,4 +71,7 @@
     <string name="restaurant_deleted">Restaurant borrat</string>
     <string name="action_manage_restaurants">Administrar Restaurants</string>
     <string name="showing_restaurants_distance_header">Mostrant restaurants a %d m de tu</string>
+    <string name="clear_filter">Netejar filtre</string>
+    <string name="not_results_founds">No s\'han trobat resultats</string>
+    <string name="prompt_distance">Distancia en metres</string>
 </resources>

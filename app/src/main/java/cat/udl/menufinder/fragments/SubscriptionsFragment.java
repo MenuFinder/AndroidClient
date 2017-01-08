@@ -21,7 +21,6 @@ import cat.udl.menufinder.adapters.RestaurantsAdapter;
 import cat.udl.menufinder.application.MasterFragment;
 import cat.udl.menufinder.models.AccountSubscription;
 import cat.udl.menufinder.models.Restaurant;
-import cat.udl.menufinder.utils.GPSTracker;
 import cat.udl.menufinder.utils.Utils;
 
 import static cat.udl.menufinder.utils.Constants.KEY_RESTAURANT;
@@ -29,7 +28,6 @@ import static cat.udl.menufinder.utils.Constants.KEY_RESTAURANT;
 public class SubscriptionsFragment extends MasterFragment {
 
     protected RestaurantsAdapter adapter;
-    protected GPSTracker gps;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -39,7 +37,12 @@ public class SubscriptionsFragment extends MasterFragment {
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        configHeader();
         configList();
+    }
+
+    protected void configHeader() {
+
     }
 
     protected void configList() {

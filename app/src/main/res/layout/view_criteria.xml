@@ -22,10 +22,10 @@
         android:singleLine="true" />
 
     <EditText
-        android:id="@+id/price"
+        android:id="@+id/distance"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="@string/prompt_price"
+        android:hint="@string/prompt_distance"
         android:inputType="numberDecimal"
         android:maxLines="1"
         android:singleLine="true" />

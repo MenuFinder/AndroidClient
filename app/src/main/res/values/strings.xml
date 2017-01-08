@@ -18,6 +18,7 @@
     <string name="prompt_restaurant_email">Restaurant email</string>
     <string name="prompt_country">Country</string>
     <string name="prompt_name">Name</string>
+    <string name="prompt_distance">Distance in meters</string>
 
     <!-- Action -->
     <string name="action_sign_in">Sign in</string>
@@ -94,5 +95,9 @@
     <string name="marker_title">Marker in %s</string>
     <string name="no_location_detected">We cannot find your location!</string>
     <string name="showing_restaurants_distance_header">Showing restaurants at %d m from you</string>
+
+    <!-- Filter -->
+    <string name="not_results_founds">Not results found</string>
+    <string name="clear_filter">Clear filter</string>
 
 </resources>

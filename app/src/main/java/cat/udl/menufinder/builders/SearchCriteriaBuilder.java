@@ -20,13 +20,7 @@ public class SearchCriteriaBuilder {
         return this;
     }
 
-    public SearchCriteriaBuilder setPrice(double price) {
-        searchCriteria.setPrice(price);
-        return this;
-    }
-
     public SearchCriteria build() {
         return searchCriteria;
     }
-
 }

@@ -33,6 +33,8 @@ import static android.view.View.VISIBLE;
 public class RestaurantsFragment extends SubscriptionsFragment {
     public static final String TAG = RestaurantsFragment.class.getSimpleName();
     private final int maxDistance = 2000; // Meters
+    private int restaurantsDistance;
+    private TextView header;
 
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
@@ -51,12 +53,12 @@ public class RestaurantsFragment extends SubscriptionsFragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setHasOptionsMenu(true);
+        restaurantsDistance = maxDistance;
     }
 
     protected void configHeader() {
-        TextView header = (TextView) getView().findViewById(R.id.header);
+        header = (TextView) getView().findViewById(R.id.header);
         header.setVisibility(VISIBLE);
-        header.setText(String.format(getString(R.string.showing_restaurants_distance_header), maxDistance));
     }
 
     private void showFilterDialog() {
@@ -74,12 +76,21 @@ public class RestaurantsFragment extends SubscriptionsFragment {
                         if (!TextUtils.isEmpty(name)) scb.setRestaurantName(name);
                         String city = ((EditText) dialogView.findViewById(R.id.city)).getText().toString().trim();
                         if (!TextUtils.isEmpty(city)) scb.setCity(city);
+                        String distance = ((EditText) dialogView.findViewById(R.id.distance)).getText().toString().trim();
+                        if (!TextUtils.isEmpty(distance))
+                            restaurantsDistance = Integer.parseInt(distance);
                         filterRestaurants(scb.build());
                     }
                 })
                 .setNegativeButton(android.R.string.cancel, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
+                    }
+                })
+                .setNeutralButton(R.string.clear_filter, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        filterRestaurants(new SearchCriteriaBuilder().build());
                     }
                 })
                 .create();
@@ -92,15 +103,11 @@ public class RestaurantsFragment extends SubscriptionsFragment {
 
     @Override
     public List<Restaurant> getRestaurants() {
-        List<Restaurant> restaurants = getNearbyRestaurants();
-        if (restaurants.isEmpty()) {
-            Log.d(TAG, "Getting restaurants from DB");
-            restaurants = getDbManager().getRestaurants();
-        }
-        return restaurants;
+        return getNearbyRestaurants(getDbManager().getRestaurants());
     }
 
-    private List<Restaurant> getNearbyRestaurants() {
+    private List<Restaurant> getNearbyRestaurants(List<Restaurant> restaurantList) {
+        header.setText(String.format(getString(R.string.showing_restaurants_distance_header), restaurantsDistance));
         List<Restaurant> restaurants = new ArrayList<>();
         // create class object
         GPSTracker gps = new GPSTracker(getActivity());
@@ -111,14 +118,14 @@ public class RestaurantsFragment extends SubscriptionsFragment {
             Location userLocation = gps.getLocation();
             if (userLocation != null) {
                 LatLng latLngUser = new LatLng(userLocation.getLatitude(), userLocation.getLongitude());
-                for (Restaurant restaurant : getDbManager().getRestaurants()) {
+                for (Restaurant restaurant : restaurantList) {
                     if (Utils.isNetworkAvailable(this.getActivity())) {
                         LatLng latLngRestaurant = Utils.getLatLngOfRestaurant(restaurant, getActivity());
-                        double distance = maxDistance;
+                        double distance = restaurantsDistance;
                         if (latLngRestaurant != null) {
                             distance = SphericalUtil.computeDistanceBetween(latLngUser, latLngRestaurant);
                         }
-                        if (distance < maxDistance) {
+                        if (distance < restaurantsDistance) {
                             restaurants.add(restaurant);
                         }
                     }
@@ -130,13 +137,18 @@ public class RestaurantsFragment extends SubscriptionsFragment {
             // Ask user to enable GPS/network in settings
             gps.showSettingsAlert();
         }
+        if (restaurants.isEmpty()) {
+            showToast(getString(R.string.not_results_founds));
+            restaurantsDistance = maxDistance;
+            return getNearbyRestaurants(getDbManager().getRestaurants());
+        }
         return restaurants;
     }
 
     private class FilterRestaurantsTask extends AsyncTask<String, Void, List<Restaurant>> {
         private final String where;
 
-        public FilterRestaurantsTask(SearchCriteria searchCriteria) {
+        FilterRestaurantsTask(SearchCriteria searchCriteria) {
             where = searchCriteria.getWhere();
         }
 
@@ -149,7 +161,7 @@ public class RestaurantsFragment extends SubscriptionsFragment {
         @Override
         protected void onPostExecute(List<Restaurant> restaurantList) {
             super.onPostExecute(restaurantList);
-            adapter.setRestaurants(restaurantList);
+            adapter.setRestaurants(getNearbyRestaurants(restaurantList));
         }
     }
 }
