@@ -1,6 +1,7 @@
 package cat.udl.menufinder.fragments;
 
 import android.content.DialogInterface;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.text.TextUtils;
@@ -69,16 +70,30 @@ public class RestaurantsFragment extends SubscriptionsFragment {
     }
 
     private void filterRestaurants(SearchCriteria searchCriteria) {
-        restaurants.clear();
-        Restaurant filteredRestaurant = new Restaurant("Filtered Restaurant", "123456789X",
-                "Plaça Major", "Talladell", "25301", "Spaña", "Lleida", "", "973 973 973",
-                getMasterApplication().getUsername());
-        restaurants.add(filteredRestaurant);
-        adapter.notifyDataSetChanged();
+        new FilterRestaurantsTask(searchCriteria).execute();
     }
 
     @Override
     public List<Restaurant> getRestaurants() {
         return getDbManager().getRestaurants();
+    }
+
+    private class FilterRestaurantsTask extends AsyncTask<String, Void, List<Restaurant>> {
+        private final String where;
+
+        public FilterRestaurantsTask(SearchCriteria searchCriteria) {
+            where = searchCriteria.getWhere();
+        }
+
+        @Override
+        protected List<Restaurant> doInBackground(String... strings) {
+            return getDbManager().getFilteredRestaurants(where);
+        }
+
+        @Override
+        protected void onPostExecute(List<Restaurant> restaurantList) {
+            super.onPostExecute(restaurantList);
+            adapter.setRestaurants(restaurantList);
+        }
     }
 }

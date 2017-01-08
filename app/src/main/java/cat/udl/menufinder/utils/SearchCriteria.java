@@ -14,4 +14,7 @@ public class SearchCriteria {
 
     }
 
+    public String getWhere() {
+        return "city = 'Lleida'";
+    }
 }

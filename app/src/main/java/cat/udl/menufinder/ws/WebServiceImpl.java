@@ -239,4 +239,9 @@ public class WebServiceImpl implements DBManager {
         return WebServiceUtils.put(Path.PUT_UPDATE_ACCOUNT_TOKEN, account);
     }
 
+    @Override
+    public List<Restaurant> getFilteredRestaurants(String where) {
+        return WebServiceUtils.getBeanList(WebServiceUtils.getFilteredRestaurants(Path.GET_FILTERED_RESTAURANTS, where), Restaurant[].class);
+    }
+
 }

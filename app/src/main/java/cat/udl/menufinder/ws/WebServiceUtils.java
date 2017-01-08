@@ -25,6 +25,7 @@ import java.util.Map;
 import cat.udl.menufinder.models.Account;
 import cat.udl.menufinder.models.Item;
 
+import static cat.udl.menufinder.ws.Path.POST_METHOD;
 import static cat.udl.menufinder.ws.Path.baseUrl;
 
 public abstract class WebServiceUtils {
@@ -176,5 +177,28 @@ public abstract class WebServiceUtils {
             e.printStackTrace();
         }
         return md5;
+    }
+
+    public static String getFilteredRestaurants(String acction, String where) {
+        String result = "[]";
+        try {
+            URL url = new URL(baseUrl + acction);
+            HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+            conn.setRequestMethod(POST_METHOD);
+            conn.setConnectTimeout(10000);
+            conn.setRequestProperty("Content-Type", "application/json; charset=UTF-8");
+            conn.setDoOutput(true);
+            DataOutputStream wr = new DataOutputStream(conn.getOutputStream());
+            wr.writeBytes(where);
+            wr.flush();
+            wr.close();
+            conn.getResponseCode();
+            result = getResponse(conn);
+            Log.d(TAG, result);
+        } catch (IOException e) {
+            e.printStackTrace();
+            return result;
+        }
+        return result;
     }
 }

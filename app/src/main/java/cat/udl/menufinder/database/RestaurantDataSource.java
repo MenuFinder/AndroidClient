@@ -34,22 +34,15 @@ public class RestaurantDataSource extends DataSource {
     }
 
     public List<Restaurant> getRestaurants() {
-        List<Restaurant> allRestaurants = new ArrayList<>();
         Cursor cursor = database.query(
                 RestaurantContract.RestaurantTable.TABLE_NAME,
                 allColumns,
                 null, null, null, null, null);
 
-        while (cursor.moveToNext()) {
-            Restaurant restaurant = cuToRestaurant(cursor);
-            allRestaurants.add(restaurant);
-        }
-        cursor.close();
-        return allRestaurants;
+        return getRestaurantFromCursor(cursor);
     }
 
     public List<Restaurant> getRestaurantsOfAccount(String accountId) {
-        List<Restaurant> allRestaurants = new ArrayList<>();
         Cursor cursor = database.query(
                 RestaurantContract.RestaurantTable.TABLE_NAME,
                 allColumns,
@@ -57,12 +50,7 @@ public class RestaurantDataSource extends DataSource {
                 new String[]{accountId},
                 null, null, null);
 
-        while (cursor.moveToNext()) {
-            Restaurant restaurant = cuToRestaurant(cursor);
-            allRestaurants.add(restaurant);
-        }
-        cursor.close();
-        return allRestaurants;
+        return getRestaurantFromCursor(cursor);
     }
 
     public boolean addRestaurant(Restaurant restaurant) {
@@ -93,6 +81,26 @@ public class RestaurantDataSource extends DataSource {
 
         cursor.close();
         return restaurant;
+    }
+
+    public List<Restaurant> getFilteredRestaurants(String where) {
+        Cursor cursor = database.query(
+                RestaurantContract.RestaurantTable.TABLE_NAME,
+                allColumns,
+                where,
+                null, null, null, null);
+        return getRestaurantFromCursor(cursor);
+    }
+
+    private List<Restaurant> getRestaurantFromCursor(Cursor cursor) {
+        List<Restaurant> allRestaurants = new ArrayList<>();
+
+        while (cursor.moveToNext()) {
+            Restaurant restaurant = cuToRestaurant(cursor);
+            allRestaurants.add(restaurant);
+        }
+        cursor.close();
+        return allRestaurants;
     }
 
     public boolean updateRestaurant(Restaurant restaurant) {

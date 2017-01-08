@@ -282,4 +282,11 @@ public class DBManagerIterm implements DBManager {
     public boolean updateAccountToken(Account account) {
         return remote.updateAccountToken(account);
     }
+
+    @Override
+    public List<Restaurant> getFilteredRestaurants(String where) {
+        List<Restaurant> restaurants = local.getFilteredRestaurants(where);
+        if (restaurants.isEmpty()) restaurants = remote.getFilteredRestaurants(where);
+        return restaurants;
+    }
 }

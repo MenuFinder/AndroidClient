@@ -104,4 +104,6 @@ public interface DBManager {
     List<Menu> getAllMenusByRestaurantId(long restaurantId);
 
     boolean updateAccountToken(Account account);
+
+    List<Restaurant> getFilteredRestaurants(String where);
 }
