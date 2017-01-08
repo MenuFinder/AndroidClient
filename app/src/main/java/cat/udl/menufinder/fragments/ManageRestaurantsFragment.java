@@ -103,34 +103,12 @@ public class ManageRestaurantsFragment extends MasterFragment {
         alertDialog.getButton(AlertDialog.BUTTON_POSITIVE).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                boolean closeDialog = true;
-
-                String name = ((EditText) dialogView.findViewById(R.id.restaurant_name)).getText().toString().trim();
-                if (TextUtils.isEmpty(name)) closeDialog = false;
-                String cif = ((EditText) dialogView.findViewById(R.id.cif)).getText().toString().trim();
-                if (TextUtils.isEmpty(cif)) closeDialog = false;
-                String address = ((EditText) dialogView.findViewById(R.id.address)).getText().toString().trim();
-                if (TextUtils.isEmpty(address)) closeDialog = false;
-                String city = ((EditText) dialogView.findViewById(R.id.city)).getText().toString().trim();
-                if (TextUtils.isEmpty(city)) closeDialog = false;
-                String postalCode = ((EditText) dialogView.findViewById(R.id.postal_code)).getText().toString().trim();
-                if (TextUtils.isEmpty(postalCode)) closeDialog = false;
-                String state = ((EditText) dialogView.findViewById(R.id.state)).getText().toString().trim();
-                if (TextUtils.isEmpty(state)) closeDialog = false;
-                String country = ((EditText) dialogView.findViewById(R.id.country)).getText().toString().trim();
-                if (TextUtils.isEmpty(country)) closeDialog = false;
-                String email = ((EditText) dialogView.findViewById(R.id.restaurant_email)).getText().toString().trim();
-                if (TextUtils.isEmpty(email)) closeDialog = false;
-                String phone = ((EditText) dialogView.findViewById(R.id.phone)).getText().toString().trim();
-                if (TextUtils.isEmpty(phone)) closeDialog = false;
-                String account = getMasterApplication().getUsername().trim();
-                if (closeDialog) {
+                Restaurant r = getRestaurantFromFields(dialogView);
+                if (r != null) {
                     alertDialog.dismiss();
-                    //TODO Posar la id del restaurant
-                    Restaurant restaurant = new Restaurant(name, cif, address, city, postalCode, state, country, email, phone, account);
-                    saveToDB(restaurant);
-                    values.add(name);
-                    restaurants.add(restaurant);
+                    saveToDB(r);
+                    values.add(r.getName());
+                    restaurants.add(r);
                 }
             }
         });
@@ -177,41 +155,48 @@ public class ManageRestaurantsFragment extends MasterFragment {
         alertDialog.getButton(AlertDialog.BUTTON_POSITIVE).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                boolean closeDialog = true;
-
-                EditText viewById = (EditText) dialogView.findViewById(R.id.restaurant_name);
-                String name = viewById.getText().toString().trim();
-                if (TextUtils.isEmpty(name)) closeDialog = false;
-                String cif = ((EditText) dialogView.findViewById(R.id.cif)).getText().toString().trim();
-                if (TextUtils.isEmpty(cif)) closeDialog = false;
-                String address = ((EditText) dialogView.findViewById(R.id.address)).getText().toString().trim();
-                if (TextUtils.isEmpty(address)) closeDialog = false;
-                String city = ((EditText) dialogView.findViewById(R.id.city)).getText().toString().trim();
-                if (TextUtils.isEmpty(city)) closeDialog = false;
-                String postalCode = ((EditText) dialogView.findViewById(R.id.postal_code)).getText().toString().trim();
-                if (TextUtils.isEmpty(postalCode)) closeDialog = false;
-                String state = ((EditText) dialogView.findViewById(R.id.state)).getText().toString().trim();
-                if (TextUtils.isEmpty(state)) closeDialog = false;
-                String country = ((EditText) dialogView.findViewById(R.id.country)).getText().toString().trim();
-                if (TextUtils.isEmpty(country)) closeDialog = false;
-                String email = ((EditText) dialogView.findViewById(R.id.restaurant_email)).getText().toString().trim();
-                if (TextUtils.isEmpty(email)) closeDialog = false;
-                String phone = ((EditText) dialogView.findViewById(R.id.phone)).getText().toString().trim();
-                if (TextUtils.isEmpty(phone)) closeDialog = false;
-                String account = getMasterApplication().getUsername().trim();
-                if (closeDialog) {
+                Restaurant r = getRestaurantFromFields(dialogView);
+                if (r != null) {
                     alertDialog.dismiss();
-                    Restaurant r = new Restaurant(name, cif, address, city, postalCode, state, country, email, phone, account);
                     r.setId(restaurant.getId());
                     editToDB(r, true);
                     values.remove(position);
-                    values.add(name);
+                    values.add(r.getName());
                     restaurants.remove(position);
                     restaurants.add(r);
                     adapter.notifyDataSetChanged();
                 }
             }
         });
+    }
+
+    private Restaurant getRestaurantFromFields(View dialogView) {
+        boolean closeDialog = true;
+        Restaurant r = null;
+        EditText viewById = (EditText) dialogView.findViewById(R.id.restaurant_name);
+        String name = viewById.getText().toString().trim();
+        if (TextUtils.isEmpty(name)) closeDialog = false;
+        String cif = ((EditText) dialogView.findViewById(R.id.cif)).getText().toString().trim();
+        if (TextUtils.isEmpty(cif)) closeDialog = false;
+        String address = ((EditText) dialogView.findViewById(R.id.address)).getText().toString().trim();
+        if (TextUtils.isEmpty(address)) closeDialog = false;
+        String city = ((EditText) dialogView.findViewById(R.id.city)).getText().toString().trim();
+        if (TextUtils.isEmpty(city)) closeDialog = false;
+        String postalCode = ((EditText) dialogView.findViewById(R.id.postal_code)).getText().toString().trim();
+        if (TextUtils.isEmpty(postalCode)) closeDialog = false;
+        String state = ((EditText) dialogView.findViewById(R.id.state)).getText().toString().trim();
+        if (TextUtils.isEmpty(state)) closeDialog = false;
+        String country = ((EditText) dialogView.findViewById(R.id.country)).getText().toString().trim();
+        if (TextUtils.isEmpty(country)) closeDialog = false;
+        String email = ((EditText) dialogView.findViewById(R.id.restaurant_email)).getText().toString().trim();
+        if (TextUtils.isEmpty(email)) closeDialog = false;
+        String phone = ((EditText) dialogView.findViewById(R.id.phone)).getText().toString().trim();
+        if (TextUtils.isEmpty(phone)) closeDialog = false;
+        String account = getMasterApplication().getUsername().trim();
+        if (closeDialog) {
+            r = new Restaurant(name, cif, address, city, postalCode, state, country, email, phone, account);
+        }
+        return r;
     }
 
     private void showDeleteConfirmation(final int position) {
