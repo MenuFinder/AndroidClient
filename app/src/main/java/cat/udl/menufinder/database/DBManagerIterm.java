@@ -1,5 +1,7 @@
 package cat.udl.menufinder.database;
 
+import com.google.firebase.messaging.FirebaseMessaging;
+
 import java.util.List;
 import java.util.Map;
 
@@ -249,12 +251,14 @@ public class DBManagerIterm implements DBManager {
 
     @Override
     public boolean deleteAccountSubscription(AccountSubscription accountSubscription) {
+        FirebaseMessaging.getInstance().unsubscribeFromTopic(String.valueOf(local.getRestaurantById(accountSubscription.getRestaurant()).getId()));
         sync.deleteAccountSubscription(accountSubscription);
         return local.deleteAccountSubscription(accountSubscription);
     }
 
     @Override
     public boolean addAccountSubscription(AccountSubscription accountSubscription) {
+        FirebaseMessaging.getInstance().subscribeToTopic(String.valueOf(local.getRestaurantById(accountSubscription.getRestaurant()).getId()));
         sync.addAccountSubscription(accountSubscription);
         return local.addAccountSubscription(accountSubscription);
     }
