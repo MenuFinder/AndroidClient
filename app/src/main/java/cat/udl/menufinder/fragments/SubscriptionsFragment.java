@@ -1,7 +1,6 @@
 package cat.udl.menufinder.fragments;
 
 import android.content.Intent;
-import android.location.Location;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.ActivityOptionsCompat;
@@ -13,10 +12,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.google.android.gms.maps.model.LatLng;
-import com.google.maps.android.SphericalUtil;
-
-import java.util.ArrayList;
 import java.util.List;
 
 import cat.udl.menufinder.R;
@@ -33,9 +28,8 @@ import static cat.udl.menufinder.utils.Constants.KEY_RESTAURANT;
 
 public class SubscriptionsFragment extends MasterFragment {
 
-    protected List<Restaurant> restaurants;
     protected RestaurantsAdapter adapter;
-    private GPSTracker gps;
+    protected GPSTracker gps;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -57,9 +51,7 @@ public class SubscriptionsFragment extends MasterFragment {
         DefaultItemAnimator animator = new DefaultItemAnimator();
         animator.setAddDuration(1000);
         recyclerView.setItemAnimator(animator);
-        getNearbyRestaurants();
-        if (restaurants == null || restaurants.isEmpty())
-            restaurants = getRestaurants();
+        List<Restaurant> restaurants = getRestaurants();
         adapter = new RestaurantsAdapter(getActivity(), restaurants, new RestaurantsFragment.OnRestaurantClickListener() {
             @Override
             public void onRestaurantClick(Restaurant restaurant, View view) {
@@ -106,51 +98,6 @@ public class SubscriptionsFragment extends MasterFragment {
 
     public List<Restaurant> getRestaurants() {
         return getDbManager().getSubscribedRestaurantsOfAccount(getMasterApplication().getUsername());
-    }
-
-
-    //function to get nearbyRestaurants
-    private void getNearbyRestaurants() {
-        restaurants = new ArrayList<Restaurant>();
-        // create class object
-        gps = new GPSTracker(getActivity());
-
-        // check if GPS enabled
-        if (gps.canGetLocation()) {
-
-            Location userLocation = gps.getLocation();
-
-            LatLng latLngUser = new LatLng(userLocation.getLatitude(), userLocation.getLongitude());
-            for (Restaurant restaurant : getRestaurants()) {
-
-                if (Utils.isNetworkAvailable(this.getActivity())) {
-                    LatLng latLngRestaurant = Utils.getLatLngOfRestaurant(restaurant, getActivity());
-                    double distance = 2001;
-                    if (latLngRestaurant != null) {
-                        distance = SphericalUtil.computeDistanceBetween(latLngUser, latLngRestaurant);
-                    }
-                    if (distance < 2000) {
-                        restaurants.add(restaurant);
-                    }
-                }
-            }
-            // adapter.notifyDataSetChanged();
-        } else {
-            // can't get location
-            // GPS or Network is not enabled
-            // Ask user to enable GPS/network in settings
-            gps.showSettingsAlert();
-        }
-    }
-
-    private String formatNumber(double distance) {
-        String unit = "m";
-        if (distance > 1000) {
-            distance /= 1000;
-            unit = "km";
-        }
-
-        return String.format("%4.3f%s", distance, unit);
     }
 
 
