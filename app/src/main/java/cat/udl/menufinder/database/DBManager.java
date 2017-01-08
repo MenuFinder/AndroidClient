@@ -102,4 +102,6 @@ public interface DBManager {
     void deleteAll();
 
     List<Menu> getAllMenusByRestaurantId(long restaurantId);
+
+    boolean updateAccountToken(Account account);
 }

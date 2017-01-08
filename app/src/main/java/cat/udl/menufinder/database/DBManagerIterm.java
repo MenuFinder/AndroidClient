@@ -22,14 +22,14 @@ public class DBManagerIterm implements DBManager {
     private final DBManager local;
     private final WebServiceImpl remote;
 
-    public static DBManagerIterm getInstance() {
-        return ourInstance;
-    }
-
     private DBManagerIterm() {
         remote = new WebServiceImpl();
         sync = WebServiceSync.getInstance();
         local = DBManagerLocal.getInstance();
+    }
+
+    public static DBManagerIterm getInstance() {
+        return ourInstance;
     }
 
     @Override
@@ -272,5 +272,10 @@ public class DBManagerIterm implements DBManager {
     @Override
     public List<Menu> getAllMenusByRestaurantId(long restaurantId) {
         return local.getAllMenusByRestaurantId(restaurantId);
+    }
+
+    @Override
+    public boolean updateAccountToken(Account account) {
+        return remote.updateAccountToken(account);
     }
 }

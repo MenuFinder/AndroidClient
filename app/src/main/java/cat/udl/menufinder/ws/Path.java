@@ -42,6 +42,7 @@ abstract class Path {
     static final String PUT_UPDATE_ITEM = "/updateItem";
     static final String PUT_UPDATE_ITEM_CATEGORY = "/updateItemCategory";
     static final String PUT_UPDATE_ITEM_RATING = "/updateItemRating";
+    static final String PUT_UPDATE_ACCOUNT_TOKEN = "/updateAccountToken";
     //DELETE
     static final String DELETE_METHOD = "DELETE";
     static final String DELETE_MENU = "/deleteMenu/";

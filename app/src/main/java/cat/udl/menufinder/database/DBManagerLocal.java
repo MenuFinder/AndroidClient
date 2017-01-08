@@ -61,6 +61,11 @@ public class DBManagerLocal implements DBManager {
     }
 
     @Override
+    public boolean updateAccountToken(Account account) {
+        return false;
+    }
+
+    @Override
     public Menu getMenuById(long menuId) {
         return menuDataSource.getMenuById(menuId);
     }

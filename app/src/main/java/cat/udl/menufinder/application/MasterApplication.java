@@ -84,4 +84,12 @@ public class MasterApplication extends Application {
             new FakeData(getDbManager());
         }
     }
+
+    public String getToken() {
+        return getString(Constants.PREFERENCES_TOKEN, "");
+    }
+
+    public void setToken(String token) {
+        putString(Constants.PREFERENCES_TOKEN, token);
+    }
 }

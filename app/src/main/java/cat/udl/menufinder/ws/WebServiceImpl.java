@@ -234,4 +234,9 @@ public class WebServiceImpl implements DBManager {
         return null;
     }
 
+    @Override
+    public boolean updateAccountToken(Account account) {
+        return WebServiceUtils.put(Path.PUT_UPDATE_ACCOUNT_TOKEN, account);
+    }
+
 }

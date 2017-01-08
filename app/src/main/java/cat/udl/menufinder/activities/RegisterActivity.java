@@ -182,6 +182,7 @@ public class RegisterActivity extends MasterActivity {
 
         @Override
         protected Boolean doInBackground(Void... params) {
+            account.setToken(getMasterApplication().getToken());
             return getDbManager().addAccount(account);
         }
 
