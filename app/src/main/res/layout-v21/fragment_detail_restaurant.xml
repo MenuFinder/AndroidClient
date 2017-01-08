@@ -97,7 +97,9 @@
                 android:clickable="false"
                 android:contextClickable="false"
                 android:isIndicator="true"
-                android:stepSize="0.5" />
+                android:stepSize="0.5"
+                android:progressTint="#FDDB39"
+                />
 
             <TextView
                 android:layout_width="wrap_content"

@@ -1,33 +1,50 @@
 package cat.udl.menufinder.fragments;
 
 import android.content.Intent;
-import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.util.TypedValue;
+import android.support.v4.app.Fragment;
+import android.support.v7.widget.DividerItemDecoration;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.LinearLayout;
-import android.widget.TextView;
 
 import java.util.List;
-import java.util.Map;
 
 import cat.udl.menufinder.R;
 import cat.udl.menufinder.activities.ReviewActivity;
+import cat.udl.menufinder.adapters.ItemsAdapter;
 import cat.udl.menufinder.application.MasterActivity;
-import cat.udl.menufinder.application.MasterFragment;
+import cat.udl.menufinder.application.MasterApplication;
 import cat.udl.menufinder.database.DBManager;
 import cat.udl.menufinder.models.Item;
-import cat.udl.menufinder.models.ItemCategory;
 import cat.udl.menufinder.models.Menu;
 
-import static android.view.Gravity.CENTER;
 import static cat.udl.menufinder.utils.Constants.KEY_ITEM;
 
-public class DetailMenuFragment extends MasterFragment {
-    private LinearLayout container;
+public class DetailMenuFragment extends Fragment {
+    private static final String ARG_SECTION_NUMBER = "section_number";
+    private List<Item> lstitems = null;
+
+    public static DetailMenuFragment newInstance(long sectionNumber,  List<Item> item) {
+        DetailMenuFragment fragment = new DetailMenuFragment();
+        Bundle args = new Bundle();
+        args.putLong(ARG_SECTION_NUMBER, sectionNumber);
+        fragment.setListItem(item);
+        fragment.setArguments(args);
+        return fragment;
+    }
+
+    public DetailMenuFragment() {
+    }
+
+    public void setListItem(List<Item> items)
+    {
+        this.lstitems = items;
+
+    }
 
     @Nullable
     @Override
@@ -38,78 +55,39 @@ public class DetailMenuFragment extends MasterFragment {
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        container = (LinearLayout) getView().findViewById(R.id.container);
+        update(lstitems);
     }
 
-    public void update(final Menu menu) {
-        ((TextView) getView().findViewById(R.id.price)).setText(String.valueOf(menu.getPrice() + "€"));
-        ((MasterActivity) getActivity()).getSupportActionBar().setTitle(menu.getName());
-        container.removeAllViews();
+    public MasterApplication getMasterApplication() {
+        return ((MasterActivity) getActivity()).getMasterApplication();
+    }
 
+    public DBManager getDbManager() {
+        return getMasterApplication().getDbManager();
+    }
+
+    public void update(List<Item> items) {
+
+        int menu_Id = getArguments().getInt(ARG_SECTION_NUMBER);
         DBManager dbManager = getDbManager();
-        for (Map.Entry<Long, List<Item>> entry : dbManager.getMenuItemsByCategory(menu.getId()).entrySet()) {
-            ItemCategory itemCategory = dbManager.getItemCategoryById(entry.getKey());
-            String categoria = itemCategory.getName();
-            LinearLayout layout = getNewLayout();
-            layout.addView(getCategory(categoria));
-            for (final Item item : entry.getValue()) {
-                String itemName = item.getName();
-                View view = getItem(itemName);
-                view.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        Intent intent = new Intent(getActivity(), ReviewActivity.class);
-                        intent.putExtra(KEY_ITEM, item);
-                        startActivity(intent);
-                    }
-                });
-                layout.addView(view);
+        Menu menu = getDbManager().getMenuById(menu_Id);
+        ((MasterActivity) getActivity()).getSupportActionBar().setTitle(menu.getName()+" ( " +String.valueOf(menu.getPrice() + "€") + " )");
+        RecyclerView recyclerView = (RecyclerView) getView().findViewById(R.id.list);
+
+        RecyclerView.ItemDecoration itemDecoration = new DividerItemDecoration(
+                getActivity(), DividerItemDecoration.VERTICAL);
+        recyclerView.addItemDecoration(itemDecoration);
+
+        ItemsAdapter adapter = new ItemsAdapter(getActivity(),items,new ManageItemsFragment.OnItemClick(){
+            @Override
+            public void onItem(Item item, int adapterPosition) {
+                Intent intent = new Intent(getActivity(), ReviewActivity.class);
+                intent.putExtra(KEY_ITEM, item);
+                startActivity(intent);
             }
-            container.addView(layout);
-        }
+        });
+        recyclerView.setAdapter(adapter);
+        recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
     }
 
-    private View getCategory(String categoria) {
-        LinearLayout layout = new LinearLayout(getActivity());
-        layout.setOrientation(LinearLayout.HORIZONTAL);
-        layout.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
-        float weightSum = 5;
-        layout.setWeightSum(weightSum);
-        int padding2 = getResources().getDimensionPixelSize(R.dimen.space_10);
-        layout.setPadding(padding2, padding2, padding2, padding2);
-        layout.setGravity(CENTER);
-
-
-        TextView textView = new TextView(getActivity());
-        textView.setLayoutParams(new LinearLayout.LayoutParams(0, ViewGroup.LayoutParams.WRAP_CONTENT, weightSum - 1));
-        int padding = getResources().getDimensionPixelSize(R.dimen.space_10);
-        textView.setPadding(padding, padding, padding, padding);
-       // textView.setBackgroundResource(R.color.title_background);
-        textView.setGravity(CENTER);
-        textView.setTypeface(null, Typeface.BOLD);
-        textView.setTextSize(TypedValue.COMPLEX_UNIT_PX, getResources().getDimension(R.dimen.category_title));
-        textView.setText(categoria);
-
-        layout.addView(textView);
-        return layout;
-    }
-
-    private View getItem(String itemName) {
-        TextView textView = new TextView(getActivity());
-        textView.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT));
-        int padding = getResources().getDimensionPixelSize(R.dimen.space_5);
-        textView.setPadding(padding, padding, padding, padding);
-        textView.setText(itemName);
-        return textView;
-    }
-
-    public LinearLayout getNewLayout() {
-        LinearLayout layout = new LinearLayout(getActivity());
-        layout.setOrientation(LinearLayout.VERTICAL);
-        layout.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
-        int padding = getResources().getDimensionPixelSize(R.dimen.space_10);
-        layout.setPadding(padding, padding, padding, padding);
-        layout.setGravity(CENTER);
-        return layout;
-    }
 }
