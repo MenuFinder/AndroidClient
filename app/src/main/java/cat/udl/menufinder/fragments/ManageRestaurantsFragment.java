@@ -6,7 +6,6 @@ import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AlertDialog;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -106,7 +105,7 @@ public class ManageRestaurantsFragment extends MasterFragment {
             public void onClick(View view) {
                 boolean closeDialog = true;
 
-                String name = ((EditText) dialogView.findViewById(R.id.name)).getText().toString().trim();
+                String name = ((EditText) dialogView.findViewById(R.id.restaurant_name)).getText().toString().trim();
                 if (TextUtils.isEmpty(name)) closeDialog = false;
                 String cif = ((EditText) dialogView.findViewById(R.id.cif)).getText().toString().trim();
                 if (TextUtils.isEmpty(cif)) closeDialog = false;
@@ -120,7 +119,7 @@ public class ManageRestaurantsFragment extends MasterFragment {
                 if (TextUtils.isEmpty(state)) closeDialog = false;
                 String country = ((EditText) dialogView.findViewById(R.id.country)).getText().toString().trim();
                 if (TextUtils.isEmpty(country)) closeDialog = false;
-                String email = (dialogView.findViewById(R.id.email)).toString().trim();
+                String email = ((EditText) dialogView.findViewById(R.id.restaurant_email)).getText().toString().trim();
                 if (TextUtils.isEmpty(email)) closeDialog = false;
                 String phone = ((EditText) dialogView.findViewById(R.id.phone)).getText().toString().trim();
                 if (TextUtils.isEmpty(phone)) closeDialog = false;
@@ -128,8 +127,10 @@ public class ManageRestaurantsFragment extends MasterFragment {
                 if (closeDialog) {
                     alertDialog.dismiss();
                     //TODO Posar la id del restaurant
-                    saveToDB(new Restaurant(name, cif, address, city, postalCode, state, country, email, phone, account));
+                    Restaurant restaurant = new Restaurant(name, cif, address, city, postalCode, state, country, email, phone, account);
+                    saveToDB(restaurant);
                     values.add(name);
+                    restaurants.add(restaurant);
                 }
             }
         });
@@ -244,14 +245,13 @@ public class ManageRestaurantsFragment extends MasterFragment {
         if (need) {
             showToast(String.format(getString(R.string.updateNotification), restaurant.getName()));
         }
-        Log.d("restaurant", restaurant.toString());
         getDbManager().updateRestaurant(restaurant);
     }
 
     private void removeOfDB(int position) {
         showToast(R.string.restaurant_deleted);
         Restaurant restaurant = restaurants.get(position);
-        getDbManager().deleteItem(restaurant.getId());
+        getDbManager().deleteRestaurant(restaurant.getId());
     }
 
 }
