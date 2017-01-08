@@ -81,7 +81,7 @@ public class HomeActivity extends MasterActivity
     private void navigate(int id) {
         int itemId = R.id.content;
         if (id == R.id.manage_restaurants) {
-            toolbar.setTitle("Manage Restaurants");
+            toolbar.setTitle(R.string.action_manage_restaurants);
             loadFragment(itemId, new ManageRestaurantsFragment());
         } else if (id == R.id.manage_items) {
             toolbar.setTitle(R.string.action_manage_items);

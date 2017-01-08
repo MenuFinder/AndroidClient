@@ -69,4 +69,5 @@
     <string name="no_location_detected">No podem trobar la teva localització!</string>
     <string name="register_restaurant">Registrar nou restaurant</string>
     <string name="restaurant_deleted">Restaurant borrat</string>
+    <string name="action_manage_restaurants">Administrar Restaurants</string>
 </resources>
