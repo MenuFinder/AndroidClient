@@ -68,7 +68,7 @@ public class DetailMenuFragment extends Fragment {
 
     public void update(List<Item> items) {
 
-        int menu_Id = getArguments().getInt(ARG_SECTION_NUMBER);
+        long menu_Id = getArguments().getLong(ARG_SECTION_NUMBER);
         DBManager dbManager = getDbManager();
         Menu menu = getDbManager().getMenuById(menu_Id);
         ((MasterActivity) getActivity()).getSupportActionBar().setTitle(menu.getName()+" ( " +String.valueOf(menu.getPrice() + "€") + " )");
