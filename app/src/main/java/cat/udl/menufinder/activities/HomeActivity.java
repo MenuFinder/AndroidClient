@@ -1,6 +1,7 @@
 package cat.udl.menufinder.activities;
 
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
@@ -20,6 +21,7 @@ import cat.udl.menufinder.fragments.PreferencesFragment;
 import cat.udl.menufinder.fragments.RestaurantMapFragment;
 import cat.udl.menufinder.fragments.RestaurantsFragment;
 import cat.udl.menufinder.fragments.SubscriptionsFragment;
+import cat.udl.menufinder.models.Account;
 
 import static cat.udl.menufinder.enums.UserType.CLIENT;
 import static cat.udl.menufinder.enums.UserType.GUEST;
@@ -102,15 +104,43 @@ public class HomeActivity extends MasterActivity
             toolbar.setTitle(R.string.action_settings);
             loadFragment(itemId, new PreferencesFragment());
         } else if (id == R.id.logout) {
-            getMasterApplication().logout();
-            startActivity(new Intent(HomeActivity.this, SplashActivity.class));
-            finish();
+            new UserLogoutTask().execute();
         } else if (id == R.id.login) {
-            startActivity(new Intent(HomeActivity.this, LoginActivity.class));
-            finish();
+            login();
         } else if (id == R.id.register) {
-            startActivity(new Intent(HomeActivity.this, RegisterActivity.class));
-            finish();
+            register();
+        }
+    }
+
+    private void login() {
+        startActivity(new Intent(HomeActivity.this, LoginActivity.class));
+        finish();
+    }
+
+    private void register() {
+        startActivity(new Intent(HomeActivity.this, RegisterActivity.class));
+        finish();
+    }
+
+    private void logout() {
+        getMasterApplication().logout();
+        startActivity(new Intent(HomeActivity.this, SplashActivity.class));
+        finish();
+    }
+
+    public class UserLogoutTask extends AsyncTask<Void, Void, Void> {
+        @Override
+        protected Void doInBackground(Void... voids) {
+            Account account = new Account(getMasterApplication().getUsername(), null,
+                    getMasterApplication().getUserType().getText(), null);
+            account.setToken("");
+            getDbManager().updateAccountToken(account);
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Void v) {
+            logout();
         }
     }
 }
