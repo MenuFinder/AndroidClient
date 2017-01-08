@@ -56,7 +56,7 @@ public class DetailRestaurantFragment extends MasterFragment {
     private void configGeneralInformation(Restaurant restaurant) {
         ((TextView) getView().findViewById(R.id.name)).setText(restaurant.getName());
         ((TextView) getView().findViewById(R.id.address)).setText(restaurant.getAddress());
-        ((RatingBar) getView().findViewById(R.id.score)).setRating((float)restaurant.getScore());
+        ((RatingBar) getView().findViewById(R.id.score)).setRating((float) restaurant.getScore());
         ((TextView) getView().findViewById(R.id.phone)).setText(restaurant.getPhone());
         ((TextView) getView().findViewById(R.id.email)).setText(restaurant.getEmail());
     }

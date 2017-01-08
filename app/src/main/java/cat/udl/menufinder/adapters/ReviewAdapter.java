@@ -43,6 +43,11 @@ public class ReviewAdapter extends RecyclerView.Adapter<ReviewAdapter.ViewHolder
         return reviews.get(position);
     }
 
+    public void addReview(Review review) {
+        reviews.add(review);
+        notifyDataSetChanged();
+    }
+
     public class ViewHolder extends RecyclerView.ViewHolder {
 
         TextView review;
@@ -55,11 +60,6 @@ public class ReviewAdapter extends RecyclerView.Adapter<ReviewAdapter.ViewHolder
 
         }
 
-    }
-
-    public void addReview(Review review) {
-        reviews.add(review);
-        notifyDataSetChanged();
     }
 
 }

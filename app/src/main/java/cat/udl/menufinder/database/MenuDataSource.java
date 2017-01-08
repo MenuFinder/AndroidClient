@@ -63,7 +63,7 @@ public class MenuDataSource extends DataSource {
         Cursor cursor = database.query(
                 MenuTable.TABLE_NAME,
                 allColumns,
-                MenuTable.RESTAURANT + " = ?" ,
+                MenuTable.RESTAURANT + " = ?",
                 new String[]{String.valueOf(restaurantId)},
                 null, null, null
         );

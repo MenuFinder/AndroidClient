@@ -7,12 +7,11 @@
 
     <RatingBar
         android:id="@+id/score"
-        android:numStars="5"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:isIndicator="false"
-        android:progressTint="#FDDB39"
-        />
+        android:numStars="5"
+        android:progressTint="#FDDB39" />
 
     <EditText
         android:id="@+id/review"

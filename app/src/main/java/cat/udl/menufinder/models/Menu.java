@@ -93,11 +93,11 @@ public class Menu implements Serializable {
                 '}';
     }
 
-    public void setVisible(int visible) {
-        this.visible = visible == 1;
-    }
-
     public int getVisible() {
         return visible ? 1 : 0;
+    }
+
+    public void setVisible(int visible) {
+        this.visible = visible == 1;
     }
 }

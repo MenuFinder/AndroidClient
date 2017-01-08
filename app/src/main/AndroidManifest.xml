@@ -49,19 +49,17 @@
 
         <activity android:name=".activities.ReviewActivity" />
         <activity android:name=".activities.ReviewMenuActivity" />
-        <activity android:name=".activities.ReviewRestaurantActivity"/>
+        <activity android:name=".activities.ReviewRestaurantActivity" />
 
-        <service
-            android:name=".notifications.MyFirebaseMessagingService">
+        <service android:name=".notifications.MyFirebaseMessagingService">
             <intent-filter>
-                <action android:name="com.google.firebase.MESSAGING_EVENT"/>
+                <action android:name="com.google.firebase.MESSAGING_EVENT" />
             </intent-filter>
         </service>
 
-        <service
-            android:name=".notifications.MyFirebaseInstanceIdService">
+        <service android:name=".notifications.MyFirebaseInstanceIdService">
             <intent-filter>
-                <action android:name="com.google.firebase.INSTANCE_ID_EVENT"/>
+                <action android:name="com.google.firebase.INSTANCE_ID_EVENT" />
             </intent-filter>
         </service>
 

@@ -42,12 +42,12 @@ public class Account implements Serializable {
         return type;
     }
 
-    public void setType(String type) {
-        this.type = type;
-    }
-
     public void setType(UserType type) {
         this.type = type.getText();
+    }
+
+    public void setType(String type) {
+        this.type = type;
     }
 
     public String getToken() {

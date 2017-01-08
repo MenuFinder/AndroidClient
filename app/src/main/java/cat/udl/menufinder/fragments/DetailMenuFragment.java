@@ -28,7 +28,10 @@ public class DetailMenuFragment extends Fragment {
     private static final String ARG_SECTION_NUMBER = "section_number";
     private List<Item> lstitems = null;
 
-    public static DetailMenuFragment newInstance(long sectionNumber,  List<Item> item) {
+    public DetailMenuFragment() {
+    }
+
+    public static DetailMenuFragment newInstance(long sectionNumber, List<Item> item) {
         DetailMenuFragment fragment = new DetailMenuFragment();
         Bundle args = new Bundle();
         args.putLong(ARG_SECTION_NUMBER, sectionNumber);
@@ -37,11 +40,7 @@ public class DetailMenuFragment extends Fragment {
         return fragment;
     }
 
-    public DetailMenuFragment() {
-    }
-
-    public void setListItem(List<Item> items)
-    {
+    public void setListItem(List<Item> items) {
         this.lstitems = items;
 
     }
@@ -71,14 +70,14 @@ public class DetailMenuFragment extends Fragment {
         long menu_Id = getArguments().getLong(ARG_SECTION_NUMBER);
         DBManager dbManager = getDbManager();
         Menu menu = getDbManager().getMenuById(menu_Id);
-        ((MasterActivity) getActivity()).getSupportActionBar().setTitle(menu.getName()+" ( " +String.valueOf(menu.getPrice() + "€") + " )");
+        ((MasterActivity) getActivity()).getSupportActionBar().setTitle(menu.getName() + " ( " + String.valueOf(menu.getPrice() + "€") + " )");
         RecyclerView recyclerView = (RecyclerView) getView().findViewById(R.id.list);
 
         RecyclerView.ItemDecoration itemDecoration = new DividerItemDecoration(
                 getActivity(), DividerItemDecoration.VERTICAL);
         recyclerView.addItemDecoration(itemDecoration);
 
-        ItemsAdapter adapter = new ItemsAdapter(getActivity(),items,new ManageItemsFragment.OnItemClick(){
+        ItemsAdapter adapter = new ItemsAdapter(getActivity(), items, new ManageItemsFragment.OnItemClick() {
             @Override
             public void onItem(Item item, int adapterPosition) {
                 Intent intent = new Intent(getActivity(), ReviewActivity.class);

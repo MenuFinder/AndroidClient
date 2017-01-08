@@ -23,6 +23,7 @@ public class DetailRestaurantActivity extends MasterActivity {
         DetailRestaurantFragment fragment = (DetailRestaurantFragment) getFragmentManager().findFragmentById(R.id.detail_fragment);
         fragment.update(restaurant);
     }
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {

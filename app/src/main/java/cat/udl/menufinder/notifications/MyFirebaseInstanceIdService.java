@@ -18,6 +18,6 @@ public class MyFirebaseInstanceIdService extends FirebaseInstanceIdService {
     }
 
     private void sendRegistrationToServer(String refreshedToken) {
-        ((MasterApplication)getApplication()).setToken(refreshedToken);
+        ((MasterApplication) getApplication()).setToken(refreshedToken);
     }
 }

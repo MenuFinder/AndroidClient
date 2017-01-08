@@ -92,7 +92,7 @@ public class MenusAdapter extends RecyclerView.Adapter<MenusAdapter.ViewHolder> 
             });
             name = (TextView) itemView.findViewById(R.id.name);
             price = (TextView) itemView.findViewById(R.id.price);
-            rating= (RatingBar) itemView.findViewById(R.id.rating);
+            rating = (RatingBar) itemView.findViewById(R.id.rating);
             is_visible = (Switch) itemView.findViewById(R.id.is_visible);
             is_visible.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
                 @Override

@@ -86,7 +86,7 @@ public class ReviewActivity extends MasterActivity {
             public void onClick(View view) {
                 boolean closeDialog = true;
                 String review = ((EditText) dialogView.findViewById(R.id.review)).getText().toString().trim();
-                float  rating = ((RatingBar) dialogView.findViewById(R.id.score)).getRating();
+                float rating = ((RatingBar) dialogView.findViewById(R.id.score)).getRating();
                 if (TextUtils.isEmpty(review)) {
                     closeDialog = false;
                 }
@@ -95,7 +95,7 @@ public class ReviewActivity extends MasterActivity {
                     alertDialog.dismiss();
                     //TODO ENUM REVIEW_PARENT {item, restaurant, menu}
                     saveToDB(new Review(review, "item", item.getId(), getMasterApplication().getUsername()));
-                    saveRatingToDB(new ItemRating(rating,item.getId(),getMasterApplication().getUsername()));
+                    saveRatingToDB(new ItemRating(rating, item.getId(), getMasterApplication().getUsername()));
 
                 }
             }
@@ -108,8 +108,7 @@ public class ReviewActivity extends MasterActivity {
         showToast(getString(R.string.review_added));
     }
 
-    private void saveRatingToDB(ItemRating itemRating)
-    {
+    private void saveRatingToDB(ItemRating itemRating) {
         getDbManager().addItemRating(itemRating);
     }
 
