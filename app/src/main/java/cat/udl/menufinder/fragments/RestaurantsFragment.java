@@ -13,6 +13,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.TextView;
 
 import com.google.android.gms.maps.model.LatLng;
 import com.google.maps.android.SphericalUtil;
@@ -26,6 +27,8 @@ import cat.udl.menufinder.models.Restaurant;
 import cat.udl.menufinder.utils.GPSTracker;
 import cat.udl.menufinder.utils.SearchCriteria;
 import cat.udl.menufinder.utils.Utils;
+
+import static android.view.View.VISIBLE;
 
 public class RestaurantsFragment extends SubscriptionsFragment {
     public static final String TAG = RestaurantsFragment.class.getSimpleName();
@@ -48,6 +51,12 @@ public class RestaurantsFragment extends SubscriptionsFragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setHasOptionsMenu(true);
+    }
+
+    protected void configHeader() {
+        TextView header = (TextView) getView().findViewById(R.id.header);
+        header.setVisibility(VISIBLE);
+        header.setText(String.format(getString(R.string.showing_restaurants_distance_header), maxDistance));
     }
 
     private void showFilterDialog() {

@@ -93,5 +93,6 @@
     <!-- Map -->
     <string name="marker_title">Marker in %s</string>
     <string name="no_location_detected">We cannot find your location!</string>
+    <string name="showing_restaurants_distance_header">Showing restaurants at %d m from you</string>
 
 </resources>

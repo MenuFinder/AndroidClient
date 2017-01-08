@@ -90,5 +90,6 @@
     <string name="register_restaurant">Registrar nuevo restaurante</string>
     <string name="restaurant_deleted">Restaurante borrado</string>
     <string name="action_manage_restaurants">Administrar Restaurantes</string>
+    <string name="showing_restaurants_distance_header">Mostrando restaurantes a %d m de ti</string>
 
 </resources>
