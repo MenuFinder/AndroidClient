@@ -19,13 +19,13 @@ import cat.udl.menufinder.R;
 import cat.udl.menufinder.adapters.ReviewAdapter;
 import cat.udl.menufinder.application.MasterActivity;
 import cat.udl.menufinder.application.MasterApplication;
-import cat.udl.menufinder.models.Menu;
+import cat.udl.menufinder.models.Restaurant;
 import cat.udl.menufinder.models.Review;
 
 import static cat.udl.menufinder.enums.UserType.GUEST;
-import static cat.udl.menufinder.utils.Constants.KEY_MENU;
+import static cat.udl.menufinder.utils.Constants.KEY_RESTAURANT;
 
-public class ReviewMenuActivity extends MasterActivity {
+public class ReviewRestaurantActivity extends MasterActivity {
 
     ReviewAdapter adapter;
 
@@ -34,42 +34,42 @@ public class ReviewMenuActivity extends MasterActivity {
         super.onCreate(savedInstanceState);
         changeOrientationIfIsPhone();
         setContentView(R.layout.activity_review);
-        Menu menu = (Menu) getIntent().getSerializableExtra(KEY_MENU);
-        ((TextView) findViewById(R.id.name)).setText(menu.getName());
-        ((TextView) findViewById(R.id.description)).setText(menu.getDescription());
-        configList(getDbManager().getReviewsOfMenu(menu.getId()));
-        configFAB(menu);
+        Restaurant restaurant = (Restaurant) getIntent().getSerializableExtra(KEY_RESTAURANT);
+        ((TextView) findViewById(R.id.name)).setText(restaurant.getName());
+        ((TextView) findViewById(R.id.description)).setText(restaurant.getAddress());
+        configList(getDbManager().getReviewsOfRestaurant(restaurant.getId()));
+        configFAB(restaurant);
     }
 
     private void configList(List<Review> reviews) {
         RecyclerView recyclerView = (RecyclerView) findViewById(R.id.list);
         RecyclerView.ItemDecoration itemDecoration = new DividerItemDecoration(
-                ReviewMenuActivity.this, DividerItemDecoration.VERTICAL);
+                ReviewRestaurantActivity.this, DividerItemDecoration.VERTICAL);
         recyclerView.addItemDecoration(itemDecoration);
-        adapter = new ReviewAdapter(ReviewMenuActivity.this, reviews);
+        adapter = new ReviewAdapter(ReviewRestaurantActivity.this, reviews);
         recyclerView.setAdapter(adapter);
-        recyclerView.setLayoutManager(new LinearLayoutManager(ReviewMenuActivity.this));
+        recyclerView.setLayoutManager(new LinearLayoutManager(ReviewRestaurantActivity.this));
     }
 
-    private void configFAB(final Menu menu) {
+    private void configFAB(final Restaurant restaurant) {
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.add_item_button);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                showAddDialog(menu);
+                showAddDialog(restaurant);
             }
         });
     }
 
-    private void showAddDialog(final Menu menu) {
+    private void showAddDialog(final Restaurant restaurant) {
         if (MasterApplication.getContext().getUserType() == GUEST) {
             showToast(getString(R.string.review_manage));
             return;
         }
         LayoutInflater inflater = getLayoutInflater();
-        final View dialogView = inflater.inflate(R.layout.view_menu_review, null);
-        final AlertDialog alertDialog = new AlertDialog.Builder(ReviewMenuActivity.this)
-                .setTitle(menu.getName())
+        final View dialogView = inflater.inflate(R.layout.view_restaurant_view, null);
+        final AlertDialog alertDialog = new AlertDialog.Builder(ReviewRestaurantActivity.this)
+                .setTitle(restaurant.getName())
                 .setIcon(R.drawable.menu_finder_logo)
                 .setView(dialogView)
                 .setPositiveButton(R.string.save, new DialogInterface.OnClickListener() {
@@ -97,7 +97,7 @@ public class ReviewMenuActivity extends MasterActivity {
                 if (closeDialog) {
                     alertDialog.dismiss();
                     //TODO ENUM REVIEW_PARENT {item, restaurant, menu}
-                    saveToDB(new Review(review, "menu", menu.getId(), getMasterApplication().getUsername()));
+                    saveToDB(new Review(review, "restaurant", restaurant.getId(), getMasterApplication().getUsername()));
 
                 }
             }

@@ -62,6 +62,7 @@ public class RestaurantsAdapter extends RecyclerView.Adapter<RestaurantsAdapter.
             }
         } else {
             holder.itemView.findViewById(R.id.favourite_button).setVisibility(GONE);
+            holder.itemView.findViewById(R.id.review__button).setVisibility(GONE);
         }
     }
 
@@ -94,6 +95,7 @@ public class RestaurantsAdapter extends RecyclerView.Adapter<RestaurantsAdapter.
             this.itemView = itemView;
             ImageButton share_button = (ImageButton) itemView.findViewById(R.id.share_button);
             ImageButton view_map_button = (ImageButton) itemView.findViewById(R.id.view_map_button);
+            ImageButton review_button = (ImageButton) itemView.findViewById(R.id.review__button);
             CardView cardView = (CardView) itemView.findViewById(R.id.card_view);
             share_button.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -107,6 +109,13 @@ public class RestaurantsAdapter extends RecyclerView.Adapter<RestaurantsAdapter.
                     listener.onViewMapClick(getRestaurant(getAdapterPosition()));
                 }
             });
+            review_button.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    listener.onReViewClick(getRestaurant(getAdapterPosition()));
+                }
+            });
+
             favourite.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
                 @Override
                 public void onCheckedChanged(CompoundButton compoundButton, boolean b) {

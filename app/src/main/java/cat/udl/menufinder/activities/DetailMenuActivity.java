@@ -72,7 +72,12 @@ public class DetailMenuActivity extends MasterActivity {
         SectionsPagerAdapter adapter = new SectionsPagerAdapter(getSupportFragmentManager());
         for (Map.Entry<Long, List<Item>> entry : getDbManager().getMenuItemsByCategory(menu.getId()).entrySet()) {
             ItemCategory itemCategory = getDbManager().getItemCategoryById(entry.getKey());
-            adapter.addFragment(DetailMenuFragment.newInstance(menu.getId(),entry.getValue()),itemCategory.getName());
+            if(!entry.getValue().isEmpty())
+                adapter.addFragment(DetailMenuFragment.newInstance(menu.getId(),entry.getValue()),itemCategory.getName());
+        }
+        if(adapter.getCount()==0)
+        {
+            showToast(getString(R.string.not_results_founds));
         }
         viewPager.setAdapter(adapter);
     }

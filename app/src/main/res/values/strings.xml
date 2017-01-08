@@ -62,6 +62,8 @@
     <string name="manage_menu">Manage Menu</string>
     <string name="manage_restaurant">Manage Restaurant</string>
     <string name="register_restaurant">Register new restaurant</string>
+    <string name="review_manage">Invalid action to user GUEST</string>
+
 
     <!-- Menu -->
     <string name="menu_saved">Menu saved</string>

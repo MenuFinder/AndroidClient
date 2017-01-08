@@ -17,6 +17,7 @@ import java.util.List;
 import cat.udl.menufinder.R;
 import cat.udl.menufinder.activities.DetailRestaurantActivity;
 import cat.udl.menufinder.activities.HomeActivity;
+import cat.udl.menufinder.activities.ReviewRestaurantActivity;
 import cat.udl.menufinder.adapters.RestaurantsAdapter;
 import cat.udl.menufinder.application.MasterFragment;
 import cat.udl.menufinder.models.AccountSubscription;
@@ -89,6 +90,13 @@ public class SubscriptionsFragment extends MasterFragment {
             }
 
             @Override
+            public void onReViewClick(Restaurant restaurant) {
+                Intent intent = new Intent(getActivity(), ReviewRestaurantActivity.class);
+                intent.putExtra(KEY_RESTAURANT, restaurant);
+                startActivity(intent);
+            }
+
+            @Override
             public void onFavouriteClick(Restaurant restaurant, boolean checked) {
                 AccountSubscription subscription = new AccountSubscription(getMasterApplication().getUsername(), restaurant.getId());
                 if (checked) getDbManager().addAccountSubscription(subscription);
@@ -110,6 +118,8 @@ public class SubscriptionsFragment extends MasterFragment {
         void onShareClick(Restaurant restaurant);
 
         void onViewMapClick(Restaurant restaurant);
+
+        void onReViewClick(Restaurant restaurant);
 
         void onFavouriteClick(Restaurant restaurant, boolean checked);
     }

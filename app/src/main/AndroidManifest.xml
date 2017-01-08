@@ -49,6 +49,7 @@
 
         <activity android:name=".activities.ReviewActivity" />
         <activity android:name=".activities.ReviewMenuActivity" />
+        <activity android:name=".activities.ReviewRestaurantActivity"/>
 
         <service
             android:name=".notifications.MyFirebaseMessagingService">
