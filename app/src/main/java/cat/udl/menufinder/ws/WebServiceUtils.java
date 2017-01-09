@@ -78,6 +78,10 @@ public abstract class WebServiceUtils {
         return true;
     }
 
+    public static <T> boolean delete(String action, T object) {
+        return sendBean(Path.DELETE_METHOD, action, object);
+    }
+
     public static <T> boolean put(String acction, T object) {
         return sendBean(Path.PUT_METHOD, acction, object);
     }

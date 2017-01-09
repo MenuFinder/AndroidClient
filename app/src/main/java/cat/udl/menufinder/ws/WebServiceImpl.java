@@ -212,7 +212,7 @@ public class WebServiceImpl implements DBManager {
 
     @Override
     public boolean deleteAccountSubscription(AccountSubscription accountSubscription) {
-        return WebServiceUtils.delete(Path.DELETE_ACCOUNT_SUBSCRIPTION + accountSubscription);
+        return WebServiceUtils.delete(Path.DELETE_ACCOUNT_SUBSCRIPTION, accountSubscription);
     }
 
     @Override
