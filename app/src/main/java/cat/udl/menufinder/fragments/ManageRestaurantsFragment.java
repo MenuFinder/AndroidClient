@@ -10,23 +10,21 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import cat.udl.menufinder.R;
+import cat.udl.menufinder.adapters.ManageRestaurantsAdapter;
 import cat.udl.menufinder.application.MasterFragment;
 import cat.udl.menufinder.models.Restaurant;
 
 public class ManageRestaurantsFragment extends MasterFragment {
 
-    List<String> values;
     private List<Restaurant> restaurants;
-    private ArrayAdapter<String> adapter;
+    private ManageRestaurantsAdapter adapter;
 
     @Nullable
     @Override
@@ -54,19 +52,17 @@ public class ManageRestaurantsFragment extends MasterFragment {
     private void configList() {
         ListView listView = (ListView) getView().findViewById(R.id.list);
         restaurants = getDbManager().getRestaurantsOfAccount(getMasterApplication().getUsername());
-
-        values = new ArrayList<>();
-        for (Restaurant restaurant : restaurants) {
-            values.add(restaurant.getName());
-        }
-        adapter = new ArrayAdapter<>(getActivity(), android.R.layout.simple_list_item_1, values);
+        adapter = new ManageRestaurantsAdapter(getActivity(), R.layout.manage_restaurants_item, restaurants);
+        adapter.selected = getMasterApplication().getSelectedRestaurant();
 
         listView.setAdapter(adapter);
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                adapter.selected = i;
                 getMasterApplication().setSelectedRestaurant(i);
-                showToast(getString(R.string.selected_restaurant, adapter.getItem(i)));
+                showToast(getString(R.string.selected_restaurant, adapter.getItem(i).getName()));
+                adapter.notifyDataSetChanged();
             }
         });
         listView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
@@ -106,7 +102,6 @@ public class ManageRestaurantsFragment extends MasterFragment {
                 if (r != null) {
                     alertDialog.dismiss();
                     saveToDB(r);
-                    values.add(r.getName());
                     restaurants.add(r);
                 }
             }
@@ -159,8 +154,6 @@ public class ManageRestaurantsFragment extends MasterFragment {
                     alertDialog.dismiss();
                     r.setId(restaurant.getId());
                     editToDB(r, true);
-                    values.remove(position);
-                    values.add(r.getName());
                     restaurants.remove(position);
                     restaurants.add(r);
                     adapter.notifyDataSetChanged();
@@ -199,9 +192,9 @@ public class ManageRestaurantsFragment extends MasterFragment {
     }
 
     private void showDeleteConfirmation(final int position) {
-        String restaurant = adapter.getItem(position);
+        Restaurant restaurant = adapter.getItem(position);
         new AlertDialog.Builder(getActivity())
-                .setMessage(String.format(getString(R.string.deleteConfirmation), restaurant))
+                .setMessage(String.format(getString(R.string.deleteConfirmation), restaurant.getName()))
                 .setNegativeButton(android.R.string.no, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
@@ -212,7 +205,6 @@ public class ManageRestaurantsFragment extends MasterFragment {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
                         removeOfDB(position);
-                        values.remove(position);
                         restaurants.remove(position);
                         adapter.notifyDataSetChanged();
                     }
