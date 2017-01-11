@@ -1,8 +1,12 @@
 package cat.udl.menufinder.models;
 
-import java.io.Serializable;
+import org.ksoap2.serialization.KvmSerializable;
+import org.ksoap2.serialization.PropertyInfo;
 
-public class AccountSubscription implements Serializable {
+import java.io.Serializable;
+import java.util.Hashtable;
+
+public class AccountSubscription implements Serializable, KvmSerializable {
 
     private String account;
     private long restaurant;
@@ -39,4 +43,46 @@ public class AccountSubscription implements Serializable {
                 '}';
     }
 
+    @Override
+    public Object getProperty(int i) {
+        switch (i) {
+            case 0:
+                return account;
+            case 1:
+                return restaurant;
+            default:
+                return null;
+        }
+    }
+
+    @Override
+    public int getPropertyCount() {
+        return 2;
+    }
+
+    @Override
+    public void setProperty(int i, Object o) {
+        switch (i) {
+            case 0:
+                account = o.toString();
+                break;
+            case 1:
+                restaurant = Long.parseLong(o.toString());
+                break;
+        }
+    }
+
+    @Override
+    public void getPropertyInfo(int i, Hashtable hashtable, PropertyInfo propertyInfo) {
+        switch (i) {
+            case 0:
+                propertyInfo.type = PropertyInfo.STRING_CLASS;
+                propertyInfo.name = "account";
+                break;
+            case 1:
+                propertyInfo.type = PropertyInfo.LONG_CLASS;
+                propertyInfo.name = "restaurant";
+                break;
+        }
+    }
 }
