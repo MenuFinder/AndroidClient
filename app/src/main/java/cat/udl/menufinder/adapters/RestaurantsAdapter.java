@@ -19,7 +19,7 @@ import cat.udl.menufinder.fragments.RestaurantsFragment;
 import cat.udl.menufinder.models.Restaurant;
 
 import static cat.udl.menufinder.enums.UserType.CLIENT;
-import static cat.udl.menufinder.enums.UserType.GUEST;
+import static cat.udl.menufinder.utils.Utils.checkIfNotGuest;
 
 public class RestaurantsAdapter extends RecyclerView.Adapter<RestaurantsAdapter.ViewHolder> {
 
@@ -89,8 +89,6 @@ public class RestaurantsAdapter extends RecyclerView.Adapter<RestaurantsAdapter.
             name = (TextView) itemView.findViewById(R.id.name);
             address = (TextView) itemView.findViewById(R.id.address);
             favourite = (CheckBox) itemView.findViewById(R.id.favourite_checkbox);
-            if (MasterApplication.getContext().getUserType() == GUEST)
-                favourite.setButtonDrawable(R.drawable.ic_favorite_border);
             this.itemView = itemView;
             ImageButton share_button = (ImageButton) itemView.findViewById(R.id.share_button);
             ImageButton view_map_button = (ImageButton) itemView.findViewById(R.id.view_map_button);
@@ -118,10 +116,11 @@ public class RestaurantsAdapter extends RecyclerView.Adapter<RestaurantsAdapter.
             favourite.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
                 @Override
                 public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
-                    favourite.setChecked(b);
-                    if (userChecked)
-                        listener.onFavouriteClick(getRestaurant(getAdapterPosition()), b);
-                    userChecked = true;
+                    if (checkIfNotGuest()) {
+                        if (userChecked)
+                            listener.onFavouriteClick(getRestaurant(getAdapterPosition()), b);
+                        userChecked = true;
+                    } else favourite.setChecked(false);
                 }
             });
             cardView.setOnClickListener(new View.OnClickListener() {
