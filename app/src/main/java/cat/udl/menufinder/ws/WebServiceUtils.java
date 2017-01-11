@@ -6,6 +6,17 @@ import android.util.Log;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+import org.ksoap2.SoapEnvelope;
+import org.ksoap2.serialization.KvmSerializable;
+import org.ksoap2.serialization.PropertyInfo;
+import org.ksoap2.serialization.SoapObject;
+import org.ksoap2.serialization.SoapSerializationEnvelope;
+import org.ksoap2.transport.HttpTransportSE;
+import org.xmlpull.v1.XmlPullParserException;
+
 import java.io.BufferedReader;
 import java.io.DataOutputStream;
 import java.io.IOException;
@@ -19,14 +30,16 @@ import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.Vector;
 
 import cat.udl.menufinder.models.Account;
 import cat.udl.menufinder.models.Item;
 
 import static cat.udl.menufinder.ws.Path.POST_METHOD;
-import static cat.udl.menufinder.ws.Path.baseUrl;
+import static cat.udl.menufinder.ws.Path.baseUrlREST;
 
 public abstract class WebServiceUtils {
     public static final String TAG = WebServiceUtils.class.getSimpleName();
@@ -34,7 +47,7 @@ public abstract class WebServiceUtils {
     public static String get(String acction) {
         String result = null;
         try {
-            URL url = new URL(baseUrl + acction);
+            URL url = new URL(baseUrlREST + acction);
             HttpURLConnection conn = (HttpURLConnection) url.openConnection();
             conn.setRequestMethod(Path.GET_METHOD);
             conn.setRequestProperty("Accept", "application/json; charset=UTF-8");
@@ -64,7 +77,7 @@ public abstract class WebServiceUtils {
 
     public static boolean delete(String acction) {
         try {
-            URL url = new URL(baseUrl + acction);
+            URL url = new URL(baseUrlREST + acction);
             HttpURLConnection conn = (HttpURLConnection) url.openConnection();
             conn.setRequestMethod(Path.DELETE_METHOD);
             conn.setRequestProperty("Content-Type", "application/json; charset=UTF-8");
@@ -89,7 +102,7 @@ public abstract class WebServiceUtils {
     private static <T> boolean sendBean(String method, String acction, T object) {
         Gson gson = new Gson();
         try {
-            URL url = new URL(baseUrl + acction);
+            URL url = new URL(baseUrlREST + acction);
             HttpURLConnection conn = (HttpURLConnection) url.openConnection();
             conn.setRequestMethod(method);
             conn.setConnectTimeout(10000);
@@ -141,7 +154,7 @@ public abstract class WebServiceUtils {
         Gson gson = new Gson();
         String result = null;
         try {
-            URL url = new URL(baseUrl + acction);
+            URL url = new URL(baseUrlREST + acction);
             HttpURLConnection conn = (HttpURLConnection) url.openConnection();
             conn.setRequestMethod("POST");
             conn.setConnectTimeout(10000);
@@ -186,7 +199,7 @@ public abstract class WebServiceUtils {
     public static String getFilteredRestaurants(String acction, String where) {
         String result = "[]";
         try {
-            URL url = new URL(baseUrl + acction);
+            URL url = new URL(baseUrlREST + acction);
             HttpURLConnection conn = (HttpURLConnection) url.openConnection();
             conn.setRequestMethod(POST_METHOD);
             conn.setConnectTimeout(10000);
@@ -204,5 +217,73 @@ public abstract class WebServiceUtils {
             return result;
         }
         return result;
+    }
+
+    // Get 1
+    public static String soap(String methodName, String property) {
+        SoapObject request = new SoapObject(Path.SOAP_NAMESPACE, methodName);
+        request.addProperty("restaurantId", property);
+        SoapSerializationEnvelope envelope = new SoapSerializationEnvelope(SoapEnvelope.VER11);
+        envelope.setOutputSoapObject(request);
+        HttpTransportSE httpTransport = new HttpTransportSE(Path.baseUrlSOAP);
+        try {
+            httpTransport.call(methodName, envelope);
+            SoapObject so = (SoapObject) envelope.getResponse();
+            return soapObjectToJsonObject(so).toString();
+        } catch (IOException | XmlPullParserException e) {
+            e.printStackTrace();
+        }
+        return "[]";
+    }
+
+    // Get *
+    public static String soap(String methodName) {
+        SoapObject request = new SoapObject(Path.SOAP_NAMESPACE, methodName);
+        SoapSerializationEnvelope envelope = new SoapSerializationEnvelope(SoapEnvelope.VER11);
+        envelope.setOutputSoapObject(request);
+        HttpTransportSE httpTransport = new HttpTransportSE(Path.baseUrlSOAP);
+        try {
+            httpTransport.call(methodName, envelope);
+            Vector vector = (Vector) envelope.getResponse();
+            Iterator iterator = vector.iterator();
+            JSONArray jsonArray = new JSONArray();
+            while (iterator.hasNext()) {
+                jsonArray.put(soapObjectToJsonObject((SoapObject) iterator.next()));
+            }
+            Log.d(TAG, jsonArray.toString());
+            return jsonArray.toString();
+        } catch (IOException | XmlPullParserException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    // Update/Add 1
+    public static boolean soap(String methodName, KvmSerializable object) {
+        SoapObject request = new SoapObject(Path.SOAP_NAMESPACE, methodName);
+        request.addProperty("restaurant", object);
+        SoapSerializationEnvelope envelope = new SoapSerializationEnvelope(SoapEnvelope.VER11);
+        envelope.setOutputSoapObject(request);
+        HttpTransportSE httpTransport = new HttpTransportSE(Path.baseUrlSOAP);
+        try {
+            httpTransport.call(methodName, envelope);
+        } catch (IOException | XmlPullParserException e) {
+            e.printStackTrace();
+            return false;
+        }
+        return true;
+    }
+
+    private static JSONObject soapObjectToJsonObject(SoapObject soapObject) {
+        JSONObject jsonObject = new JSONObject();
+        for (int i = 0; i < soapObject.getPropertyCount(); i++) {
+            PropertyInfo info = soapObject.getPropertyInfo(i);
+            try {
+                jsonObject.put(info.name, info.getValue());
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+        }
+        return jsonObject;
     }
 }

@@ -1,7 +1,13 @@
 package cat.udl.menufinder.ws;
 
-abstract class Path {
-    static final String baseUrl = "http://alumnes-grp01.udl.cat/MenuFinderWeb/webservice/menufinderws";
+public abstract class Path {
+    public static final String baseUrlSOAP = "http://alumnes-grp01.udl.cat/MenuFinderWeb/MenuFinderSOAP?wsdl";
+    public static final String SOAP_NAMESPACE = "http://soap.menufinder.com/";
+    //SOAP
+    public static final String SOAP_GET_RESTAURANTS = "getRestaurants";
+    public static final String SOAP_GET_RESTAURANT_BY_ID = "getRestaurantById";
+    public static final String SOAP_UPDATE_RESTAURANT = "updateRestaurant";
+    static final String baseUrlREST = "http://alumnes-grp01.udl.cat/MenuFinderWeb/webservice/menufinderws";
     //GET
     static final String GET_METHOD = "GET";
     static final String GET_MENUS_BY_RESTAURANT_ID = "/restaurantMenus/";
