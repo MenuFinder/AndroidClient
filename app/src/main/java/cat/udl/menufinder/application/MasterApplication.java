@@ -51,6 +51,14 @@ public class MasterApplication extends Application {
         getPestormixSharedPreferences().edit().putString(key, value).apply();
     }
 
+    public int getInt(String key, int defValue) {
+        return getPestormixSharedPreferences().getInt(key, defValue);
+    }
+
+    public void putInt(String key, int value) {
+        getPestormixSharedPreferences().edit().putInt(key, value).apply();
+    }
+
     public void removePreference(String key) {
         getPestormixSharedPreferences().edit().remove(key).apply();
     }
@@ -63,6 +71,7 @@ public class MasterApplication extends Application {
     public void logout() {
         removePreference(Constants.PREFERENCES_USER_TYPE);
         removePreference(Constants.PREFERENCES_USERNAME);
+        removePreference(Constants.PREFERENCES_SELECTED_RESTAURANT);
     }
 
     public boolean isLogged() {
@@ -91,5 +100,13 @@ public class MasterApplication extends Application {
 
     public void setToken(String token) {
         putString(Constants.PREFERENCES_TOKEN, token);
+    }
+
+    public int getSelectedRestaurant() {
+        return getInt(Constants.PREFERENCES_SELECTED_RESTAURANT, 0);
+    }
+
+    public void setSelectedRestaurant(int number) {
+        putInt(Constants.PREFERENCES_SELECTED_RESTAURANT, number);
     }
 }

@@ -74,4 +74,8 @@
     <string name="clear_filter">Netejar filtre</string>
     <string name="not_results_founds">No s\'han trobat resultats</string>
     <string name="prompt_distance">Distancia en metres</string>
+    <string name="manage_menus">Administrar %s Menus</string>
+    <string name="manage_items">Administrar %s Articles</string>
+    <string name="selected_restaurant">Seleccionat %s</string>
+    <string name="must_create_restaurant">Has de crear un restaurant abans</string>
 </resources>

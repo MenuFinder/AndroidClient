@@ -9,6 +9,7 @@ import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -61,8 +62,9 @@ public class ManageItemsFragment extends MasterFragment {
         animator.setAddDuration(1000);
         recyclerView.setItemAnimator(animator);
 
-        // TODO Posar la id del restaurant
-        Restaurant restaurant = getDbManager().getRestaurantsOfAccount(getMasterApplication().getUsername()).get(0);
+        Restaurant restaurant = getDbManager().getRestaurantsOfAccount(
+                getMasterApplication().getUsername()).get(getMasterApplication().getSelectedRestaurant());
+        ((Toolbar) getActivity().findViewById(R.id.toolbar)).setTitle(getString(R.string.manage_items, restaurant.getName()));
         items = getDbManager().getRestaurantItems(restaurant.getId());
         adapter = new ItemsAdapter(getActivity(), items, new OnItemClick() {
             @Override

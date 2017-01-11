@@ -58,6 +58,7 @@
     <string name="restaurant_deleted">Restaurant deleted</string>
 
     <!-- Manage -->
+    <string name="selected_restaurant">Selected %s</string>
     <string name="manage_item">Manage Item</string>
     <string name="manage_menu">Manage Menu</string>
     <string name="manage_restaurant">Manage Restaurant</string>
@@ -66,6 +67,8 @@
 
 
     <!-- Menu -->
+    <string name="manage_menus">Manage %s Menus</string>
+    <string name="manage_items">Manage %s Items</string>
     <string name="menu_saved">Menu saved</string>
     <string name="menu_deleted">Menu deleted</string>
     <string name="menu_finder_guest">Menu Finder Guest</string>
@@ -101,5 +104,6 @@
     <!-- Filter -->
     <string name="not_results_founds">Not results found</string>
     <string name="clear_filter">Clear filter</string>
+    <string name="must_create_restaurant">You have to create a restaurant before</string>
 
 </resources>

@@ -53,8 +53,6 @@ public class ManageRestaurantsFragment extends MasterFragment {
 
     private void configList() {
         ListView listView = (ListView) getView().findViewById(R.id.list);
-
-        // TODO Posar la llista de restaurant
         restaurants = getDbManager().getRestaurantsOfAccount(getMasterApplication().getUsername());
 
         values = new ArrayList<>();
@@ -67,7 +65,8 @@ public class ManageRestaurantsFragment extends MasterFragment {
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                showToast(adapter.getItem(i));
+                getMasterApplication().setSelectedRestaurant(i);
+                showToast(getString(R.string.selected_restaurant, adapter.getItem(i)));
             }
         });
         listView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {

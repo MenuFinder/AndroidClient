@@ -94,5 +94,9 @@
     <string name="clear_filter">Limpiar filtro</string>
     <string name="not_results_founds">No se han encontrado resultados</string>
     <string name="prompt_distance">Distancia en metros</string>
+    <string name="manage_menus">Administrar %s Menus</string>
+    <string name="manage_items">Administrar %s Artículos</string>
+    <string name="selected_restaurant">Seleccionado %s</string>
+    <string name="must_create_restaurant">Debes crear un restaurante antes</string>
 
 </resources>
