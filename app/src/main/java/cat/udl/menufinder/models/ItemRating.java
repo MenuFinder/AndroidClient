@@ -1,8 +1,12 @@
 package cat.udl.menufinder.models;
 
-import java.io.Serializable;
+import org.ksoap2.serialization.KvmSerializable;
+import org.ksoap2.serialization.PropertyInfo;
 
-public class ItemRating implements Serializable {
+import java.io.Serializable;
+import java.util.Hashtable;
+
+public class ItemRating implements Serializable, KvmSerializable {
 
     private long id;
     private double score;
@@ -59,5 +63,65 @@ public class ItemRating implements Serializable {
                 ", item=" + item +
                 '}';
     }
-    
+
+    @Override
+    public Object getProperty(int i) {
+        switch (i) {
+            case 0:
+                return id;
+            case 1:
+                return String.valueOf(score);
+            case 2:
+                return account;
+            case 3:
+                return item;
+            default:
+                return null;
+        }
+    }
+
+    @Override
+    public int getPropertyCount() {
+        return 4;
+    }
+
+    @Override
+    public void setProperty(int i, Object o) {
+        switch (i) {
+            case 0:
+                id = Long.parseLong(o.toString());
+                break;
+            case 1:
+                score = Double.parseDouble(o.toString());
+                break;
+            case 2:
+                account = o.toString();
+                break;
+            case 3:
+                item = Long.parseLong(o.toString());
+                break;
+        }
+    }
+
+    @Override
+    public void getPropertyInfo(int i, Hashtable hashtable, PropertyInfo propertyInfo) {
+        switch (i) {
+            case 0:
+                propertyInfo.type = PropertyInfo.LONG_CLASS;
+                propertyInfo.name = "id";
+                break;
+            case 1:
+                propertyInfo.type = PropertyInfo.STRING_CLASS;
+                propertyInfo.name = "score";
+                break;
+            case 2:
+                propertyInfo.type = PropertyInfo.STRING_CLASS;
+                propertyInfo.name = "account";
+                break;
+            case 3:
+                propertyInfo.type = PropertyInfo.LONG_CLASS;
+                propertyInfo.name = "item";
+                break;
+        }
+    }
 }
