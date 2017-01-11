@@ -240,7 +240,7 @@ public class Restaurant implements Serializable, KvmSerializable {
     public void setProperty(int i, Object o) {
         switch (i) {
             case 0:
-                id = (long) Double.parseDouble((String) o);
+                id = Long.parseLong(o.toString());
                 break;
             case 1:
                 name = o.toString();
@@ -273,7 +273,7 @@ public class Restaurant implements Serializable, KvmSerializable {
                 account = o.toString();
                 break;
             case 11:
-                score = Double.parseDouble((String) o);
+                score = Double.parseDouble(o.toString());
                 break;
         }
     }
