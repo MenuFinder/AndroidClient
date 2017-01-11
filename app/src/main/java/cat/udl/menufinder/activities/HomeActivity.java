@@ -29,6 +29,7 @@ import cat.udl.menufinder.models.Restaurant;
 import static cat.udl.menufinder.enums.UserType.CLIENT;
 import static cat.udl.menufinder.enums.UserType.GUEST;
 import static cat.udl.menufinder.enums.UserType.RESTAURANT;
+import static cat.udl.menufinder.utils.Utils.checkIfNotGuest;
 
 public class HomeActivity extends MasterActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -102,8 +103,10 @@ public class HomeActivity extends MasterActivity
             toolbar.setTitle(R.string.action_view_restaurants);
             loadFragment(itemId, new RestaurantsFragment());
         } else if (id == R.id.view_subscriptions) {
-            toolbar.setTitle(R.string.action_view_subscriptions);
-            loadFragment(itemId, new SubscriptionsFragment());
+            if (checkIfNotGuest()) {
+                toolbar.setTitle(R.string.action_view_subscriptions);
+                loadFragment(itemId, new SubscriptionsFragment());
+            } else navigate = false;
         } else if (id == R.id.view_map) {
             toolbar.setTitle(R.string.view_on_map);
             loadFragment(itemId, RestaurantMapFragment.newInstance());

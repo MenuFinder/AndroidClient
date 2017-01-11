@@ -25,6 +25,7 @@ import cat.udl.menufinder.models.ItemRating;
 import cat.udl.menufinder.models.Review;
 
 import static cat.udl.menufinder.utils.Constants.KEY_ITEM;
+import static cat.udl.menufinder.utils.Utils.checkIfNotGuest;
 
 public class ReviewActivity extends MasterActivity {
 
@@ -68,7 +69,7 @@ public class ReviewActivity extends MasterActivity {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                showAddDialog(item);
+                if (checkIfNotGuest()) showAddDialog(item);
             }
         });
     }

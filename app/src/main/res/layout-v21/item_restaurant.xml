@@ -99,7 +99,7 @@
                 android:background="@color/place_autocomplete_separator" />
 
             <ImageButton
-                android:id="@+id/review__button"
+                android:id="@+id/review_button"
                 style="@style/Widget.AppCompat.Button.Borderless.Colored"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"

@@ -13,6 +13,9 @@ import com.google.android.gms.maps.model.LatLng;
 import java.io.IOException;
 import java.util.List;
 
+import cat.udl.menufinder.R;
+import cat.udl.menufinder.application.MasterApplication;
+import cat.udl.menufinder.enums.UserType;
 import cat.udl.menufinder.models.Restaurant;
 
 public class Utils {
@@ -60,5 +63,13 @@ public class Utils {
             e.printStackTrace();
         }
         return false;
+    }
+
+    public static boolean checkIfNotGuest() {
+        if (MasterApplication.getContext().getUserType() == UserType.GUEST) {
+            MasterApplication.getContext().showToast(R.string.invalid_guest_action);
+            return false;
+        }
+        return true;
     }
 }

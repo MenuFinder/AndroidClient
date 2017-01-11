@@ -25,6 +25,7 @@ import cat.udl.menufinder.models.Restaurant;
 import cat.udl.menufinder.utils.Utils;
 
 import static cat.udl.menufinder.utils.Constants.KEY_RESTAURANT;
+import static cat.udl.menufinder.utils.Utils.checkIfNotGuest;
 
 public class SubscriptionsFragment extends MasterFragment {
 
@@ -43,7 +44,6 @@ public class SubscriptionsFragment extends MasterFragment {
     }
 
     protected void configHeader() {
-
     }
 
     protected void configList() {
@@ -98,9 +98,11 @@ public class SubscriptionsFragment extends MasterFragment {
 
             @Override
             public void onFavouriteClick(Restaurant restaurant, boolean checked) {
-                AccountSubscription subscription = new AccountSubscription(getMasterApplication().getUsername(), restaurant.getId());
-                if (checked) getDbManager().addAccountSubscription(subscription);
-                else getDbManager().deleteAccountSubscription(subscription);
+                if (checkIfNotGuest()) {
+                    AccountSubscription subscription = new AccountSubscription(getMasterApplication().getUsername(), restaurant.getId());
+                    if (checked) getDbManager().addAccountSubscription(subscription);
+                    else getDbManager().deleteAccountSubscription(subscription);
+                }
             }
         });
         recyclerView.setAdapter(adapter);

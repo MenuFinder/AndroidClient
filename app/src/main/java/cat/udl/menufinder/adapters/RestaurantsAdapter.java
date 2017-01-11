@@ -18,8 +18,8 @@ import cat.udl.menufinder.application.MasterApplication;
 import cat.udl.menufinder.fragments.RestaurantsFragment;
 import cat.udl.menufinder.models.Restaurant;
 
-import static android.view.View.GONE;
 import static cat.udl.menufinder.enums.UserType.CLIENT;
+import static cat.udl.menufinder.enums.UserType.GUEST;
 
 public class RestaurantsAdapter extends RecyclerView.Adapter<RestaurantsAdapter.ViewHolder> {
 
@@ -60,9 +60,6 @@ public class RestaurantsAdapter extends RecyclerView.Adapter<RestaurantsAdapter.
                     break;
                 }
             }
-        } else {
-            holder.itemView.findViewById(R.id.favourite_button).setVisibility(GONE);
-            holder.itemView.findViewById(R.id.review__button).setVisibility(GONE);
         }
     }
 
@@ -92,10 +89,12 @@ public class RestaurantsAdapter extends RecyclerView.Adapter<RestaurantsAdapter.
             name = (TextView) itemView.findViewById(R.id.name);
             address = (TextView) itemView.findViewById(R.id.address);
             favourite = (CheckBox) itemView.findViewById(R.id.favourite_checkbox);
+            if (MasterApplication.getContext().getUserType() == GUEST)
+                favourite.setButtonDrawable(R.drawable.ic_favorite_border);
             this.itemView = itemView;
             ImageButton share_button = (ImageButton) itemView.findViewById(R.id.share_button);
             ImageButton view_map_button = (ImageButton) itemView.findViewById(R.id.view_map_button);
-            ImageButton review_button = (ImageButton) itemView.findViewById(R.id.review__button);
+            ImageButton review_button = (ImageButton) itemView.findViewById(R.id.review_button);
             CardView cardView = (CardView) itemView.findViewById(R.id.card_view);
             share_button.setOnClickListener(new View.OnClickListener() {
                 @Override

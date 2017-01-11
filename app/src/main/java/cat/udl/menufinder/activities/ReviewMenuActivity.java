@@ -19,12 +19,11 @@ import java.util.List;
 import cat.udl.menufinder.R;
 import cat.udl.menufinder.adapters.ReviewAdapter;
 import cat.udl.menufinder.application.MasterActivity;
-import cat.udl.menufinder.application.MasterApplication;
 import cat.udl.menufinder.models.Menu;
 import cat.udl.menufinder.models.Review;
 
-import static cat.udl.menufinder.enums.UserType.GUEST;
 import static cat.udl.menufinder.utils.Constants.KEY_MENU;
+import static cat.udl.menufinder.utils.Utils.checkIfNotGuest;
 
 public class ReviewMenuActivity extends MasterActivity {
 
@@ -68,16 +67,12 @@ public class ReviewMenuActivity extends MasterActivity {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                showAddDialog(menu);
+                if (checkIfNotGuest()) showAddDialog(menu);
             }
         });
     }
 
     private void showAddDialog(final Menu menu) {
-        if (MasterApplication.getContext().getUserType() == GUEST) {
-            showToast(getString(R.string.review_manage));
-            return;
-        }
         LayoutInflater inflater = getLayoutInflater();
         final View dialogView = inflater.inflate(R.layout.view_menu_review, null);
         final AlertDialog alertDialog = new AlertDialog.Builder(ReviewMenuActivity.this)

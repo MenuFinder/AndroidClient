@@ -6,7 +6,6 @@ import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.content.pm.ActivityInfo;
 import android.support.v7.app.AppCompatActivity;
-import android.widget.Toast;
 
 import cat.udl.menufinder.R;
 import cat.udl.menufinder.database.DBManager;
@@ -33,11 +32,11 @@ public class MasterActivity extends AppCompatActivity {
     }
 
     public void showToast(int text_id) {
-        Toast.makeText(MasterActivity.this, text_id, Toast.LENGTH_SHORT).show();
+        getMasterApplication().showToast(text_id);
     }
 
     public void showToast(String text) {
-        Toast.makeText(MasterActivity.this, text, Toast.LENGTH_SHORT).show();
+        getMasterApplication().showToast(text);
     }
 
     public void changeOrientationIfIsPhone() {

@@ -3,6 +3,7 @@ package cat.udl.menufinder.application;
 import android.app.Application;
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.widget.Toast;
 
 import cat.udl.menufinder.database.DBManager;
 import cat.udl.menufinder.database.DBManagerIterm;
@@ -25,6 +26,14 @@ public class MasterApplication extends Application {
         super.onCreate();
         MasterApplication.context = this;
         firstTime();
+    }
+
+    public void showToast(int text_id) {
+        Toast.makeText(context, text_id, Toast.LENGTH_SHORT).show();
+    }
+
+    public void showToast(String text) {
+        Toast.makeText(context, text, Toast.LENGTH_SHORT).show();
     }
 
     public DBManager getDbManager() {
