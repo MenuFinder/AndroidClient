@@ -245,4 +245,9 @@ public class WebServiceImpl implements DBManager {
         return WebServiceUtils.getBeanList(WebServiceUtils.getFilteredRestaurants(Path.GET_FILTERED_RESTAURANTS, where), Restaurant[].class);
     }
 
+    @Override
+    public List<String> getAllDifferentCities() {
+        throw new UnsupportedOperationException();
+    }
+
 }

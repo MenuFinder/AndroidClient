@@ -106,4 +106,6 @@ public interface DBManager {
     boolean updateAccountToken(Account account);
 
     List<Restaurant> getFilteredRestaurants(String where);
+
+    List<String> getAllDifferentCities();
 }

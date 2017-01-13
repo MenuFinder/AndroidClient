@@ -102,6 +102,11 @@ public class WebServiceSoapImpl implements DBManager {
     }
 
     @Override
+    public List<String> getAllDifferentCities() {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
     public Review getReviewById(long reviewId) {
         return WebServiceUtils.getBean(WebServiceUtils.soap(Path.SOAP_GET_REVIEW_BY_ID,
                 Path.PARAM_REVIEW_ID, String.valueOf(reviewId)), Review.class);

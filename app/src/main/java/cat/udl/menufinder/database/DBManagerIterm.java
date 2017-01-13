@@ -289,4 +289,9 @@ public class DBManagerIterm implements DBManager {
         if (restaurants.isEmpty()) restaurants = remote.getFilteredRestaurants(where);
         return restaurants;
     }
+
+    @Override
+    public List<String> getAllDifferentCities() {
+        return local.getAllDifferentCities();
+    }
 }
