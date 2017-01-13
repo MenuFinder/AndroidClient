@@ -22,6 +22,7 @@ import static android.view.View.VISIBLE;
 import static cat.udl.menufinder.R.id.address;
 import static cat.udl.menufinder.enums.UserType.CLIENT;
 import static cat.udl.menufinder.enums.UserType.RESTAURANT;
+import static cat.udl.menufinder.utils.Utils.md5;
 
 public class RegisterActivity extends MasterActivity {
 
@@ -182,6 +183,7 @@ public class RegisterActivity extends MasterActivity {
 
         @Override
         protected Boolean doInBackground(Void... params) {
+            account.setPassword(md5(account.getPassword()));
             account.setToken(getMasterApplication().getToken());
             return getDbManager().addAccount(account);
         }
