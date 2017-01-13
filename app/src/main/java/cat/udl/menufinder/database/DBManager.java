@@ -108,4 +108,6 @@ public interface DBManager {
     List<Restaurant> getFilteredRestaurants(String where);
 
     List<String> getAllDifferentCities();
+
+    List<String> getAllRestaurantNames();
 }

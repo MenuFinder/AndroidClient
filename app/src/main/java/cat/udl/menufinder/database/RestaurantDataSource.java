@@ -92,15 +92,23 @@ public class RestaurantDataSource extends DataSource {
         return getRestaurantFromCursor(cursor);
     }
 
+    public List<String> getAllRestaurantNames() {
+        return getAllOfAPropertie(RestaurantContract.RestaurantTable.NAME);
+    }
+
     public List<String> getAllDifferentCities() {
-        List<String> cities = new ArrayList<>();
-        Cursor cursor = database.rawQuery("SELECT DISTINCT " + RestaurantContract.RestaurantTable.CITY
-                + " FROM " + RestaurantContract.RestaurantTable.TABLE_NAME, null);
+        return getAllOfAPropertie(RestaurantContract.RestaurantTable.CITY);
+    }
+
+    private List<String> getAllOfAPropertie(String select) {
+        List<String> strings = new ArrayList<>();
+        Cursor cursor = database.rawQuery("SELECT DISTINCT " + select + " FROM " +
+                RestaurantContract.RestaurantTable.TABLE_NAME, null);
         while (cursor.moveToNext()) {
-            cities.add(cursor.getString(0));
+            strings.add(cursor.getString(0));
         }
         cursor.close();
-        return cities;
+        return strings;
     }
 
     private List<Restaurant> getRestaurantFromCursor(Cursor cursor) {

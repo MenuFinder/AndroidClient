@@ -74,9 +74,9 @@ public class RestaurantsFragment extends SubscriptionsFragment {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
                         SearchCriteriaBuilder scb = new SearchCriteriaBuilder();
-                        String name = ((EditText) dialogView.findViewById(R.id.restaurant_name)).getText().toString().trim();
+                        String name = ((AutoCompleteTextView) dialogView.findViewById(R.id.restaurant_name)).getText().toString().trim();
                         if (!TextUtils.isEmpty(name)) scb.setRestaurantName(name);
-                        String city = ((EditText) dialogView.findViewById(R.id.city)).getText().toString().trim();
+                        String city = ((AutoCompleteTextView) dialogView.findViewById(R.id.city)).getText().toString().trim();
                         if (!TextUtils.isEmpty(city)) scb.setCity(city);
                         String distance = ((EditText) dialogView.findViewById(R.id.distance)).getText().toString().trim();
                         if (!TextUtils.isEmpty(distance))
@@ -98,6 +98,8 @@ public class RestaurantsFragment extends SubscriptionsFragment {
                 .create();
         ((AutoCompleteTextView) dialogView.findViewById(R.id.city)).setAdapter(new ArrayAdapter<>
                 (getActivity(), android.R.layout.simple_list_item_1, getDbManager().getAllDifferentCities()));
+        ((AutoCompleteTextView) dialogView.findViewById(R.id.restaurant_name)).setAdapter(new ArrayAdapter<>
+                (getActivity(), android.R.layout.simple_list_item_1, getDbManager().getAllRestaurantNames()));
         alertDialog.show();
     }
 

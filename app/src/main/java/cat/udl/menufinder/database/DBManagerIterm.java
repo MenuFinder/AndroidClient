@@ -294,4 +294,9 @@ public class DBManagerIterm implements DBManager {
     public List<String> getAllDifferentCities() {
         return local.getAllDifferentCities();
     }
+
+    @Override
+    public List<String> getAllRestaurantNames() {
+        return local.getAllRestaurantNames();
+    }
 }

@@ -250,4 +250,9 @@ public class WebServiceImpl implements DBManager {
         throw new UnsupportedOperationException();
     }
 
+    @Override
+    public List<String> getAllRestaurantNames() {
+        throw new UnsupportedOperationException();
+    }
+
 }
