@@ -227,11 +227,12 @@ public class WebServiceImpl implements DBManager {
 
     @Override
     public void deleteAll() {
+        throw new UnsupportedOperationException();
     }
 
     @Override
     public List<Menu> getAllMenusByRestaurantId(long restaurantId) {
-        return null;
+        throw new UnsupportedOperationException();
     }
 
     @Override

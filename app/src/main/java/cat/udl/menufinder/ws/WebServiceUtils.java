@@ -22,11 +22,8 @@ import java.io.DataOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.math.BigInteger;
 import java.net.HttpURLConnection;
 import java.net.URL;
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -38,16 +35,17 @@ import java.util.Vector;
 import cat.udl.menufinder.models.Account;
 import cat.udl.menufinder.models.Item;
 
+import static cat.udl.menufinder.utils.Utils.md5;
 import static cat.udl.menufinder.ws.Path.POST_METHOD;
 import static cat.udl.menufinder.ws.Path.baseUrlREST;
 
-public abstract class WebServiceUtils {
-    public static final String TAG = WebServiceUtils.class.getSimpleName();
+abstract class WebServiceUtils {
+    static final String TAG = WebServiceUtils.class.getSimpleName();
 
-    public static String get(String acction) {
+    public static String get(String action) {
         String result = null;
         try {
-            URL url = new URL(baseUrlREST + acction);
+            URL url = new URL(baseUrlREST + action);
             HttpURLConnection conn = (HttpURLConnection) url.openConnection();
             conn.setRequestMethod(Path.GET_METHOD);
             conn.setRequestProperty("Accept", "application/json; charset=UTF-8");
@@ -62,22 +60,22 @@ public abstract class WebServiceUtils {
         return result;
     }
 
-    public static <T> T getBean(String json, Class<T> type) {
+    static <T> T getBean(String json, Class<T> type) {
         return new Gson().fromJson(json, type);
     }
 
-    public static <T> List<T> getBeanList(String json, Class<T[]> type) {
+    static <T> List<T> getBeanList(String json, Class<T[]> type) {
         if (json == null) return new ArrayList<>();
         return Arrays.asList(new Gson().fromJson(json, type));
     }
 
-    public static <T> boolean post(String acction, T object) {
-        return sendBean(Path.POST_METHOD, acction, object);
+    static <T> boolean post(String action, T object) {
+        return sendBean(Path.POST_METHOD, action, object);
     }
 
-    public static boolean delete(String acction) {
+    public static boolean delete(String action) {
         try {
-            URL url = new URL(baseUrlREST + acction);
+            URL url = new URL(baseUrlREST + action);
             HttpURLConnection conn = (HttpURLConnection) url.openConnection();
             conn.setRequestMethod(Path.DELETE_METHOD);
             conn.setRequestProperty("Content-Type", "application/json; charset=UTF-8");
@@ -137,23 +135,23 @@ public abstract class WebServiceUtils {
         return sBuilder.toString();
     }
 
-    public static Map<Long, List<Item>> getMenuItemsByCategory(String json) {
+    static Map<Long, List<Item>> getMenuItemsByCategory(String json) {
         return new Gson().fromJson(json, new TypeToken<HashMap<Long, List<Item>>>() {
         }.getType());
     }
 
-    public static double getItemRatingOfItem(String number) {
+    static double getItemRatingOfItem(String number) {
         return Double.parseDouble(number);
     }
 
-    public static String login(String acction, String username, String password) {
+    public static String login(String action, String username, String password) {
         Account account = new Account();
         account.setId(username);
         account.setPassword(md5(password));
         Gson gson = new Gson();
         String result = null;
         try {
-            URL url = new URL(baseUrlREST + acction);
+            URL url = new URL(baseUrlREST + action);
             HttpURLConnection conn = (HttpURLConnection) url.openConnection();
             conn.setRequestMethod("POST");
             conn.setConnectTimeout(10000);
@@ -171,10 +169,10 @@ public abstract class WebServiceUtils {
         return result;
     }
 
-    public static String getFilteredRestaurants(String acction, String where) {
+    static String getFilteredRestaurants(String action, String where) {
         String result = "[]";
         try {
-            URL url = new URL(baseUrlREST + acction);
+            URL url = new URL(baseUrlREST + action);
             HttpURLConnection conn = (HttpURLConnection) url.openConnection();
             conn.setRequestMethod(POST_METHOD);
             conn.setConnectTimeout(10000);
@@ -195,9 +193,26 @@ public abstract class WebServiceUtils {
     }
 
     // Get 1
-    public static String soap(String methodName, String property) {
+    static String soap(String methodName, String webParam, String webParamValue) {
         SoapObject request = new SoapObject(Path.SOAP_NAMESPACE, methodName);
-        request.addProperty("restaurantId", property);
+        request.addProperty(webParam, webParamValue);
+        SoapSerializationEnvelope envelope = new SoapSerializationEnvelope(SoapEnvelope.VER11);
+        envelope.setOutputSoapObject(request);
+        HttpTransportSE httpTransport = new HttpTransportSE(Path.baseUrlSOAP);
+        try {
+            httpTransport.call(methodName, envelope);
+            SoapObject so = (SoapObject) envelope.getResponse();
+            return soapObjectToJsonObject(so).toString();
+        } catch (IOException | XmlPullParserException e) {
+            e.printStackTrace();
+        }
+        return "[]";
+    }
+
+    static String login(String methodName, String webParam, String username, String password) {
+        KvmSerializable webParamValue = new Account(username, md5(password), null, null);
+        SoapObject request = new SoapObject(Path.SOAP_NAMESPACE, methodName);
+        request.addProperty(webParam, webParamValue);
         SoapSerializationEnvelope envelope = new SoapSerializationEnvelope(SoapEnvelope.VER11);
         envelope.setOutputSoapObject(request);
         HttpTransportSE httpTransport = new HttpTransportSE(Path.baseUrlSOAP);
@@ -212,7 +227,7 @@ public abstract class WebServiceUtils {
     }
 
     // Get *
-    public static String soap(String methodName) {
+    static String soap(String methodName) {
         SoapObject request = new SoapObject(Path.SOAP_NAMESPACE, methodName);
         SoapSerializationEnvelope envelope = new SoapSerializationEnvelope(SoapEnvelope.VER11);
         envelope.setOutputSoapObject(request);
@@ -234,9 +249,24 @@ public abstract class WebServiceUtils {
     }
 
     // Update/Add 1
-    public static boolean soap(String methodName, KvmSerializable object) {
+    static boolean soap(String methodName, String webParam, KvmSerializable webParamValue) {
         SoapObject request = new SoapObject(Path.SOAP_NAMESPACE, methodName);
-        request.addProperty("restaurant", object);
+        request.addProperty(webParam, webParamValue);
+        SoapSerializationEnvelope envelope = new SoapSerializationEnvelope(SoapEnvelope.VER11);
+        envelope.setOutputSoapObject(request);
+        HttpTransportSE httpTransport = new HttpTransportSE(Path.baseUrlSOAP);
+        try {
+            httpTransport.call(methodName, envelope);
+        } catch (IOException | XmlPullParserException e) {
+            e.printStackTrace();
+            return false;
+        }
+        return true;
+    }
+
+    static boolean delete(String methodName, String webParam, String webParamValue) {
+        SoapObject request = new SoapObject(Path.SOAP_NAMESPACE, methodName);
+        request.addProperty(webParam, webParamValue);
         SoapSerializationEnvelope envelope = new SoapSerializationEnvelope(SoapEnvelope.VER11);
         envelope.setOutputSoapObject(request);
         HttpTransportSE httpTransport = new HttpTransportSE(Path.baseUrlSOAP);
