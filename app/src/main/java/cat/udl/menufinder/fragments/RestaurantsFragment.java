@@ -12,6 +12,8 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ArrayAdapter;
+import android.widget.AutoCompleteTextView;
 import android.widget.EditText;
 import android.widget.TextView;
 
@@ -94,6 +96,8 @@ public class RestaurantsFragment extends SubscriptionsFragment {
                     }
                 })
                 .create();
+        ((AutoCompleteTextView) dialogView.findViewById(R.id.city)).setAdapter(new ArrayAdapter<>
+                (getActivity(), android.R.layout.simple_list_item_1, getDbManager().getAllDifferentCities()));
         alertDialog.show();
     }
 

@@ -13,10 +13,11 @@
         android:maxLines="1"
         android:singleLine="true" />
 
-    <EditText
+    <AutoCompleteTextView
         android:id="@+id/city"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:completionThreshold="1"
         android:hint="@string/prompt_city"
         android:maxLines="1"
         android:singleLine="true" />
