@@ -84,15 +84,15 @@ public class Account implements Serializable, KvmSerializable {
     @Override
     public Object getProperty(int i) {
         switch (i) {
-            case 1:
+            case 0:
                 return id;
-            case 2:
+            case 1:
                 return password;
-            case 3:
+            case 2:
                 return type;
-            case 4:
+            case 3:
                 return token;
-            case 5:
+            case 4:
                 return email;
             default:
                 return null;
