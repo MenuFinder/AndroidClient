@@ -80,4 +80,15 @@
     <string name="must_create_restaurant">Has de crear un restaurant abans</string>
     <!-- GPS -->
     <string name="gps_settings">GPS no està activat. Vols anar al menú de configuració?</string>
+    <string name="invalid_guest_action">Acció invàlida per als usuaris invitats</string>
+    <string name="important_information_text">Hola &lt;b&gt;usuari invitat&lt;/b&gt;, et recomano
+        que et &lt;b&gt;registris&lt;/b&gt; a la nostra aplicació. T’estàs preguntant perquè? Si et
+        crees el teu usuari podràs &lt;b&gt;afegir restaurants com a restaurants favorits&lt;/b&gt;.
+        Et permetrà  &lt;b&gt;rebre notificacions&lt;/b&gt; quan el restaurant sigui modificat. És
+        impressionant, veritat? També et permetrà &lt;b&gt;crear critiques&lt;/b&gt; per als
+        restaurants, menús i els diferents articles &lt;b&gt;incloïen posar una puntuació&lt;/b&gt;
+        a la critica. Un usuari registrat també té una &lt;b&gt;pantalla per canviar algunes
+        configuracions importants&lt;/b&gt;. &lt;b&gt;Registrat gratis&lt;/b&gt; i gaudeix amb totes
+        les característiques.</string>
+    <string name="action_important_information">Informació important</string>
 </resources>

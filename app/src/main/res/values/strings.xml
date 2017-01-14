@@ -108,5 +108,14 @@
 
     <!-- GPS -->
     <string name="gps_settings">GPS is not enabled. Do you want to go to settings menu?</string>
+    <string name="action_important_information">Important Information</string>
+
+    <string name="important_information_text">Hello &lt;b&gt;guest user&lt;/b&gt;, I recommend you to &lt;b&gt;register&lt;/b&gt; to our
+        application. Are you question why? If you create your user you will &lt;b&gt;add restaurants as a
+        favourite restaurants&lt;/b&gt;. It enable you to &lt;b&gt;receive notifications&lt;/b&gt; when the restaurant is
+        modified. It\'s awesome, isn\'t it? Also you will be able to &lt;b&gt;create reviews&lt;/b&gt; for the
+        restaurants, menus and the different items &lt;b&gt;including put a score&lt;/b&gt; in the review. A
+        registered user also have a &lt;b&gt;screen to change some important configurations&lt;/b&gt;. &lt;b&gt;Register for
+        free&lt;/b&gt; and enjoy with all the new features.</string>
 
 </resources>

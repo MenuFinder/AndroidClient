@@ -16,6 +16,7 @@ import java.util.List;
 
 import cat.udl.menufinder.R;
 import cat.udl.menufinder.application.MasterActivity;
+import cat.udl.menufinder.fragments.ImportantInformationFragment;
 import cat.udl.menufinder.fragments.ManageItemsFragment;
 import cat.udl.menufinder.fragments.ManageMenusFragment;
 import cat.udl.menufinder.fragments.ManageRestaurantsFragment;
@@ -119,6 +120,9 @@ public class HomeActivity extends MasterActivity
             login();
         } else if (id == R.id.register) {
             register();
+        }else if (id == R.id.important_information){
+            toolbar.setTitle(R.string.action_important_information);
+            loadFragment(itemId, new ImportantInformationFragment());
         }
         return navigate;
     }
