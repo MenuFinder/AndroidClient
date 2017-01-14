@@ -78,4 +78,6 @@
     <string name="manage_items">Administrar %s Articles</string>
     <string name="selected_restaurant">Seleccionat %s</string>
     <string name="must_create_restaurant">Has de crear un restaurant abans</string>
+    <!-- GPS -->
+    <string name="gps_settings">GPS no està activat. Vols anar al menú de configuració?</string>
 </resources>

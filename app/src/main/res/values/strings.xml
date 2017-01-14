@@ -106,4 +106,7 @@
     <string name="clear_filter">Clear filter</string>
     <string name="must_create_restaurant">You have to create a restaurant before</string>
 
+    <!-- GPS -->
+    <string name="gps_settings">GPS is not enabled. Do you want to go to settings menu?</string>
+
 </resources>

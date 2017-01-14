@@ -98,5 +98,6 @@
     <string name="manage_items">Administrar %s Artículos</string>
     <string name="selected_restaurant">Seleccionado %s</string>
     <string name="must_create_restaurant">Debes crear un restaurante antes</string>
-
+    <!-- GPS -->
+    <string name="gps_settings">El GPS no está habilitado. ¿Quieres ir al menú de configuración?</string>
 </resources>
