@@ -70,6 +70,7 @@ public class GPSTracker extends Service implements LocationListener {
 
                // this.canGetLocation = true;
                 if (isNetworkEnabled) {
+                    canGetLocation = true;
                         locationManager.requestLocationUpdates(
                             LocationManager.NETWORK_PROVIDER,
                             MIN_TIME_BW_UPDATES,
@@ -86,6 +87,7 @@ public class GPSTracker extends Service implements LocationListener {
                 }
                 // if GPS Enabled get lat/long using GPS Services
                 if (isGPSEnabled) {
+                    canGetLocation = true;
                          locationManager.requestLocationUpdates(
                                 LocationManager.GPS_PROVIDER,
                                 MIN_TIME_BW_UPDATES,
