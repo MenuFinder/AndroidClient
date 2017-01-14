@@ -208,9 +208,9 @@ public class ManageItemsFragment extends MasterFragment {
     }
 
     private void removeOfDB(int position) {
-        showToast(R.string.item_saved);
-        adapter.removeItem(position);
+        showToast(R.string.item_deleted);
         getDbManager().deleteItem(adapter.getItemId(position));
+        adapter.removeItem(position);
     }
 
     public interface OnItemClick {

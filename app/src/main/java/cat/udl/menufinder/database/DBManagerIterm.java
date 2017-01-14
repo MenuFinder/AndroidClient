@@ -15,6 +15,7 @@ import cat.udl.menufinder.models.MenuItem;
 import cat.udl.menufinder.models.Restaurant;
 import cat.udl.menufinder.models.Review;
 import cat.udl.menufinder.ws.WebServiceImpl;
+import cat.udl.menufinder.ws.WebServiceSoapImpl;
 import cat.udl.menufinder.ws.WebServiceSync;
 
 public class DBManagerIterm implements DBManager {
@@ -22,10 +23,12 @@ public class DBManagerIterm implements DBManager {
     private static DBManagerIterm ourInstance = new DBManagerIterm();
     private final WebServiceSync sync;
     private final DBManager local;
-    private final WebServiceImpl remote;
+    private final WebServiceImpl rest;
+    private final WebServiceSoapImpl soap;
 
     private DBManagerIterm() {
-        remote = new WebServiceImpl();
+        rest = new WebServiceImpl();
+        soap = new WebServiceSoapImpl();
         sync = WebServiceSync.getInstance();
         local = DBManagerLocal.getInstance();
     }
@@ -36,12 +39,12 @@ public class DBManagerIterm implements DBManager {
 
     @Override
     public Account getValidLogin(String id, String password) {
-        return remote.getValidLogin(id, password);
+        return soap.getValidLogin(id, password);
     }
 
     @Override
     public boolean addAccount(Account account) {
-        return remote.addAccount(account);
+        return soap.addAccount(account);
     }
 
     @Override
@@ -280,13 +283,13 @@ public class DBManagerIterm implements DBManager {
 
     @Override
     public boolean updateAccountToken(Account account) {
-        return remote.updateAccountToken(account);
+        return soap.updateAccountToken(account);
     }
 
     @Override
     public List<Restaurant> getFilteredRestaurants(String where) {
         List<Restaurant> restaurants = local.getFilteredRestaurants(where);
-        if (restaurants.isEmpty()) restaurants = remote.getFilteredRestaurants(where);
+        if (restaurants.isEmpty()) restaurants = rest.getFilteredRestaurants(where);
         return restaurants;
     }
 

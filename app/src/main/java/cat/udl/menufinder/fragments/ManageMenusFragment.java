@@ -212,8 +212,8 @@ public class ManageMenusFragment extends MasterFragment {
 
     private void removeOfDB(int position) {
         showToast(String.format(getString(R.string.deleteNotification), adapter.getMenu(position).getName()));
-        adapter.removeMenu(position);
         getDbManager().deleteMenu(adapter.getItemId(position));
+        adapter.removeMenu(position);
     }
 
     public interface OnMenuClickListener {

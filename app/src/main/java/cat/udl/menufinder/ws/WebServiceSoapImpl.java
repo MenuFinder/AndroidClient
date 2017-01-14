@@ -92,7 +92,7 @@ public class WebServiceSoapImpl implements DBManager {
 
     @Override
     public boolean updateRestaurant(Restaurant restaurant) {
-        return WebServiceUtils.soap(Path.SOAP_UPDATE_RESTAURANT, Path.PARAM_RESTRAUNT_ID, restaurant);
+        return WebServiceUtils.soap(Path.SOAP_UPDATE_RESTAURANT, Path.PARAM_RESTAURANT, restaurant);
     }
 
     @Override

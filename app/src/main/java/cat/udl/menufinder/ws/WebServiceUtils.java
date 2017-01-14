@@ -257,6 +257,7 @@ abstract class WebServiceUtils {
         HttpTransportSE httpTransport = new HttpTransportSE(Path.baseUrlSOAP);
         try {
             httpTransport.call(methodName, envelope);
+            Log.d(TAG,envelope.getResponse().toString());
         } catch (IOException | XmlPullParserException e) {
             e.printStackTrace();
             return false;
@@ -272,6 +273,7 @@ abstract class WebServiceUtils {
         HttpTransportSE httpTransport = new HttpTransportSE(Path.baseUrlSOAP);
         try {
             httpTransport.call(methodName, envelope);
+            Log.d(TAG,envelope.getResponse().toString());
         } catch (IOException | XmlPullParserException e) {
             e.printStackTrace();
             return false;
