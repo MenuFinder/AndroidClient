@@ -92,4 +92,6 @@
         les característiques.</string>
     <string name="action_important_information">Informació important</string>
     <string name="item_deleted">Article borrat</string>
+    <string name="add_item">Afegir Article</string>
+    <string name="deleteConfirmationMenu">Esborrar \"%s\" d\'aquest menú?</string>
 </resources>

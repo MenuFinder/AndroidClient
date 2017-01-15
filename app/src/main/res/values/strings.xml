@@ -57,6 +57,7 @@
     <string name="item_saved">Item saved</string>
     <string name="restaurant_deleted">Restaurant deleted</string>
     <string name="item_deleted">Item deleted</string>
+    <string name="deleteConfirmationMenu">Delete \"%s\" from this menu?</string>
 
     <!-- Manage -->
     <string name="selected_restaurant">Selected %s</string>
@@ -76,6 +77,8 @@
     <string name="menu_finder_com" translatable="false">menu@finder.com</string>
     <string name="menus">Menus</string>
     <string name="name">Name:\u0020</string>
+    <string name="add_item">Add item</string>
+    <string name="detail_menu_title" translatable="false">%s ( %s€ )</string>
 
     <!-- Notification -->
     <string name="need_notification">Do you want recive notifications?</string>

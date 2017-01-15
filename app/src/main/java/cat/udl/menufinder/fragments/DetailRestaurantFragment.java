@@ -48,7 +48,6 @@ public class DetailRestaurantFragment extends MasterFragment {
     public void update(Restaurant restaurant) {
         collapsingToolbarLayout.setTitle(restaurant.getName());
         collapsingToolbarLayout.setExpandedTitleColor(ContextCompat.getColor(getActivity(), android.R.color.transparent));
-
         configGeneralInformation(restaurant);
         configList(restaurant);
     }
@@ -75,6 +74,11 @@ public class DetailRestaurantFragment extends MasterFragment {
                 Intent intent = new Intent(getActivity(), DetailMenuActivity.class);
                 intent.putExtra(KEY_MENU, menu);
                 startActivity(intent);
+            }
+
+            @Override
+            public void onMenuLongClick(Menu menu, int adapterPosition) {
+
             }
 
             @Override

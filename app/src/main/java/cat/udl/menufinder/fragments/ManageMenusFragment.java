@@ -1,6 +1,7 @@
 package cat.udl.menufinder.fragments;
 
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
@@ -20,10 +21,13 @@ import android.widget.TextView;
 import java.util.List;
 
 import cat.udl.menufinder.R;
+import cat.udl.menufinder.activities.DetailManageMenuActivity;
 import cat.udl.menufinder.adapters.MenusAdapter;
 import cat.udl.menufinder.application.MasterFragment;
 import cat.udl.menufinder.models.Menu;
 import cat.udl.menufinder.models.Restaurant;
+
+import static cat.udl.menufinder.utils.Constants.KEY_MENU;
 
 public class ManageMenusFragment extends MasterFragment {
 
@@ -70,6 +74,11 @@ public class ManageMenusFragment extends MasterFragment {
         adapter = new MenusAdapter(getActivity(), menus, new OnMenuClickListener() {
             @Override
             public void onMenuClick(Menu menu, int adapterPosition) {
+                editMenu(menu);
+            }
+
+            @Override
+            public void onMenuLongClick(Menu menu, int adapterPosition) {
                 showEditDialog(menu, adapterPosition);
             }
 
@@ -81,6 +90,12 @@ public class ManageMenusFragment extends MasterFragment {
         }, getMasterApplication().getUserType());
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+    }
+
+    private void editMenu(Menu menu) {
+        Intent intent = new Intent(getActivity(), DetailManageMenuActivity.class);
+        intent.putExtra(KEY_MENU, menu);
+        startActivity(intent);
     }
 
     private void showDeleteConfirmation(final int position) {
@@ -218,6 +233,8 @@ public class ManageMenusFragment extends MasterFragment {
 
     public interface OnMenuClickListener {
         void onMenuClick(Menu menu, int adapterPosition);
+
+        void onMenuLongClick(Menu menu, int adapterPosition);
 
         void onIsVisibleClick(Menu menu, boolean visible);
     }

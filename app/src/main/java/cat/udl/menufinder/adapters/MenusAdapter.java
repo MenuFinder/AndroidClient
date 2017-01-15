@@ -82,8 +82,15 @@ public class MenusAdapter extends RecyclerView.Adapter<MenusAdapter.ViewHolder> 
         RatingBar rating;
         Switch is_visible;
 
-        public ViewHolder(View itemView) {
+        ViewHolder(View itemView) {
             super(itemView);
+            itemView.setOnLongClickListener(new View.OnLongClickListener() {
+                @Override
+                public boolean onLongClick(View view) {
+                    listener.onMenuLongClick(getMenu(getAdapterPosition()), getAdapterPosition());
+                    return true;
+                }
+            });
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {

@@ -10,6 +10,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import cat.udl.menufinder.R;
@@ -24,24 +25,19 @@ import cat.udl.menufinder.models.Menu;
 import static cat.udl.menufinder.utils.Constants.KEY_ITEM;
 
 public class DetailMenuFragment extends MasterFragment {
-    private static final String ARG_SECTION_NUMBER = "section_number";
-    private List<Item> lstitems = null;
+    public List<Item> listItems = new ArrayList<>();
+    protected long menuId;
+    protected long itemCategoryId;
 
     public DetailMenuFragment() {
     }
 
-    public static DetailMenuFragment newInstance(long sectionNumber, List<Item> item) {
+    public static DetailMenuFragment newInstance(long menuId, long itemCategoryId, List<Item> items) {
         DetailMenuFragment fragment = new DetailMenuFragment();
-        Bundle args = new Bundle();
-        args.putLong(ARG_SECTION_NUMBER, sectionNumber);
-        fragment.setListItem(item);
-        fragment.setArguments(args);
+        fragment.menuId = menuId;
+        fragment.itemCategoryId = itemCategoryId;
+        fragment.listItems = items;
         return fragment;
-    }
-
-    public void setListItem(List<Item> items) {
-        this.lstitems = items;
-
     }
 
     @Nullable
@@ -53,34 +49,41 @@ public class DetailMenuFragment extends MasterFragment {
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        update(lstitems);
+        Menu menu = getDbManager().getMenuById(menuId);
+        ((MasterActivity) getActivity()).getSupportActionBar().setTitle(getString(R.string.detail_menu_title, menu.getName(), String.valueOf(menu.getPrice())));
+        update();
     }
 
     public MasterApplication getMasterApplication() {
         return ((MasterActivity) getActivity()).getMasterApplication();
     }
 
-    public void update(List<Item> items) {
-
-        long menu_Id = getArguments().getLong(ARG_SECTION_NUMBER);
-        Menu menu = getDbManager().getMenuById(menu_Id);
-        ((MasterActivity) getActivity()).getSupportActionBar().setTitle(menu.getName() + " ( " + String.valueOf(menu.getPrice() + "€") + " )");
-        RecyclerView recyclerView = (RecyclerView) getView().findViewById(R.id.list);
-
-        RecyclerView.ItemDecoration itemDecoration = new DividerItemDecoration(
-                getActivity(), DividerItemDecoration.VERTICAL);
-        recyclerView.addItemDecoration(itemDecoration);
-
-        ItemsAdapter adapter = new ItemsAdapter(getActivity(), items, new ManageItemsFragment.OnItemClick() {
-            @Override
-            public void onItem(Item item, int adapterPosition) {
-                Intent intent = new Intent(getActivity(), ReviewActivity.class);
-                intent.putExtra(KEY_ITEM, item);
-                startActivity(intent);
-            }
-        });
-        recyclerView.setAdapter(adapter);
-        recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+    public void update() {
+        update(listItems);
     }
 
+    public void update(List<Item> items) {
+        if (getView() != null) {
+            RecyclerView recyclerView = (RecyclerView) getView().findViewById(R.id.list);
+
+            RecyclerView.ItemDecoration itemDecoration = new DividerItemDecoration(
+                    getActivity(), DividerItemDecoration.VERTICAL);
+            recyclerView.addItemDecoration(itemDecoration);
+
+            ItemsAdapter adapter = new ItemsAdapter(getActivity(), items, new ManageItemsFragment.OnItemClick() {
+                @Override
+                public void onItem(Item item, int adapterPosition) {
+                    onItemClick(item);
+                }
+            });
+            recyclerView.setAdapter(adapter);
+            recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+        }
+    }
+
+    protected void onItemClick(Item item) {
+        Intent intent = new Intent(getActivity(), ReviewActivity.class);
+        intent.putExtra(KEY_ITEM, item);
+        startActivity(intent);
+    }
 }

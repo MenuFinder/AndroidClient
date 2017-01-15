@@ -24,8 +24,9 @@
 
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/add_item_button"
-        style="@style/FabReviewStyle"
-        android:layout_gravity="bottom|end" />
+        style="@style/FabStyle"
+        android:layout_gravity="bottom|end"
+        app:srcCompat="@drawable/ic_register" />
 
 
 </android.support.design.widget.CoordinatorLayout>

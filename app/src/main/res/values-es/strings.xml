@@ -113,4 +113,6 @@
         les características.</string>
     <string name="action_important_information">Información importante</string>
     <string name="item_deleted">Artículo borrado</string>
+    <string name="add_item">Añadir Artículo</string>
+    <string name="deleteConfirmationMenu">Borrar \"%s\" de este menú?</string>
 </resources>

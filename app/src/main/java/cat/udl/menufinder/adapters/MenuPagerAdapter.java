@@ -32,6 +32,14 @@ public class MenuPagerAdapter extends FragmentPagerAdapter {
         mFragmentTitles.add(title);
     }
 
+    public Fragment getItemFromTitle(String title) {
+        for (int i = 0; i < getCount(); i++) {
+            if (getPageTitle(i).equals(title))
+                return getItem(i);
+        }
+        return null;
+    }
+
     @Override
     public CharSequence getPageTitle(int position) {
         return mFragmentTitles.get(position);
