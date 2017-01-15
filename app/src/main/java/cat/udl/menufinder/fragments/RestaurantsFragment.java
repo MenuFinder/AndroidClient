@@ -1,6 +1,7 @@
 package cat.udl.menufinder.fragments;
 
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.location.Location;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -25,6 +26,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import cat.udl.menufinder.R;
+import cat.udl.menufinder.activities.DetailRestaurantActivity;
 import cat.udl.menufinder.builders.SearchCriteriaBuilder;
 import cat.udl.menufinder.models.Restaurant;
 import cat.udl.menufinder.utils.Constants;
@@ -33,6 +35,7 @@ import cat.udl.menufinder.utils.SearchCriteria;
 import cat.udl.menufinder.utils.Utils;
 
 import static android.view.View.VISIBLE;
+import static cat.udl.menufinder.utils.Constants.KEY_RESTAURANT;
 
 public class RestaurantsFragment extends SubscriptionsFragment {
     public static final String TAG = RestaurantsFragment.class.getSimpleName();
@@ -60,6 +63,12 @@ public class RestaurantsFragment extends SubscriptionsFragment {
         maxDistance = Integer.parseInt(PreferenceManager.getDefaultSharedPreferences(getActivity()).getString(Constants.PREFERENCES_DISTANCE, "2"));
 
         restaurantsDistance = maxDistance;
+        Restaurant restaurant = (Restaurant) getActivity().getIntent().getSerializableExtra(KEY_RESTAURANT);
+        if (restaurant != null) {
+            Intent intent = new Intent(getActivity(), DetailRestaurantActivity.class);
+            intent.putExtra(KEY_RESTAURANT, restaurant);
+            startActivity(intent);
+        }
     }
 
     protected void configHeader() {
