@@ -3,7 +3,6 @@ package cat.udl.menufinder.fragments;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -18,13 +17,13 @@ import cat.udl.menufinder.activities.ReviewActivity;
 import cat.udl.menufinder.adapters.ItemsAdapter;
 import cat.udl.menufinder.application.MasterActivity;
 import cat.udl.menufinder.application.MasterApplication;
-import cat.udl.menufinder.database.DBManager;
+import cat.udl.menufinder.application.MasterFragment;
 import cat.udl.menufinder.models.Item;
 import cat.udl.menufinder.models.Menu;
 
 import static cat.udl.menufinder.utils.Constants.KEY_ITEM;
 
-public class DetailMenuFragment extends Fragment {
+public class DetailMenuFragment extends MasterFragment {
     private static final String ARG_SECTION_NUMBER = "section_number";
     private List<Item> lstitems = null;
 
@@ -61,14 +60,9 @@ public class DetailMenuFragment extends Fragment {
         return ((MasterActivity) getActivity()).getMasterApplication();
     }
 
-    public DBManager getDbManager() {
-        return getMasterApplication().getDbManager();
-    }
-
     public void update(List<Item> items) {
 
         long menu_Id = getArguments().getLong(ARG_SECTION_NUMBER);
-        DBManager dbManager = getDbManager();
         Menu menu = getDbManager().getMenuById(menu_Id);
         ((MasterActivity) getActivity()).getSupportActionBar().setTitle(menu.getName() + " ( " + String.valueOf(menu.getPrice() + "€") + " )");
         RecyclerView recyclerView = (RecyclerView) getView().findViewById(R.id.list);
