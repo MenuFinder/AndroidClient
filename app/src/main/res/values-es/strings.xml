@@ -43,7 +43,6 @@
     <string name="error_no_connection_server">No connection with server</string>
     <string name="general_information">Información general</string>
     <string name="item_saved">Item guardado</string>
-    <string name="key_totifications">notificaciones</string>
 
     <!-- Navigation Drawer-->
     <string name="navigation_drawer_open">Abrir navigation drawer</string>
@@ -67,8 +66,6 @@
     <string name="name">Nombre:</string>
 
     <!-- Notification -->
-    <string name="need_notification">¿Quiere recibir notificaciones?</string>
-    <string name="notifications">Notificaciones</string>
     <string name="price">Precio:</string>
     <string name="search">Buscar</string>
     <string name="updateNotification">\"%s\" actualizado</string>
@@ -84,13 +81,13 @@
     <string name="share_text">Comí muy bien en %s — Estoy utilitzando Menu Finder</string>
 
     <!-- Map -->
-    <string name="marker_title">Marker en %s</string>
+    <string name="marker_title">Resturant %s</string>
     <string name="manage_restaurant">Administrar Restaurante</string>
     <string name="no_location_detected">No podemos encontrar tu localización!</string>
     <string name="register_restaurant">Registrar nuevo restaurante</string>
     <string name="restaurant_deleted">Restaurante borrado</string>
     <string name="action_manage_restaurants">Administrar Restaurantes</string>
-    <string name="showing_restaurants_distance_header">Mostrando restaurantes a %d m de ti</string>
+    <string name="showing_restaurants_distance_header">Mostrando restaurantes a %dKm de ti</string>
     <string name="clear_filter">Limpiar filtro</string>
     <string name="not_results_founds">No se han encontrado resultados</string>
     <string name="prompt_distance">Distancia en metros</string>
@@ -115,4 +112,9 @@
     <string name="item_deleted">Artículo borrado</string>
     <string name="add_item">Añadir Artículo</string>
     <string name="deleteConfirmationMenu">Borrar \"%s\" de este menú?</string>
+    <string name="hint_default_distance_preference">Predeterminado 2Km</string>
+    <string name="summary_default_distance_preference">Distancia mínima predeterminada a los restaurantes</string>
+    <string name="title_default_distance_preference">Distancia mínima</string>
+    <string name="custom_restaurants">Restaurantes personalitzados</string>
+    <string name="showing_all">No hay resultados. Mostrando todo</string>
 </resources>

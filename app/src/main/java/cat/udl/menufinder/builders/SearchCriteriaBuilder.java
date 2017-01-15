@@ -23,4 +23,8 @@ public class SearchCriteriaBuilder {
     public SearchCriteria build() {
         return searchCriteria;
     }
+
+    public void setDistance(boolean distance) {
+        searchCriteria.setDistance(distance);
+    }
 }

@@ -4,6 +4,7 @@ import android.content.DialogInterface;
 import android.location.Location;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.v7.app.AlertDialog;
 import android.text.TextUtils;
 import android.util.Log;
@@ -26,6 +27,7 @@ import java.util.List;
 import cat.udl.menufinder.R;
 import cat.udl.menufinder.builders.SearchCriteriaBuilder;
 import cat.udl.menufinder.models.Restaurant;
+import cat.udl.menufinder.utils.Constants;
 import cat.udl.menufinder.utils.GPSTracker;
 import cat.udl.menufinder.utils.SearchCriteria;
 import cat.udl.menufinder.utils.Utils;
@@ -34,7 +36,7 @@ import static android.view.View.VISIBLE;
 
 public class RestaurantsFragment extends SubscriptionsFragment {
     public static final String TAG = RestaurantsFragment.class.getSimpleName();
-    private final int maxDistance = 2000; // Meters
+    private int maxDistance; // Km
     private int restaurantsDistance;
     private TextView header;
 
@@ -55,6 +57,8 @@ public class RestaurantsFragment extends SubscriptionsFragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setHasOptionsMenu(true);
+        maxDistance = Integer.parseInt(PreferenceManager.getDefaultSharedPreferences(getActivity()).getString(Constants.PREFERENCES_DISTANCE, "2"));
+
         restaurantsDistance = maxDistance;
     }
 
@@ -79,8 +83,13 @@ public class RestaurantsFragment extends SubscriptionsFragment {
                         String city = ((AutoCompleteTextView) dialogView.findViewById(R.id.city)).getText().toString().trim();
                         if (!TextUtils.isEmpty(city)) scb.setCity(city);
                         String distance = ((EditText) dialogView.findViewById(R.id.distance)).getText().toString().trim();
-                        if (!TextUtils.isEmpty(distance))
+                        if (!TextUtils.isEmpty(distance)) {
                             restaurantsDistance = Integer.parseInt(distance);
+                            scb.setDistance(true);
+                        } else {
+                            scb.setDistance(false);
+                        }
+
                         filterRestaurants(scb.build());
                     }
                 })
@@ -92,7 +101,10 @@ public class RestaurantsFragment extends SubscriptionsFragment {
                 .setNeutralButton(R.string.clear_filter, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
-                        filterRestaurants(new SearchCriteriaBuilder().build());
+                        SearchCriteriaBuilder builder = new SearchCriteriaBuilder();
+                        builder.setDistance(true);
+                        maxDistance = Integer.parseInt(PreferenceManager.getDefaultSharedPreferences(getActivity()).getString(Constants.PREFERENCES_DISTANCE, "2"));
+                        filterRestaurants(builder.build());
                     }
                 })
                 .create();
@@ -129,7 +141,7 @@ public class RestaurantsFragment extends SubscriptionsFragment {
                         LatLng latLngRestaurant = Utils.getLatLngOfRestaurant(restaurant, getActivity());
                         double distance = restaurantsDistance;
                         if (latLngRestaurant != null) {
-                            distance = SphericalUtil.computeDistanceBetween(latLngUser, latLngRestaurant);
+                            distance = SphericalUtil.computeDistanceBetween(latLngUser, latLngRestaurant) / 1000;
                         }
                         if (distance < restaurantsDistance) {
                             restaurants.add(restaurant);
@@ -138,24 +150,24 @@ public class RestaurantsFragment extends SubscriptionsFragment {
                 }
             }
         } else {
-            // can't get location
-            // GPS or Network is not enabled
-            // Ask user to enable GPS/network in settings
             gps.showSettingsAlert();
         }
         if (restaurants.isEmpty()) {
             showToast(getString(R.string.not_results_founds));
+            header.setText(R.string.showing_all);
             restaurantsDistance = maxDistance;
-            return getNearbyRestaurants(getDbManager().getRestaurants());
+            return getDbManager().getRestaurants();
         }
         return restaurants;
     }
 
     private class FilterRestaurantsTask extends AsyncTask<String, Void, List<Restaurant>> {
         private final String where;
+        private final SearchCriteria searchCriteria;
 
         FilterRestaurantsTask(SearchCriteria searchCriteria) {
             where = searchCriteria.getWhere();
+            this.searchCriteria = searchCriteria;
         }
 
         @Override
@@ -167,7 +179,12 @@ public class RestaurantsFragment extends SubscriptionsFragment {
         @Override
         protected void onPostExecute(List<Restaurant> restaurantList) {
             super.onPostExecute(restaurantList);
-            adapter.setRestaurants(getNearbyRestaurants(restaurantList));
+            if (searchCriteria.getDistance() || restaurantList.isEmpty()) {
+                adapter.setRestaurants(getNearbyRestaurants(restaurantList));
+            } else {
+                header.setText(R.string.custom_restaurants);
+                adapter.setRestaurants(restaurantList);
+            }
         }
     }
 }

@@ -5,6 +5,7 @@ import cat.udl.menufinder.database.RestaurantContract;
 public class SearchCriteria {
     private boolean first;
     private StringBuilder where;
+    private boolean distance;
 
     public SearchCriteria() {
         where = new StringBuilder();
@@ -27,5 +28,13 @@ public class SearchCriteria {
 
     public String getWhere() {
         return where.toString();
+    }
+
+    public boolean getDistance() {
+        return distance;
+    }
+
+    public void setDistance(boolean distance) {
+        this.distance = distance;
     }
 }

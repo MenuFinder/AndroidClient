@@ -15,6 +15,5 @@ public class PreferencesFragment extends PreferenceFragment {
         super.onCreate(savedInstanceState);
         if (((MasterActivity) getActivity()).getMasterApplication().getUserType() == CLIENT)
             addPreferencesFromResource(R.xml.settings_client);
-        else addPreferencesFromResource(R.xml.settings_restaurant);
     }
 }

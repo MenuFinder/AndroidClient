@@ -53,7 +53,6 @@
     <string name="deleteConfirmation">Delete \"%s\"?</string>
     <string name="deleteNotification">\"%s\" deleted</string>
     <string name="general_information">General information</string>
-    <string name="key_totifications">notifications</string>
     <string name="item_saved">Item saved</string>
     <string name="restaurant_deleted">Restaurant deleted</string>
     <string name="item_deleted">Item deleted</string>
@@ -81,8 +80,6 @@
     <string name="detail_menu_title" translatable="false">%s ( %s€ )</string>
 
     <!-- Notification -->
-    <string name="need_notification">Do you want recive notifications?</string>
-    <string name="notifications">Notifications</string>
     <string name="price">Price:\u0020</string>
     <string name="save">Save</string>
     <string name="saveNotification">\"%s\" saved</string>
@@ -101,9 +98,9 @@
     <string name="share_text">I ate very well at %s — I\'m using Menu Finder</string>
 
     <!-- Map -->
-    <string name="marker_title">Marker in %s</string>
+    <string name="marker_title">%s restaurant</string>
     <string name="no_location_detected">We cannot find your location!</string>
-    <string name="showing_restaurants_distance_header">Showing restaurants at %d m from you</string>
+    <string name="showing_restaurants_distance_header">Showing restaurants at %dKm from you</string>
 
     <!-- Filter -->
     <string name="not_results_founds">Not results found</string>
@@ -121,6 +118,12 @@
         restaurants, menus and the different items &lt;b&gt;including put a score&lt;/b&gt; in the review. A
         registered user also have a &lt;b&gt;screen to change some important configurations&lt;/b&gt;. &lt;b&gt;Register for
         free&lt;/b&gt; and enjoy with all the new features.</string>
-    <string name="show_price">%.1f€</string>
+    <string name="minDistance" translatable="false">2</string>
+    <string name="hint_default_distance_preference">Default 2Km</string>
+    <string name="summary_default_distance_preference">Default minimum distance to restaurants</string>
+    <string name="title_default_distance_preference">Minimum distance</string>
+    <string name="show_price" translatable="false">%.1f€</string>
+    <string name="custom_restaurants">Custom restaurants</string>
+    <string name="showing_all">No results. Showing all</string>
 
 </resources>

@@ -53,20 +53,27 @@ public class RestaurantMapFragment extends MasterFragment implements OnMapReadyC
         LatLng r = new LatLng(41.6175899, 0.6200145999999904);
         if (restaurant != null) {
             r = Utils.getLatLngOfRestaurant(restaurant, getActivity());
-        }
+            putRestaurantInMap(googleMap, restaurant);
+        } else putRestaurantsInMap(googleMap);
         googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(r, 14));
-        putRestaurantsInMap(googleMap);
     }
 
     private void putRestaurantsInMap(GoogleMap googleMap) {
         List<Restaurant> restaurants = getDbManager().getRestaurants();
         for (Restaurant restaurant : restaurants) {
-            LatLng latLng = Utils.getLatLngOfRestaurant(restaurant, getActivity());
-            if (latLng != null)
-                googleMap.addMarker(new MarkerOptions().position(
-                        latLng)
-                        .title(getString(R.string.marker_title, restaurant.getName())));
+            putRestaurantInMap(googleMap, restaurant);
         }
+    }
+
+    private void putRestaurantInMap(GoogleMap googleMap, Restaurant restaurant) {
+        LatLng latLng = Utils.getLatLngOfRestaurant(restaurant, getActivity());
+        if (latLng != null)
+            googleMap.addMarker(new MarkerOptions()
+                    .position(latLng)
+                    .title(getString(R.string.marker_title, restaurant.getName()))
+                    .snippet(String.format("%s\n%s\n%s", restaurant.getAddressWithCity(),
+                            restaurant.getPhone(), restaurant.getEmail()))
+            );
     }
 
 

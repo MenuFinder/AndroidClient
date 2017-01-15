@@ -8,6 +8,7 @@ public class Constants {
     public static final String PREFERENCES_USERNAME = "username";
     public static final String PREFERENCES_TOKEN = "token";
     public static final String PREFERENCES_SELECTED_RESTAURANT = "selected_restaurant";
+    public static final String PREFERENCES_DISTANCE = "distance";
 
     public static final String KEY_RESTAURANT = "restaurant";
     public static final String KEY_MENU = "menu";

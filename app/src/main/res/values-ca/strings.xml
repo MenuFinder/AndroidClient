@@ -37,11 +37,8 @@
     <string name="prompt_description">Descripció</string>
     <string name="price">Preu:</string>
     <string name="prompt_address">Adreça:</string>
-    <string name="notifications">Notificacions</string>
-    <string name="need_notification">Vols rebre notificacions?</string>
     <string name="general_information">Informació general</string>
     <string name="item_saved">Article guardat</string>
-    <string name="key_totifications">Notificacions</string>
     <string name="error_field_required">Aquest camp és obligatori</string>
     <string name="error_incorrect_password">Aquesta contrasenya és incorrecta</string>
     <string name="error_invalid_email">Aquesta adreça electrònica és invàlida</string>
@@ -62,7 +59,7 @@
     <string name="visible">Visible</string>
     <string name="you_are_the_owner_of_a_restaurant">Ets propietari d\'un restaurant?</string>
     <string name="error_no_connection_server">No connection with server</string>
-    <string name="marker_title">Marker a %s</string>
+    <string name="marker_title">Resturant %s</string>
     <string name="share_text">Vaig menjar molt bé a %s — Estic utilitzant Menu Finder</string>
     <string name="updateNotification">\"%s\" actualitzat</string>
     <string name="manage_restaurant">Administrar Restaurant</string>
@@ -70,7 +67,7 @@
     <string name="register_restaurant">Registrar nou restaurant</string>
     <string name="restaurant_deleted">Restaurant borrat</string>
     <string name="action_manage_restaurants">Administrar Restaurants</string>
-    <string name="showing_restaurants_distance_header">Mostrant restaurants a %d m de tu</string>
+    <string name="showing_restaurants_distance_header">Mostrant restaurants a %dKm de tu</string>
     <string name="clear_filter">Netejar filtre</string>
     <string name="not_results_founds">No s\'han trobat resultats</string>
     <string name="prompt_distance">Distancia en metres</string>
@@ -94,4 +91,9 @@
     <string name="item_deleted">Article borrat</string>
     <string name="add_item">Afegir Article</string>
     <string name="deleteConfirmationMenu">Esborrar \"%s\" d\'aquest menú?</string>
+    <string name="hint_default_distance_preference">2Km per defecte</string>
+    <string name="summary_default_distance_preference">Distancia mínima per defecte als restaurantes</string>
+    <string name="title_default_distance_preference">Distancia mínima</string>
+    <string name="custom_restaurants">Restaurants personalitzats</string>
+    <string name="showing_all">Sense resultats. Mostrant tots</string>
 </resources>
