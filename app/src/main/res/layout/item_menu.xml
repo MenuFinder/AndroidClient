@@ -18,9 +18,10 @@
 
 
         <LinearLayout
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="2"
+            android:layout_weight="4"
+            android:padding="@dimen/space_10"
             android:orientation="vertical">
 
             <LinearLayout
@@ -31,15 +32,15 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:paddingLeft="@dimen/cast_expanded_controller_margin_between_seek_bar_and_control_buttons"
                     android:text="@string/name"
-                    android:textStyle="bold" />
+                    android:textStyle="bold"
+                    android:id="@+id/textView" />
 
                 <TextView
                     android:id="@+id/name"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:paddingLeft="@dimen/cast_expanded_controller_margin_between_seek_bar_and_control_buttons" />
+                    android:paddingLeft="@dimen/space_10" />
             </LinearLayout>
 
             <LinearLayout
@@ -50,7 +51,6 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:paddingLeft="@dimen/cast_expanded_controller_margin_between_seek_bar_and_control_buttons"
                     android:text="@string/price"
                     android:textStyle="bold" />
 
@@ -58,28 +58,20 @@
                     android:id="@+id/price"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:paddingLeft="@dimen/cast_expanded_controller_margin_between_seek_bar_and_control_buttons"
+                    android:paddingLeft="@dimen/space_10"
                     android:paddingTop="2dp" />
 
             </LinearLayout>
 
             <RatingBar
                 android:id="@+id/rating"
-                style="?android:attr/ratingBarStyleSmall"
-                android:layout_width="91dp"
-                android:layout_height="wrap_content"
-                android:clickable="true"
-                android:isIndicator="true"
-                android:numStars="5"
-                android:paddingLeft="@dimen/cast_expanded_controller_margin_between_seek_bar_and_control_buttons"
-                android:paddingTop="8dp"
-                android:progressTint="#FDDB39" />
+                style="@style/MenuFinderRatingBar"/>
 
         </LinearLayout>
 
         <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
             android:layout_weight="1"
             android:gravity="center">
 

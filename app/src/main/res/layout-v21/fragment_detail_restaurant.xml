@@ -90,14 +90,7 @@
 
             <RatingBar
                 android:id="@+id/score"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:clickable="false"
-                android:contextClickable="false"
-                android:isIndicator="true"
-                android:numStars="5"
-                android:progressTint="#FDDB39"
-                android:stepSize="0.5" />
+                style="@style/MenuFinderRatingBar" />
 
             <TextView
                 android:layout_width="wrap_content"
