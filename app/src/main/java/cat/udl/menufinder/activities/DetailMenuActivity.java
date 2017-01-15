@@ -8,7 +8,6 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
-import android.view.MenuItem;
 import android.view.View;
 
 import java.util.ArrayList;
@@ -32,7 +31,6 @@ public class DetailMenuActivity extends MasterActivity {
         super.onCreate(savedInstanceState);
         changeOrientationIfIsPhone();
         setContentView(R.layout.activity_detail_menu);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         Intent intent = getIntent();
         Menu menu = (Menu) intent.getSerializableExtra(KEY_MENU);
         configFAB(menu);
@@ -45,16 +43,6 @@ public class DetailMenuActivity extends MasterActivity {
         TabLayout tabs = (TabLayout) findViewById(R.id.tabs);
 
         tabs.setupWithViewPager(mViewPager);
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case android.R.id.home:
-                onBackPressed();
-                break;
-        }
-        return false;
     }
 
     private void configFAB(final Menu menu) {

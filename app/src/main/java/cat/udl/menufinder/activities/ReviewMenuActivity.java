@@ -9,7 +9,6 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -34,22 +33,11 @@ public class ReviewMenuActivity extends MasterActivity {
         super.onCreate(savedInstanceState);
         changeOrientationIfIsPhone();
         setContentView(R.layout.activity_review);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         Menu menu = (Menu) getIntent().getSerializableExtra(KEY_MENU);
         ((TextView) findViewById(R.id.name)).setText(menu.getName());
         ((TextView) findViewById(R.id.description)).setText(menu.getDescription());
         configList(getDbManager().getReviewsOfMenu(menu.getId()));
         configFAB(menu);
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case android.R.id.home:
-                onBackPressed();
-                break;
-        }
-        return false;
     }
 
     private void configList(List<Review> reviews) {
