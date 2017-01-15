@@ -45,7 +45,7 @@ public class MenusAdapter extends RecyclerView.Adapter<MenusAdapter.ViewHolder> 
     public void onBindViewHolder(MenusAdapter.ViewHolder holder, final int position) {
         final Menu menu = getMenu(position);
         holder.name.setText(menu.getName());
-        holder.price.setText(String.valueOf(menu.getPrice()));
+        holder.price.setText(context.getString(R.string.show_price, menu.getPrice()));
         holder.rating.setRating(((float) menu.getScore()));
         if (userType != RESTAURANT) holder.is_visible.setVisibility(GONE);
         holder.is_visible.setChecked(menu.isVisible());

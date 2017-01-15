@@ -121,5 +121,6 @@
         restaurants, menus and the different items &lt;b&gt;including put a score&lt;/b&gt; in the review. A
         registered user also have a &lt;b&gt;screen to change some important configurations&lt;/b&gt;. &lt;b&gt;Register for
         free&lt;/b&gt; and enjoy with all the new features.</string>
+    <string name="show_price">%.1f€</string>
 
 </resources>

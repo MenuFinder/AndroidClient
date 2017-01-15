@@ -23,6 +23,7 @@ import cat.udl.menufinder.models.Item;
 import cat.udl.menufinder.models.ItemRating;
 import cat.udl.menufinder.models.Review;
 
+import static android.view.View.GONE;
 import static cat.udl.menufinder.utils.Constants.KEY_ITEM;
 import static cat.udl.menufinder.utils.Utils.checkIfNotGuest;
 
@@ -37,7 +38,10 @@ public class ReviewActivity extends MasterActivity {
         setContentView(R.layout.activity_review);
         Item item = (Item) getIntent().getSerializableExtra(KEY_ITEM);
         ((TextView) findViewById(R.id.name)).setText(item.getName());
-        ((TextView) findViewById(R.id.description)).setText(item.getDescription());
+        if (item.getDescription().isEmpty()) findViewById(R.id.description).setVisibility(GONE);
+        else ((TextView) findViewById(R.id.description)).setText(item.getDescription());
+        ((TextView) findViewById(R.id.price)).setText(getString(R.string.show_price, item.getPrice()));
+        ((RatingBar) findViewById(R.id.score)).setRating((float) item.getScore());
         configList(getDbManager().getReviewsOfItem(item.getId()));
         configFAB(item);
     }

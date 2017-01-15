@@ -39,7 +39,7 @@ public class ItemsAdapter extends RecyclerView.Adapter<ItemsAdapter.ViewHolder> 
         Item item = getItem(position);
 
         viewHolder.name.setText(item.getName());
-        viewHolder.price.setText(String.valueOf(item.getPrice()));
+        viewHolder.price.setText(context.getString(R.string.show_price, item.getPrice()));
         viewHolder.score.setRating(((float) item.getScore()));
     }
 
