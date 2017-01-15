@@ -18,7 +18,7 @@
     <string name="prompt_restaurant_email">Restaurant email</string>
     <string name="prompt_country">Country</string>
     <string name="prompt_name">Name</string>
-    <string name="prompt_distance">Distance in meters</string>
+    <string name="prompt_distance">Distance in kilometers</string>
 
     <!-- Action -->
     <string name="action_sign_in">Sign in</string>

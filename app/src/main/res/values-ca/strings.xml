@@ -70,7 +70,7 @@
     <string name="showing_restaurants_distance_header">Mostrant restaurants a %dKm de tu</string>
     <string name="clear_filter">Netejar filtre</string>
     <string name="not_results_founds">No s\'han trobat resultats</string>
-    <string name="prompt_distance">Distancia en metres</string>
+    <string name="prompt_distance">Distancia en quilòmetres</string>
     <string name="manage_menus">Administrar %s Menus</string>
     <string name="manage_items">Administrar %s Articles</string>
     <string name="selected_restaurant">Seleccionat %s</string>
