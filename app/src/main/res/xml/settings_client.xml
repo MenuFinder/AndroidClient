@@ -1,7 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
-    <CheckBoxPreference
-        android:key="@string/key_totifications"
-        android:summary="@string/need_notification"
-        android:title="@string/notifications" />
+    <EditTextPreference
+        android:defaultValue="@string/minDistance"
+        android:hint="@string/hint_default_distance_preference"
+        android:inputType="number"
+        android:key="distance"
+        android:summary="@string/summary_default_distance_preference"
+        android:title="@string/title_default_distance_preference" />
 </PreferenceScreen>

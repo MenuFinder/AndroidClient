@@ -2,10 +2,6 @@ package cat.udl.menufinder.database;
 
 import android.provider.BaseColumns;
 
-/**
- * Created by MEUSBURGGER on 14/12/2016.
- */
-
 public class RestaurantContract {
     public static abstract class RestaurantTable implements BaseColumns {
         public static final String TABLE_NAME = "restaurant";

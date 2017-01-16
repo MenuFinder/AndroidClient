@@ -1,10 +1,14 @@
 package cat.udl.menufinder.models;
 
+import org.ksoap2.serialization.KvmSerializable;
+import org.ksoap2.serialization.PropertyInfo;
+
 import java.io.Serializable;
+import java.util.Hashtable;
 
 import cat.udl.menufinder.enums.UserType;
 
-public class Account implements Serializable {
+public class Account implements Serializable, KvmSerializable {
 
     private String id;
     private String password;
@@ -42,12 +46,12 @@ public class Account implements Serializable {
         return type;
     }
 
-    public void setType(String type) {
-        this.type = type;
-    }
-
     public void setType(UserType type) {
         this.type = type.getText();
+    }
+
+    public void setType(String type) {
+        this.type = type;
     }
 
     public String getToken() {
@@ -75,5 +79,75 @@ public class Account implements Serializable {
                 ", password='" + password + '\'' +
                 ", id='" + id + '\'' +
                 '}';
+    }
+
+    @Override
+    public Object getProperty(int i) {
+        switch (i) {
+            case 0:
+                return id;
+            case 1:
+                return password;
+            case 2:
+                return type;
+            case 3:
+                return token;
+            case 4:
+                return email;
+            default:
+                return null;
+        }
+    }
+
+    @Override
+    public int getPropertyCount() {
+        return 5;
+    }
+
+    @Override
+    public void setProperty(int i, Object o) {
+        switch (i) {
+            case 0:
+                id = o.toString();
+                break;
+            case 1:
+                password = o.toString();
+                break;
+            case 2:
+                type = o.toString();
+                break;
+            case 3:
+                token = o.toString();
+                break;
+            case 4:
+                email = o.toString();
+                break;
+        }
+    }
+
+    @Override
+    public void getPropertyInfo(int i, Hashtable hashtable, PropertyInfo propertyInfo) {
+        switch (i) {
+            case 0:
+                propertyInfo.type = PropertyInfo.STRING_CLASS;
+                propertyInfo.name = "id";
+                break;
+            case 1:
+                propertyInfo.type = PropertyInfo.STRING_CLASS;
+                propertyInfo.name = "password";
+                break;
+            case 2:
+                propertyInfo.type = PropertyInfo.STRING_CLASS;
+                propertyInfo.name = "type";
+                break;
+            case 3:
+                propertyInfo.type = PropertyInfo.STRING_CLASS;
+                propertyInfo.name = "token";
+                break;
+            case 4:
+                propertyInfo.type = PropertyInfo.STRING_CLASS;
+                propertyInfo.name = "email";
+                break;
+        }
     }
 }

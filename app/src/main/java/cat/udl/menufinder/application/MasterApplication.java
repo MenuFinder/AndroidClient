@@ -3,6 +3,7 @@ package cat.udl.menufinder.application;
 import android.app.Application;
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.widget.Toast;
 
 import cat.udl.menufinder.database.DBManager;
 import cat.udl.menufinder.database.DBManagerIterm;
@@ -25,6 +26,14 @@ public class MasterApplication extends Application {
         super.onCreate();
         MasterApplication.context = this;
         firstTime();
+    }
+
+    public void showToast(int text_id) {
+        Toast.makeText(context, text_id, Toast.LENGTH_SHORT).show();
+    }
+
+    public void showToast(String text) {
+        Toast.makeText(context, text, Toast.LENGTH_SHORT).show();
     }
 
     public DBManager getDbManager() {
@@ -51,6 +60,14 @@ public class MasterApplication extends Application {
         getPestormixSharedPreferences().edit().putString(key, value).apply();
     }
 
+    public int getInt(String key, int defValue) {
+        return getPestormixSharedPreferences().getInt(key, defValue);
+    }
+
+    public void putInt(String key, int value) {
+        getPestormixSharedPreferences().edit().putInt(key, value).apply();
+    }
+
     public void removePreference(String key) {
         getPestormixSharedPreferences().edit().remove(key).apply();
     }
@@ -63,6 +80,7 @@ public class MasterApplication extends Application {
     public void logout() {
         removePreference(Constants.PREFERENCES_USER_TYPE);
         removePreference(Constants.PREFERENCES_USERNAME);
+        removePreference(Constants.PREFERENCES_SELECTED_RESTAURANT);
     }
 
     public boolean isLogged() {
@@ -83,5 +101,21 @@ public class MasterApplication extends Application {
             putBoolean(key, false);
             new FakeData(getDbManager());
         }
+    }
+
+    public String getToken() {
+        return getString(Constants.PREFERENCES_TOKEN, "");
+    }
+
+    public void setToken(String token) {
+        putString(Constants.PREFERENCES_TOKEN, token);
+    }
+
+    public int getSelectedRestaurant() {
+        return getInt(Constants.PREFERENCES_SELECTED_RESTAURANT, 0);
+    }
+
+    public void setSelectedRestaurant(int number) {
+        putInt(Constants.PREFERENCES_SELECTED_RESTAURANT, number);
     }
 }

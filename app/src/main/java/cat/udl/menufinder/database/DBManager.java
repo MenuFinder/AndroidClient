@@ -102,4 +102,12 @@ public interface DBManager {
     void deleteAll();
 
     List<Menu> getAllMenusByRestaurantId(long restaurantId);
+
+    boolean updateAccountToken(Account account);
+
+    List<Restaurant> getFilteredRestaurants(String where);
+
+    List<String> getAllDifferentCities();
+
+    List<String> getAllRestaurantNames();
 }

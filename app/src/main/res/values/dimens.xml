@@ -19,4 +19,5 @@
     <dimen name="space_10">10dp</dimen>
     <dimen name="space_20">20dp</dimen>
     <dimen name="fab_space">16dp</dimen>
+    <dimen name="list_header">8dp</dimen>
 </resources>

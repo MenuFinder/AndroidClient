@@ -3,18 +3,18 @@
 
     <group android:checkableBehavior="single">
         <item
-            android:id="@+id/manage_menus"
+            android:id="@+id/manage_restaurants"
             android:checked="true"
+            android:icon="@drawable/ic_restaurant"
+            android:title="@string/action_manage_restaurants" />
+        <item
+            android:id="@+id/manage_menus"
             android:icon="@drawable/ic_menu"
             android:title="@string/action_manage_menus" />
         <item
             android:id="@+id/manage_items"
             android:icon="@drawable/ic_item"
             android:title="@string/action_manage_items" />
-        <item
-            android:id="@+id/settings"
-            android:icon="@drawable/ic_settings_black"
-            android:title="@string/action_settings" />
     </group>
 
     <group

@@ -17,6 +17,7 @@ import java.util.List;
 import cat.udl.menufinder.R;
 import cat.udl.menufinder.activities.DetailRestaurantActivity;
 import cat.udl.menufinder.activities.HomeActivity;
+import cat.udl.menufinder.activities.ReviewRestaurantActivity;
 import cat.udl.menufinder.adapters.RestaurantsAdapter;
 import cat.udl.menufinder.application.MasterFragment;
 import cat.udl.menufinder.models.AccountSubscription;
@@ -27,7 +28,6 @@ import static cat.udl.menufinder.utils.Constants.KEY_RESTAURANT;
 
 public class SubscriptionsFragment extends MasterFragment {
 
-    protected List<Restaurant> restaurants;
     protected RestaurantsAdapter adapter;
 
     @Override
@@ -38,7 +38,11 @@ public class SubscriptionsFragment extends MasterFragment {
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        configHeader();
         configList();
+    }
+
+    protected void configHeader() {
     }
 
     protected void configList() {
@@ -50,8 +54,7 @@ public class SubscriptionsFragment extends MasterFragment {
         DefaultItemAnimator animator = new DefaultItemAnimator();
         animator.setAddDuration(1000);
         recyclerView.setItemAnimator(animator);
-
-        restaurants = getRestaurants();
+        List<Restaurant> restaurants = getRestaurants();
         adapter = new RestaurantsAdapter(getActivity(), restaurants, new RestaurantsFragment.OnRestaurantClickListener() {
             @Override
             public void onRestaurantClick(Restaurant restaurant, View view) {
@@ -86,6 +89,13 @@ public class SubscriptionsFragment extends MasterFragment {
             }
 
             @Override
+            public void onReViewClick(Restaurant restaurant) {
+                Intent intent = new Intent(getActivity(), ReviewRestaurantActivity.class);
+                intent.putExtra(KEY_RESTAURANT, restaurant);
+                startActivity(intent);
+            }
+
+            @Override
             public void onFavouriteClick(Restaurant restaurant, boolean checked) {
                 AccountSubscription subscription = new AccountSubscription(getMasterApplication().getUsername(), restaurant.getId());
                 if (checked) getDbManager().addAccountSubscription(subscription);
@@ -100,12 +110,15 @@ public class SubscriptionsFragment extends MasterFragment {
         return getDbManager().getSubscribedRestaurantsOfAccount(getMasterApplication().getUsername());
     }
 
+
     public interface OnRestaurantClickListener {
         void onRestaurantClick(Restaurant restaurant, View view);
 
         void onShareClick(Restaurant restaurant);
 
         void onViewMapClick(Restaurant restaurant);
+
+        void onReViewClick(Restaurant restaurant);
 
         void onFavouriteClick(Restaurant restaurant, boolean checked);
     }

@@ -24,11 +24,13 @@ public class WebServiceSync {
 
     private static WebServiceSync ourInstance = new WebServiceSync();
     private final DBManager dbManager;
-    private final WebServiceImpl webService;
+    private final WebServiceImpl rest;
+    private final WebServiceSoapImpl soap;
 
     private WebServiceSync() {
         dbManager = DBManagerLocal.getInstance();
-        webService = new WebServiceImpl();
+        rest = new WebServiceImpl();
+        soap = new WebServiceSoapImpl();
     }
 
     public static WebServiceSync getInstance() {
@@ -39,7 +41,7 @@ public class WebServiceSync {
         new AsyncTask<Void, Void, Void>() {
             @Override
             protected Void doInBackground(Void... voids) {
-                for (Menu menu : webService.getMenusByRestaurantId(restaurantId)) {
+                for (Menu menu : rest.getMenusByRestaurantId(restaurantId)) {
                     Log.d(TAG, menu.toString());
                     dbManager.addMenu(menu);
                 }
@@ -52,7 +54,7 @@ public class WebServiceSync {
         new AsyncTask<Void, Void, Void>() {
             @Override
             protected Void doInBackground(Void... voids) {
-                dbManager.addMenu(webService.getMenuById(menuId));
+                dbManager.addMenu(rest.getMenuById(menuId));
                 return null;
             }
         }.execute();
@@ -62,7 +64,7 @@ public class WebServiceSync {
         new AsyncTask<Void, Void, Void>() {
             @Override
             protected Void doInBackground(Void... voids) {
-                webService.addMenu(menu);
+                soap.addMenu(menu);
                 return null;
             }
         }.execute();
@@ -72,7 +74,7 @@ public class WebServiceSync {
         new AsyncTask<Void, Void, Void>() {
             @Override
             protected Void doInBackground(Void... voids) {
-                for (Menu menu : webService.getMenus()) {
+                for (Menu menu : rest.getMenus()) {
                     dbManager.addMenu(menu);
                 }
                 return null;
@@ -84,7 +86,7 @@ public class WebServiceSync {
         new AsyncTask<Void, Void, Void>() {
             @Override
             protected Void doInBackground(Void... voids) {
-                webService.deleteMenu(menuId);
+                soap.deleteMenu(menuId);
                 return null;
             }
         }.execute();
@@ -94,7 +96,7 @@ public class WebServiceSync {
         new AsyncTask<Void, Void, Void>() {
             @Override
             protected Void doInBackground(Void... voids) {
-                webService.updateMenu(menu);
+                soap.updateMenu(menu);
                 return null;
             }
         }.execute();
@@ -104,7 +106,7 @@ public class WebServiceSync {
         new AsyncTask<Void, Void, Void>() {
             @Override
             protected Void doInBackground(Void... voids) {
-                for (Restaurant restaurant : webService.getRestaurantsOfAccount(accountId)) {
+                for (Restaurant restaurant : rest.getRestaurantsOfAccount(accountId)) {
                     dbManager.addRestaurant(restaurant);
                 }
                 return null;
@@ -121,7 +123,7 @@ public class WebServiceSync {
         new AsyncTask<Void, Void, Void>() {
             @Override
             protected Void doInBackground(Void... voids) {
-                webService.addRestaurant(restaurant);
+                soap.addRestaurant(restaurant);
                 return null;
             }
         }.execute();
@@ -132,7 +134,7 @@ public class WebServiceSync {
         new AsyncTask<Void, Void, Void>() {
             @Override
             protected Void doInBackground(Void... voids) {
-                for (Restaurant restaurant : webService.getRestaurants()) {
+                for (Restaurant restaurant : rest.getRestaurants()) {
                     dbManager.addRestaurant(restaurant);
                 }
                 return null;
@@ -145,7 +147,7 @@ public class WebServiceSync {
         new AsyncTask<Void, Void, Void>() {
             @Override
             protected Void doInBackground(Void... voids) {
-                webService.deleteRestaurant(restaurantId);
+                soap.deleteRestaurant(restaurantId);
                 return null;
             }
         }.execute();
@@ -156,7 +158,7 @@ public class WebServiceSync {
         new AsyncTask<Void, Void, Void>() {
             @Override
             protected Void doInBackground(Void... voids) {
-                webService.updateRestaurant(restaurant);
+                soap.updateRestaurant(restaurant);
                 return null;
             }
         }.execute();
@@ -167,7 +169,7 @@ public class WebServiceSync {
         new AsyncTask<Void, Void, Void>() {
             @Override
             protected Void doInBackground(Void... voids) {
-                dbManager.addReview(webService.getReviewById(reviewId));
+                dbManager.addReview(rest.getReviewById(reviewId));
                 return null;
             }
         }.execute();
@@ -178,7 +180,7 @@ public class WebServiceSync {
         new AsyncTask<Void, Void, Void>() {
             @Override
             protected Void doInBackground(Void... voids) {
-                for (Review review : webService.getReviewsOfItem(itemId)) {
+                for (Review review : rest.getReviewsOfItem(itemId)) {
                     dbManager.addReview(review);
                 }
                 return null;
@@ -191,7 +193,7 @@ public class WebServiceSync {
         new AsyncTask<Void, Void, Void>() {
             @Override
             protected Void doInBackground(Void... voids) {
-                for (Review review : webService.getReviewsOfMenu(menuId)) {
+                for (Review review : rest.getReviewsOfMenu(menuId)) {
                     dbManager.addReview(review);
                 }
                 return null;
@@ -204,7 +206,7 @@ public class WebServiceSync {
         new AsyncTask<Void, Void, Void>() {
             @Override
             protected Void doInBackground(Void... voids) {
-                for (Review review : webService.getReviewsOfRestaurant(restaurantId)) {
+                for (Review review : rest.getReviewsOfRestaurant(restaurantId)) {
                     dbManager.addReview(review);
                 }
                 return null;
@@ -217,7 +219,7 @@ public class WebServiceSync {
         new AsyncTask<Void, Void, Void>() {
             @Override
             protected Void doInBackground(Void... voids) {
-                webService.updateReview(review);
+                rest.updateReview(review);
                 return null;
             }
         }.execute();
@@ -228,7 +230,7 @@ public class WebServiceSync {
         new AsyncTask<Void, Void, Void>() {
             @Override
             protected Void doInBackground(Void... voids) {
-                webService.deleteReview(reviewId);
+                rest.deleteReview(reviewId);
                 return null;
             }
         }.execute();
@@ -239,7 +241,7 @@ public class WebServiceSync {
         new AsyncTask<Void, Void, Void>() {
             @Override
             protected Void doInBackground(Void... voids) {
-                webService.addReview(review);
+                rest.addReview(review);
                 return null;
             }
         }.execute();
@@ -250,7 +252,7 @@ public class WebServiceSync {
         new AsyncTask<Void, Void, Void>() {
             @Override
             protected Void doInBackground(Void... voids) {
-                webService.updateItem(item);
+                soap.updateItem(item);
                 return null;
             }
         }.execute();
@@ -261,7 +263,7 @@ public class WebServiceSync {
         new AsyncTask<Void, Void, Void>() {
             @Override
             protected Void doInBackground(Void... voids) {
-                webService.deleteItem(itemId);
+                soap.deleteItem(itemId);
                 return null;
             }
         }.execute();
@@ -272,7 +274,7 @@ public class WebServiceSync {
         new AsyncTask<Void, Void, Void>() {
             @Override
             protected Void doInBackground(Void... voids) {
-                webService.addItem(item);
+                soap.addItem(item);
                 return null;
             }
         }.execute();
@@ -283,7 +285,7 @@ public class WebServiceSync {
         new AsyncTask<Void, Void, Void>() {
             @Override
             protected Void doInBackground(Void... voids) {
-                dbManager.addItem(webService.getItemById(itemId));
+                dbManager.addItem(rest.getItemById(itemId));
                 return null;
             }
         }.execute();
@@ -294,7 +296,7 @@ public class WebServiceSync {
         new AsyncTask<Void, Void, Void>() {
             @Override
             protected Void doInBackground(Void... voids) {
-                for (Item item : webService.getRestaurantItems(restaurantId)) {
+                for (Item item : rest.getRestaurantItems(restaurantId)) {
                     dbManager.addItem(item);
                 }
                 return null;
@@ -306,7 +308,7 @@ public class WebServiceSync {
         new AsyncTask<Void, Void, Void>() {
             @Override
             protected Void doInBackground(Void... voids) {
-                for (Menu menu : webService.getMenus()) {
+                for (Menu menu : rest.getMenus()) {
                     syncRestaurantItems(menu.getRestaurant());
                     syncMenuItemsByCategory(menu.getId());
                 }
@@ -319,7 +321,7 @@ public class WebServiceSync {
         new AsyncTask<Void, Void, Void>() {
             @Override
             protected Void doInBackground(Void... voids) {
-                Map<Long, List<Item>> longListMap = webService.getMenuItemsByCategory(menuId);
+                Map<Long, List<Item>> longListMap = rest.getMenuItemsByCategory(menuId);
                 for (Map.Entry<Long, List<Item>> entry : longListMap.entrySet()) {
                     Long itemCategoryId = entry.getKey();
                     for (Item item : entry.getValue())
@@ -334,7 +336,7 @@ public class WebServiceSync {
         new AsyncTask<Void, Void, Void>() {
             @Override
             protected Void doInBackground(Void... voids) {
-                webService.deleteMenuItem(menuItem);
+                soap.deleteMenuItem(menuItem);
                 return null;
             }
         }.execute();
@@ -344,7 +346,7 @@ public class WebServiceSync {
         new AsyncTask<Void, Void, Void>() {
             @Override
             protected Void doInBackground(Void... voids) {
-                webService.addMenuItem(menuItem);
+                soap.addMenuItem(menuItem);
                 return null;
             }
         }.execute();
@@ -354,7 +356,7 @@ public class WebServiceSync {
         new AsyncTask<Void, Void, Void>() {
             @Override
             protected Void doInBackground(Void... voids) {
-                dbManager.addItemCategory(webService.getItemCategoryById(itemCategoryId));
+                dbManager.addItemCategory(rest.getItemCategoryById(itemCategoryId));
                 return null;
             }
         }.execute();
@@ -364,7 +366,7 @@ public class WebServiceSync {
         new AsyncTask<Void, Void, Void>() {
             @Override
             protected Void doInBackground(Void... voids) {
-                webService.updateItemCategory(itemCategory);
+                soap.updateItemCategory(itemCategory);
                 return null;
             }
         }.execute();
@@ -374,7 +376,7 @@ public class WebServiceSync {
         new AsyncTask<Void, Void, Void>() {
             @Override
             protected Void doInBackground(Void... voids) {
-                webService.deleteItemCategory(itemCategoryId);
+                soap.deleteItemCategory(itemCategoryId);
                 return null;
             }
         }.execute();
@@ -384,7 +386,7 @@ public class WebServiceSync {
         new AsyncTask<Void, Void, Void>() {
             @Override
             protected Void doInBackground(Void... voids) {
-                webService.addItemCategory(itemCategory);
+                soap.addItemCategory(itemCategory);
                 return null;
             }
         }.execute();
@@ -394,7 +396,7 @@ public class WebServiceSync {
         new AsyncTask<Void, Void, Void>() {
             @Override
             protected Void doInBackground(Void... voids) {
-                for (ItemCategory itemCategory : webService.getItemCategories()) {
+                for (ItemCategory itemCategory : rest.getItemCategories()) {
                     dbManager.addItemCategory(itemCategory);
                 }
                 return null;
@@ -406,7 +408,7 @@ public class WebServiceSync {
         new AsyncTask<Void, Void, Void>() {
             @Override
             protected Void doInBackground(Void... voids) {
-                webService.updateItemRating(itemRating);
+                rest.updateItemRating(itemRating);
                 return null;
             }
         }.execute();
@@ -416,7 +418,7 @@ public class WebServiceSync {
         new AsyncTask<Void, Void, Void>() {
             @Override
             protected Void doInBackground(Void... voids) {
-                webService.deleteItemRating(itemRating);
+                rest.deleteItemRating(itemRating);
                 return null;
             }
         }.execute();
@@ -426,7 +428,7 @@ public class WebServiceSync {
         new AsyncTask<Void, Void, Void>() {
             @Override
             protected Void doInBackground(Void... voids) {
-                webService.addItemRating(itemRating);
+                rest.addItemRating(itemRating);
                 return null;
             }
         }.execute();
@@ -436,7 +438,7 @@ public class WebServiceSync {
         new AsyncTask<Void, Void, Void>() {
             @Override
             protected Void doInBackground(Void... voids) {
-                for (ItemRating itemRating : webService.getRatingsOfItem(itemId)) {
+                for (ItemRating itemRating : rest.getRatingsOfItem(itemId)) {
                     dbManager.addItemRating(itemRating);
                 }
                 return null;
@@ -453,7 +455,7 @@ public class WebServiceSync {
         new AsyncTask<Void, Void, Void>() {
             @Override
             protected Void doInBackground(Void... voids) {
-                webService.deleteAccountSubscription(accountSubscription);
+                rest.deleteAccountSubscription(accountSubscription);
                 return null;
             }
         }.execute();
@@ -463,7 +465,7 @@ public class WebServiceSync {
         new AsyncTask<Void, Void, Void>() {
             @Override
             protected Void doInBackground(Void... voids) {
-                webService.addAccountSubscription(accountSubscription);
+                rest.addAccountSubscription(accountSubscription);
                 return null;
             }
         }.execute();
@@ -473,7 +475,7 @@ public class WebServiceSync {
         new AsyncTask<Void, Void, Void>() {
             @Override
             protected Void doInBackground(Void... voids) {
-                for (Restaurant restaurant : webService.getSubscribedRestaurantsOfAccount(accountId)) {
+                for (Restaurant restaurant : rest.getSubscribedRestaurantsOfAccount(accountId)) {
                     dbManager.addRestaurant(restaurant);
                     dbManager.addAccountSubscription(new AccountSubscription(accountId, restaurant.getId()));
                 }
@@ -498,11 +500,11 @@ public class WebServiceSync {
         new AsyncTask<Void, Void, Void>() {
             @Override
             protected Void doInBackground(Void... voids) {
-                for (Restaurant restaurant : webService.getRestaurants()) {
+                for (Restaurant restaurant : rest.getRestaurants()) {
                     syncReviewsOfRestaurant(restaurant.getId());
-                    for (Menu menu : webService.getMenusByRestaurantId(restaurant.getId()))
+                    for (Menu menu : rest.getMenusByRestaurantId(restaurant.getId()))
                         syncReviewsOfMenu(menu.getId());
-                    for (Item item : webService.getRestaurantItems(restaurant.getId()))
+                    for (Item item : rest.getRestaurantItems(restaurant.getId()))
                         syncReviewsOfItem(item.getId());
                 }
                 return null;

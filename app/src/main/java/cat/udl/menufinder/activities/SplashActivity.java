@@ -10,6 +10,8 @@ import android.widget.ImageView;
 import cat.udl.menufinder.R;
 import cat.udl.menufinder.application.MasterActivity;
 import cat.udl.menufinder.enums.UserType;
+import cat.udl.menufinder.models.Restaurant;
+import cat.udl.menufinder.utils.Constants;
 import cat.udl.menufinder.ws.WebServiceSync;
 
 public class SplashActivity extends MasterActivity {
@@ -22,11 +24,22 @@ public class SplashActivity extends MasterActivity {
         setContentView(R.layout.activity_splash);
         getSupportActionBar().hide();
         final ImageView logo = (ImageView) findViewById(R.id.logo);
+        final String id = getIntent().getStringExtra(Constants.NOTIFICATION_RESTAURANT);
+
 
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
-                if (getMasterApplication().isLogged()) {
+                Restaurant restaurant = null;
+                if (id != null && !id.isEmpty()) {
+                    restaurant = getDbManager().getRestaurantById(Long.parseLong(id));
+                }
+                if (restaurant != null) {
+                    Intent intent = new Intent(SplashActivity.this, HomeActivity.class);
+                    intent.putExtra(Constants.KEY_RESTAURANT, restaurant);
+                    startActivity(intent);
+                    finish();
+                } else if (getMasterApplication().isLogged()) {
                     UserType userType = getMasterApplication().getUserType();
                     switch (userType) {
                         case CLIENT:

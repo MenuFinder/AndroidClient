@@ -56,13 +56,14 @@
             android:paddingBottom="@dimen/activity_vertical_margin"
             android:paddingLeft="@dimen/activity_horizontal_margin"
             android:paddingRight="@dimen/activity_horizontal_margin"
+
             android:paddingTop="@dimen/activity_vertical_margin">
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
-                android:background="@color/title_background"
+
                 android:padding="@dimen/space_10"
                 android:text="@string/general_information"
                 android:textAllCaps="true"
@@ -78,10 +79,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
 
-            <TextView
+            <RatingBar
                 android:id="@+id/score"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
+                style="@style/MenuFinderRatingBar" />
 
             <TextView
                 android:id="@+id/phone"
@@ -98,7 +98,6 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
-                android:background="@color/title_background"
                 android:padding="@dimen/space_10"
                 android:text="@string/menus"
                 android:textAllCaps="true"

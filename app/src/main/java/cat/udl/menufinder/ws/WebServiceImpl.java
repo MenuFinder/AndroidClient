@@ -212,7 +212,7 @@ public class WebServiceImpl implements DBManager {
 
     @Override
     public boolean deleteAccountSubscription(AccountSubscription accountSubscription) {
-        return WebServiceUtils.delete(Path.DELETE_ACCOUNT_SUBSCRIPTION + accountSubscription);
+        return WebServiceUtils.delete(Path.DELETE_ACCOUNT_SUBSCRIPTION, accountSubscription);
     }
 
     @Override
@@ -227,11 +227,32 @@ public class WebServiceImpl implements DBManager {
 
     @Override
     public void deleteAll() {
+        throw new UnsupportedOperationException();
     }
 
     @Override
     public List<Menu> getAllMenusByRestaurantId(long restaurantId) {
-        return null;
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public boolean updateAccountToken(Account account) {
+        return WebServiceUtils.put(Path.PUT_UPDATE_ACCOUNT_TOKEN, account);
+    }
+
+    @Override
+    public List<Restaurant> getFilteredRestaurants(String where) {
+        return WebServiceUtils.getBeanList(WebServiceUtils.getFilteredRestaurants(Path.GET_FILTERED_RESTAURANTS, where), Restaurant[].class);
+    }
+
+    @Override
+    public List<String> getAllDifferentCities() {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public List<String> getAllRestaurantNames() {
+        throw new UnsupportedOperationException();
     }
 
 }

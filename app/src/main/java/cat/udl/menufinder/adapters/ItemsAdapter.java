@@ -5,6 +5,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.RatingBar;
 import android.widget.TextView;
 
 import java.util.List;
@@ -38,8 +39,8 @@ public class ItemsAdapter extends RecyclerView.Adapter<ItemsAdapter.ViewHolder> 
         Item item = getItem(position);
 
         viewHolder.name.setText(item.getName());
-        viewHolder.price.setText(String.valueOf(item.getPrice()));
-        viewHolder.score.setText(String.valueOf(item.getScore()));
+        viewHolder.price.setText(context.getString(R.string.show_price, item.getPrice()));
+        viewHolder.score.setRating(((float) item.getScore()));
     }
 
     @Override
@@ -66,11 +67,10 @@ public class ItemsAdapter extends RecyclerView.Adapter<ItemsAdapter.ViewHolder> 
         notifyDataSetChanged();
     }
 
-
     class ViewHolder extends RecyclerView.ViewHolder {
         TextView name;
         TextView price;
-        TextView score;
+        RatingBar score;
 
         ViewHolder(View itemView) {
             super(itemView);
@@ -82,7 +82,8 @@ public class ItemsAdapter extends RecyclerView.Adapter<ItemsAdapter.ViewHolder> 
             });
             name = (TextView) itemView.findViewById(R.id.name);
             price = (TextView) itemView.findViewById(R.id.price);
-            score = (TextView) itemView.findViewById(R.id.score);
+            score = ((RatingBar) itemView.findViewById(R.id.rating));
+
         }
     }
 }

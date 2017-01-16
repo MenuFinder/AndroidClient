@@ -1,8 +1,12 @@
 package cat.udl.menufinder.models;
 
-import java.io.Serializable;
+import org.ksoap2.serialization.KvmSerializable;
+import org.ksoap2.serialization.PropertyInfo;
 
-public class Restaurant implements Serializable {
+import java.io.Serializable;
+import java.util.Hashtable;
+
+public class Restaurant implements Serializable, KvmSerializable {
 
     private long id;
     private String name;
@@ -196,4 +200,135 @@ public class Restaurant implements Serializable {
         return address + "," + city;
     }
 
+    @Override
+    public Object getProperty(int i) {
+        switch (i) {
+            case 0:
+                return id;
+            case 1:
+                return name;
+            case 2:
+                return cif;
+            case 3:
+                return address;
+            case 4:
+                return city;
+            case 5:
+                return postalCode;
+            case 6:
+                return state;
+            case 7:
+                return country;
+            case 8:
+                return email;
+            case 9:
+                return phone;
+            case 10:
+                return account;
+            case 11:
+                return String.valueOf(score);
+        }
+        return null;
+    }
+
+    @Override
+    public int getPropertyCount() {
+        return 12;
+    }
+
+    @Override
+    public void setProperty(int i, Object o) {
+        switch (i) {
+            case 0:
+                id = Long.parseLong(o.toString());
+                break;
+            case 1:
+                name = o.toString();
+                break;
+            case 2:
+                cif = o.toString();
+                break;
+            case 3:
+                address = o.toString();
+                break;
+            case 4:
+                city = o.toString();
+                break;
+            case 5:
+                postalCode = o.toString();
+                break;
+            case 6:
+                state = o.toString();
+                break;
+            case 7:
+                country = o.toString();
+                break;
+            case 8:
+                email = o.toString();
+                break;
+            case 9:
+                phone = o.toString();
+                break;
+            case 10:
+                account = o.toString();
+                break;
+            case 11:
+                score = Double.parseDouble(o.toString());
+                break;
+        }
+    }
+
+    @Override
+    public void getPropertyInfo(int i, Hashtable hashtable, PropertyInfo info) {
+        switch (i) {
+            case 0:
+                info.type = PropertyInfo.LONG_CLASS;
+                info.name = "id";
+                break;
+            case 1:
+                info.type = PropertyInfo.STRING_CLASS;
+                info.name = "name";
+                break;
+            case 2:
+                info.type = PropertyInfo.STRING_CLASS;
+                info.name = "cif";
+                break;
+            case 3:
+                info.type = PropertyInfo.STRING_CLASS;
+                info.name = "address";
+                break;
+            case 4:
+                info.type = PropertyInfo.STRING_CLASS;
+                info.name = "city";
+                break;
+            case 5:
+                info.type = PropertyInfo.STRING_CLASS;
+                info.name = "postalCode";
+                break;
+            case 6:
+                info.type = PropertyInfo.STRING_CLASS;
+                info.name = "state";
+                break;
+            case 7:
+                info.type = PropertyInfo.STRING_CLASS;
+                info.name = "country";
+                break;
+            case 8:
+                info.type = PropertyInfo.STRING_CLASS;
+                info.name = "email";
+                break;
+            case 9:
+                info.type = PropertyInfo.STRING_CLASS;
+                info.name = "phone";
+                break;
+            case 10:
+                info.type = PropertyInfo.STRING_CLASS;
+                info.name = "account";
+                break;
+            case 11:
+                info.type = PropertyInfo.STRING_CLASS;
+                info.name = "score";
+                break;
+        }
+    }
 }

@@ -18,13 +18,15 @@
     <string name="prompt_restaurant_email">Restaurant email</string>
     <string name="prompt_country">Country</string>
     <string name="prompt_name">Name</string>
+    <string name="prompt_distance">Distance in kilometers</string>
 
     <!-- Action -->
     <string name="action_sign_in">Sign in</string>
-    <string name="action_register">Register</string>
+    <string name="action_register">Register for free</string>
     <string name="action_sign_in_short">Sign in</string>
     <string name="action_manage_items">Manage Items</string>
     <string name="action_manage_menus">Manage Menus</string>
+    <string name="action_manage_restaurants">Manage Restaurants</string>
     <string name="action_logout">Logout</string>
     <string name="action_login">Login</string>
     <string name="action_settings">Settings</string>
@@ -51,24 +53,33 @@
     <string name="deleteConfirmation">Delete \"%s\"?</string>
     <string name="deleteNotification">\"%s\" deleted</string>
     <string name="general_information">General information</string>
-    <string name="key_totifications">notifications</string>
     <string name="item_saved">Item saved</string>
+    <string name="restaurant_deleted">Restaurant deleted</string>
+    <string name="item_deleted">Item deleted</string>
+    <string name="deleteConfirmationMenu">Delete \"%s\" from this menu?</string>
 
     <!-- Manage -->
+    <string name="selected_restaurant">Selected %s</string>
     <string name="manage_item">Manage Item</string>
     <string name="manage_menu">Manage Menu</string>
+    <string name="manage_restaurant">Manage Restaurant</string>
+    <string name="register_restaurant">Register new restaurant</string>
+    <string name="invalid_guest_action">Invalid action to guest user</string>
+
 
     <!-- Menu -->
+    <string name="manage_menus">Manage %s Menus</string>
+    <string name="manage_items">Manage %s Items</string>
     <string name="menu_saved">Menu saved</string>
     <string name="menu_deleted">Menu deleted</string>
     <string name="menu_finder_guest">Menu Finder Guest</string>
     <string name="menu_finder_com" translatable="false">menu@finder.com</string>
     <string name="menus">Menus</string>
     <string name="name">Name:\u0020</string>
+    <string name="add_item">Add item</string>
+    <string name="detail_menu_title" translatable="false">%s ( %s€ )</string>
 
     <!-- Notification -->
-    <string name="need_notification">Do you want recive notifications?</string>
-    <string name="notifications">Notifications</string>
     <string name="price">Price:\u0020</string>
     <string name="save">Save</string>
     <string name="saveNotification">\"%s\" saved</string>
@@ -87,6 +98,32 @@
     <string name="share_text">I ate very well at %s — I\'m using Menu Finder</string>
 
     <!-- Map -->
-    <string name="marker_title">Marker in %s</string>
+    <string name="marker_title">%s restaurant</string>
+    <string name="no_location_detected">We cannot find your location!</string>
+    <string name="showing_restaurants_distance_header">Showing restaurants at %dKm from you</string>
+
+    <!-- Filter -->
+    <string name="not_results_founds">Not results found</string>
+    <string name="clear_filter">Clear filter</string>
+    <string name="must_create_restaurant">You have to create a restaurant before</string>
+
+    <!-- GPS -->
+    <string name="gps_settings">GPS is not enabled. Do you want to go to settings menu?</string>
+    <string name="action_important_information">Important Information</string>
+
+    <string name="important_information_text">Hello &lt;b&gt;guest user&lt;/b&gt;, I recommend you to &lt;b&gt;register&lt;/b&gt; to our
+        application. Are you question why? If you create your user you will &lt;b&gt;add restaurants as a
+        favourite restaurants&lt;/b&gt;. It enable you to &lt;b&gt;receive notifications&lt;/b&gt; when the restaurant is
+        modified. It\'s awesome, isn\'t it? Also you will be able to &lt;b&gt;create reviews&lt;/b&gt; for the
+        restaurants, menus and the different items &lt;b&gt;including put a score&lt;/b&gt; in the review. A
+        registered user also have a &lt;b&gt;screen to change some important configurations&lt;/b&gt;. &lt;b&gt;Register for
+        free&lt;/b&gt; and enjoy with all the new features.</string>
+    <string name="minDistance" translatable="false">2</string>
+    <string name="hint_default_distance_preference">Default 2Km</string>
+    <string name="summary_default_distance_preference">Default minimum distance to restaurants</string>
+    <string name="title_default_distance_preference">Minimum distance</string>
+    <string name="show_price" translatable="false">%.1f€</string>
+    <string name="custom_restaurants">Custom restaurants</string>
+    <string name="showing_all">No results. Showing all</string>
 
 </resources>

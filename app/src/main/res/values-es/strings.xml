@@ -23,7 +23,7 @@
     <string name="action_login">Iniciar sesión</string>
     <string name="action_manage_items">Administrar Artículos</string>
     <string name="action_manage_menus">Administrar Menus</string>
-    <string name="action_register">Registrar</string>
+    <string name="action_register">Registrar gratis</string>
     <string name="action_settings">Configuración</string>
     <string name="action_view_map">Mapa</string>
     <string name="action_view_restaurants">Restaurantes</string>
@@ -43,7 +43,6 @@
     <string name="error_no_connection_server">No connection with server</string>
     <string name="general_information">Información general</string>
     <string name="item_saved">Item guardado</string>
-    <string name="key_totifications">notificaciones</string>
 
     <!-- Navigation Drawer-->
     <string name="navigation_drawer_open">Abrir navigation drawer</string>
@@ -67,8 +66,6 @@
     <string name="name">Nombre:</string>
 
     <!-- Notification -->
-    <string name="need_notification">¿Quiere recibir notificaciones?</string>
-    <string name="notifications">Notificaciones</string>
     <string name="price">Precio:</string>
     <string name="search">Buscar</string>
     <string name="updateNotification">\"%s\" actualizado</string>
@@ -84,6 +81,40 @@
     <string name="share_text">Comí muy bien en %s — Estoy utilitzando Menu Finder</string>
 
     <!-- Map -->
-    <string name="marker_title">Marker en %s</string>
+    <string name="marker_title">Resturant %s</string>
+    <string name="manage_restaurant">Administrar Restaurante</string>
+    <string name="no_location_detected">No podemos encontrar tu localización!</string>
+    <string name="register_restaurant">Registrar nuevo restaurante</string>
+    <string name="restaurant_deleted">Restaurante borrado</string>
+    <string name="action_manage_restaurants">Administrar Restaurantes</string>
+    <string name="showing_restaurants_distance_header">Mostrando restaurantes a %dKm de ti</string>
+    <string name="clear_filter">Limpiar filtro</string>
+    <string name="not_results_founds">No se han encontrado resultados</string>
+    <string name="prompt_distance">Distancia en kilometers</string>
+    <string name="manage_menus">Administrar %s Menus</string>
+    <string name="manage_items">Administrar %s Artículos</string>
+    <string name="selected_restaurant">Seleccionado %s</string>
+    <string name="must_create_restaurant">Debes crear un restaurante antes</string>
+    <!-- GPS -->
+    <string name="gps_settings">El GPS no está habilitado. ¿Quieres ir al menú de configuración?</string>
+    <string name="invalid_guest_action">Acción inválida para los usuarios invitados</string>
 
+    <string name="important_information_text">Hola &lt;b&gt;usuario invitado&lt;/b&gt;, te recomiendo
+        que te &lt;b&gt;registres&lt;/b&gt; a la nuestra aplicación. Te estás preguntando por qué? Si te
+        creas tu propio usuario podrás &lt;b&gt;añadir restaurantes como restaurantes favoritos&lt;/b&gt;.
+        Te permitirá  &lt;b&gt;recibir notificaciones&lt;/b&gt; cuando el restaurante sea modificado. Es
+        impresionante, verdad? También te permitirá &lt;b&gt;crear criticas&lt;/b&gt; para los
+        restaurantes, menús y los diferentes artículos &lt;b&gt;incluyendo poner una puntuación&lt;/b&gt;
+        a la crítica. Un usuario registrado también tiene una &lt;b&gt;pantalla para cambiar algunas
+        configuraciones importantes&lt;/b&gt;. &lt;b&gt;Regístrate gratis&lt;/b&gt; i disfruta con todas
+        les características.</string>
+    <string name="action_important_information">Información importante</string>
+    <string name="item_deleted">Artículo borrado</string>
+    <string name="add_item">Añadir Artículo</string>
+    <string name="deleteConfirmationMenu">Borrar \"%s\" de este menú?</string>
+    <string name="hint_default_distance_preference">Predeterminado 2Km</string>
+    <string name="summary_default_distance_preference">Distancia mínima predeterminada a los restaurantes</string>
+    <string name="title_default_distance_preference">Distancia mínima</string>
+    <string name="custom_restaurants">Restaurantes personalitzados</string>
+    <string name="showing_all">No hay resultados. Mostrando todo</string>
 </resources>

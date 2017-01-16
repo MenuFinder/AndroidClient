@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CompoundButton;
+import android.widget.RatingBar;
 import android.widget.Switch;
 import android.widget.TextView;
 
@@ -44,7 +45,8 @@ public class MenusAdapter extends RecyclerView.Adapter<MenusAdapter.ViewHolder> 
     public void onBindViewHolder(MenusAdapter.ViewHolder holder, final int position) {
         final Menu menu = getMenu(position);
         holder.name.setText(menu.getName());
-        holder.price.setText(String.valueOf(menu.getPrice()));
+        holder.price.setText(context.getString(R.string.show_price, menu.getPrice()));
+        holder.rating.setRating(((float) menu.getScore()));
         if (userType != RESTAURANT) holder.is_visible.setVisibility(GONE);
         holder.is_visible.setChecked(menu.isVisible());
     }
@@ -77,10 +79,18 @@ public class MenusAdapter extends RecyclerView.Adapter<MenusAdapter.ViewHolder> 
 
         TextView name;
         TextView price;
+        RatingBar rating;
         Switch is_visible;
 
-        public ViewHolder(View itemView) {
+        ViewHolder(View itemView) {
             super(itemView);
+            itemView.setOnLongClickListener(new View.OnLongClickListener() {
+                @Override
+                public boolean onLongClick(View view) {
+                    listener.onMenuLongClick(getMenu(getAdapterPosition()), getAdapterPosition());
+                    return true;
+                }
+            });
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
@@ -89,6 +99,7 @@ public class MenusAdapter extends RecyclerView.Adapter<MenusAdapter.ViewHolder> 
             });
             name = (TextView) itemView.findViewById(R.id.name);
             price = (TextView) itemView.findViewById(R.id.price);
+            rating = (RatingBar) itemView.findViewById(R.id.rating);
             is_visible = (Switch) itemView.findViewById(R.id.is_visible);
             is_visible.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
                 @Override

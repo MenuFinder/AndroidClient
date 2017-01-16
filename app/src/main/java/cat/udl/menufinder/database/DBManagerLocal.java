@@ -61,6 +61,26 @@ public class DBManagerLocal implements DBManager {
     }
 
     @Override
+    public boolean updateAccountToken(Account account) {
+        return false;
+    }
+
+    @Override
+    public List<Restaurant> getFilteredRestaurants(String where) {
+        return restaurantDataSource.getFilteredRestaurants(where);
+    }
+
+    @Override
+    public List<String> getAllDifferentCities() {
+        return restaurantDataSource.getAllDifferentCities();
+    }
+
+    @Override
+    public List<String> getAllRestaurantNames() {
+        return restaurantDataSource.getAllRestaurantNames();
+    }
+
+    @Override
     public Menu getMenuById(long menuId) {
         return menuDataSource.getMenuById(menuId);
     }

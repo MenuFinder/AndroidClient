@@ -1,7 +1,69 @@
 package cat.udl.menufinder.ws;
 
 abstract class Path {
-    static final String baseUrl = "http://ws.menufinder.tk:8080/MenuFinderWeb/webservice/menufinderws";
+    static final String baseUrlSOAP = "http://alumnes-grp01.udl.cat/MenuFinderWeb/MenuFinderSOAP?wsdl";
+    static final String baseUrlREST = "http://alumnes-grp01.udl.cat/MenuFinderWeb/webservice/menufinderws";
+    static final String SOAP_NAMESPACE = "http://soap.menufinder.com/";
+    //SOAP
+    static final String SOAP_GET_VALID_LOGIN = "getValidLogin";
+    static final String SOAP_REGISTER_ACCOUNT = "registerAccount";
+    static final String SOAP_UPDATE_ACCOUNT_TOKEN = "updateAccountToken";
+    static final String SOAP_GET_MENUS_BY_RESTAURANT_ID = "getMenusByRestaurantId";
+    static final String SOAP_GET_MENU_BY_ID = "getMenuById";
+    static final String SOAP_ADD_MENU = "addMenu";
+    static final String SOAP_GET_MENUS = "getMenus";
+    static final String SOAP_DELETE_MENU = "deleteMenu";
+    static final String SOAP_UPDATE_MENU = "updateMenu";
+    static final String SOAP_GET_RESTAURANT_BY_ID = "getRestaurantById";
+    static final String SOAP_GET_RESTAURANTS_OF_ACCOUNT = "getRestaurantsOfAccount";
+    static final String SOAP_ADD_RESTAURANT = "addRestaurant";
+    static final String SOAP_GET_RESTAURANTS = "getRestaurants";
+    static final String SOAP_DELETE_RESTAURANT = "deleteRestaurant";
+    static final String SOAP_UPDATE_RESTAURANT = "updateRestaurant";
+    static final String SOAP_GET_FILTERED_RESTAURANTS = "getFilteredRestaurants";
+    static final String SOAP_GET_REVIEW_BY_ID = "getReviewById";
+    static final String SOAP_GET_REVIEWS_OF_ITEM = "getReviewsOfItem";
+    static final String SOAP_GET_REVIEWS_OF_MENU = "getReviewsOfMenu";
+    static final String SOAP_GET_REVIEWS_OF_RESTAURANT = "getReviewsOfRestaurant";
+    static final String SOAP_UPDATE_REVIEW = "updateReview";
+    static final String SOAP_DELETE_REVIEW = "deleteReview";
+    static final String SOAP_ADD_REVIEW = "addReview";
+    static final String SOAP_UPDATE_ITEM = "updateItem";
+    static final String SOAP_DELETE_ITEM = "deleteItem";
+    static final String SOAP_ADD_ITEM = "addItem";
+    static final String SOAP_GET_ITEM_BY_ID = "getItemById";
+    static final String SOAP_GET_RESTAURANT_ITEMS = "getRestaurantItems";
+    static final String SOAP_DELETE_MENU_ITEM = "deleteMenuItem";
+    static final String SOAP_ADD_MENU_ITEM = "addMenuItem";
+    static final String SOAP_GET_ITEM_CATEGORY_BY_ID = "getItemCategoryById";
+    static final String SOAP_UPDATE_ITEM_CATEGORY = "updateItemCategory";
+    static final String SOAP_DELETE_ITEM_CATEGORY = "deleteItemCategory";
+    static final String SOAP_ADD_ITEM_CATEGORY = "addItemCategory";
+    static final String SOAP_GET_ITEM_CATEGORIES = "getItemCategories";
+    static final String SOAP_UPDATE_ITEM_RATING = "updateItemRating";
+    static final String SOAP_DELETE_ITEM_RATING = "deleteItemRating";
+    static final String SOAP_ADD_ITEM_RATING = "addItemRating";
+    static final String SOAP_GET_RATINGS_OF_ITEMS = "getRatingsOfItem";
+    static final String SOAP_DELETE_ACCOUNT_SUBSCRIPTION = "deleteAccountSubscription";
+    static final String SOAP_ADD_ACCOUNT_SUBSCRIPTION = "addAccountSubscription";
+    static final String SOAP_GET_SUBSCRIBED_RESTAURANTS_OF_ACCOUNT = "getSubscribedRestaurantsOfAccount";
+    //WebParam
+    static final String PARAM_ACCOUNT = "account";
+    static final String PARAM_ACCOUNT_ID = "accountId";
+    static final String PARAM_RESTAURANT = "restaurant";
+    static final String PARAM_RESTRAUNT_ID = "restaurantId";
+    static final String PARAM_MENU = "menu";
+    static final String PARAM_MENU_ID = "menuId";
+    static final String PARAM_ITEM = "item";
+    static final String PARAM_ITEM_ID = "itemId";
+    static final String PARAM_REVIEW = "review";
+    static final String PARAM_REVIEW_ID = "reviewId";
+    static final String PARAM_ITEM_CATEGORY = "itemCategory";
+    static final String PARAM_ITEM_CATEGORY_ID = "itemCategoryId";
+    static final String PARAM_FILTER = "filter";
+    static final String PARAM_ITEM_RATING = "itemRating";
+    static final String PARAM_MENU_ITEM = "menuItem";
+    static final String PARAM_ACCOUNT_SUBSCRIPTION = "accountSubscription";
     //GET
     static final String GET_METHOD = "GET";
     static final String GET_MENUS_BY_RESTAURANT_ID = "/restaurantMenus/";
@@ -22,6 +84,7 @@ abstract class Path {
     static final String GET_RATINGS_OF_ITEM = "/itemRating/";
     static final String GET_ITEM_RATING_OF_ITEM = "/itemRatingItem/";
     static final String GET_SUBSCRIBED_RESTAURANTS_OF_ACCOUNT = "/subscribedRestaurantsOfAccount/";
+    static final String GET_FILTERED_RESTAURANTS = "/getFilteredRestaurants";
     //POST
     static final String POST_METHOD = "POST";
     static final String GET_VALID_LOGIN = "/login";
@@ -42,6 +105,7 @@ abstract class Path {
     static final String PUT_UPDATE_ITEM = "/updateItem";
     static final String PUT_UPDATE_ITEM_CATEGORY = "/updateItemCategory";
     static final String PUT_UPDATE_ITEM_RATING = "/updateItemRating";
+    static final String PUT_UPDATE_ACCOUNT_TOKEN = "/updateAccountToken";
     //DELETE
     static final String DELETE_METHOD = "DELETE";
     static final String DELETE_MENU = "/deleteMenu/";

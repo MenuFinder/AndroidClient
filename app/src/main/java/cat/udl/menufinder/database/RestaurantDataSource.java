@@ -34,22 +34,15 @@ public class RestaurantDataSource extends DataSource {
     }
 
     public List<Restaurant> getRestaurants() {
-        List<Restaurant> allRestaurants = new ArrayList<>();
         Cursor cursor = database.query(
                 RestaurantContract.RestaurantTable.TABLE_NAME,
                 allColumns,
                 null, null, null, null, null);
 
-        while (cursor.moveToNext()) {
-            Restaurant restaurant = cuToRestaurant(cursor);
-            allRestaurants.add(restaurant);
-        }
-        cursor.close();
-        return allRestaurants;
+        return getRestaurantFromCursor(cursor);
     }
 
     public List<Restaurant> getRestaurantsOfAccount(String accountId) {
-        List<Restaurant> allRestaurants = new ArrayList<>();
         Cursor cursor = database.query(
                 RestaurantContract.RestaurantTable.TABLE_NAME,
                 allColumns,
@@ -57,12 +50,7 @@ public class RestaurantDataSource extends DataSource {
                 new String[]{accountId},
                 null, null, null);
 
-        while (cursor.moveToNext()) {
-            Restaurant restaurant = cuToRestaurant(cursor);
-            allRestaurants.add(restaurant);
-        }
-        cursor.close();
-        return allRestaurants;
+        return getRestaurantFromCursor(cursor);
     }
 
     public boolean addRestaurant(Restaurant restaurant) {
@@ -95,6 +83,45 @@ public class RestaurantDataSource extends DataSource {
         return restaurant;
     }
 
+    public List<Restaurant> getFilteredRestaurants(String where) {
+        Cursor cursor = database.query(
+                RestaurantContract.RestaurantTable.TABLE_NAME,
+                allColumns,
+                where,
+                null, null, null, null);
+        return getRestaurantFromCursor(cursor);
+    }
+
+    public List<String> getAllRestaurantNames() {
+        return getAllOfAPropertie(RestaurantContract.RestaurantTable.NAME);
+    }
+
+    public List<String> getAllDifferentCities() {
+        return getAllOfAPropertie(RestaurantContract.RestaurantTable.CITY);
+    }
+
+    private List<String> getAllOfAPropertie(String select) {
+        List<String> strings = new ArrayList<>();
+        Cursor cursor = database.rawQuery("SELECT DISTINCT " + select + " FROM " +
+                RestaurantContract.RestaurantTable.TABLE_NAME, null);
+        while (cursor.moveToNext()) {
+            strings.add(cursor.getString(0));
+        }
+        cursor.close();
+        return strings;
+    }
+
+    private List<Restaurant> getRestaurantFromCursor(Cursor cursor) {
+        List<Restaurant> allRestaurants = new ArrayList<>();
+
+        while (cursor.moveToNext()) {
+            Restaurant restaurant = cuToRestaurant(cursor);
+            allRestaurants.add(restaurant);
+        }
+        cursor.close();
+        return allRestaurants;
+    }
+
     public boolean updateRestaurant(Restaurant restaurant) {
         database.update(
                 RestaurantContract.RestaurantTable.TABLE_NAME,
@@ -122,11 +149,12 @@ public class RestaurantDataSource extends DataSource {
         restaurant.setAddress(cursor.getString(3));
         restaurant.setCity(cursor.getString(4));
         restaurant.setPostalCode(cursor.getString(5));
-        restaurant.setCountry(cursor.getString(6));
-        restaurant.setEmail(cursor.getString(7));
-        restaurant.setPhone(cursor.getString(8));
-        restaurant.setAccount(cursor.getString(9));
-        restaurant.setScore(cursor.getLong(10));
+        restaurant.setState(cursor.getString(6));
+        restaurant.setCountry(cursor.getString(7));
+        restaurant.setEmail(cursor.getString(8));
+        restaurant.setPhone(cursor.getString(9));
+        restaurant.setAccount(cursor.getString(10));
+        restaurant.setScore(cursor.getLong(11));
         return restaurant;
     }
 

@@ -126,7 +126,10 @@ public class LoginActivity extends MasterActivity {
 
         @Override
         protected Account doInBackground(Void... voids) {
-            return new WebServiceImpl().getValidLogin(username, password);
+            Account account = new WebServiceImpl().getValidLogin(username, password);
+            account.setToken(getMasterApplication().getToken());
+            getDbManager().updateAccountToken(account);
+            return account;
         }
 
         @Override

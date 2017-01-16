@@ -18,8 +18,8 @@ import cat.udl.menufinder.application.MasterApplication;
 import cat.udl.menufinder.fragments.RestaurantsFragment;
 import cat.udl.menufinder.models.Restaurant;
 
-import static android.view.View.GONE;
 import static cat.udl.menufinder.enums.UserType.CLIENT;
+import static cat.udl.menufinder.utils.Utils.checkIfNotGuest;
 
 public class RestaurantsAdapter extends RecyclerView.Adapter<RestaurantsAdapter.ViewHolder> {
 
@@ -60,8 +60,6 @@ public class RestaurantsAdapter extends RecyclerView.Adapter<RestaurantsAdapter.
                     break;
                 }
             }
-        } else {
-            holder.itemView.findViewById(R.id.favourite_button).setVisibility(GONE);
         }
     }
 
@@ -72,6 +70,11 @@ public class RestaurantsAdapter extends RecyclerView.Adapter<RestaurantsAdapter.
 
     public Restaurant getRestaurant(int position) {
         return restaurants.get(position);
+    }
+
+    public void setRestaurants(List<Restaurant> restaurantList) {
+        restaurants = restaurantList;
+        notifyDataSetChanged();
     }
 
     class ViewHolder extends RecyclerView.ViewHolder {
@@ -89,6 +92,7 @@ public class RestaurantsAdapter extends RecyclerView.Adapter<RestaurantsAdapter.
             this.itemView = itemView;
             ImageButton share_button = (ImageButton) itemView.findViewById(R.id.share_button);
             ImageButton view_map_button = (ImageButton) itemView.findViewById(R.id.view_map_button);
+            ImageButton review_button = (ImageButton) itemView.findViewById(R.id.review_button);
             CardView cardView = (CardView) itemView.findViewById(R.id.card_view);
             share_button.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -102,13 +106,21 @@ public class RestaurantsAdapter extends RecyclerView.Adapter<RestaurantsAdapter.
                     listener.onViewMapClick(getRestaurant(getAdapterPosition()));
                 }
             });
+            review_button.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    listener.onReViewClick(getRestaurant(getAdapterPosition()));
+                }
+            });
+
             favourite.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
                 @Override
                 public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
-                    favourite.setChecked(b);
-                    if (userChecked)
-                        listener.onFavouriteClick(getRestaurant(getAdapterPosition()), b);
-                    userChecked = true;
+                    if (checkIfNotGuest()) {
+                        if (userChecked)
+                            listener.onFavouriteClick(getRestaurant(getAdapterPosition()), b);
+                        userChecked = true;
+                    } else favourite.setChecked(false);
                 }
             });
             cardView.setOnClickListener(new View.OnClickListener() {

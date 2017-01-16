@@ -8,9 +8,17 @@
             android:icon="@drawable/ic_restaurant"
             android:title="@string/action_view_restaurants" />
         <item
+            android:id="@+id/view_subscriptions"
+            android:icon="@drawable/ic_favorite"
+            android:title="@string/action_view_subscriptions" />
+        <item
             android:id="@+id/view_map"
             android:icon="@drawable/ic_map_black"
             android:title="@string/action_view_map" />
+        <item
+            android:id="@+id/important_information"
+            android:icon="@drawable/ic_error_outline_black"
+            android:title="@string/action_important_information" />
     </group>
     <group
         android:id="@+id/menu_bottom"

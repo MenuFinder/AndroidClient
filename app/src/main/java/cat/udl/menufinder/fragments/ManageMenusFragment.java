@@ -1,6 +1,7 @@
 package cat.udl.menufinder.fragments;
 
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
@@ -9,6 +10,7 @@ import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -19,10 +21,13 @@ import android.widget.TextView;
 import java.util.List;
 
 import cat.udl.menufinder.R;
+import cat.udl.menufinder.activities.DetailManageMenuActivity;
 import cat.udl.menufinder.adapters.MenusAdapter;
 import cat.udl.menufinder.application.MasterFragment;
 import cat.udl.menufinder.models.Menu;
 import cat.udl.menufinder.models.Restaurant;
+
+import static cat.udl.menufinder.utils.Constants.KEY_MENU;
 
 public class ManageMenusFragment extends MasterFragment {
 
@@ -62,13 +67,18 @@ public class ManageMenusFragment extends MasterFragment {
         animator.setAddDuration(1000);
         recyclerView.setItemAnimator(animator);
 
-
-        // TODO Posar la id del restaurant
-        Restaurant restaurant = getDbManager().getRestaurantsOfAccount(getMasterApplication().getUsername()).get(0);
+        Restaurant restaurant = getDbManager().getRestaurantsOfAccount(
+                getMasterApplication().getUsername()).get(getMasterApplication().getSelectedRestaurant());
+        ((Toolbar) getActivity().findViewById(R.id.toolbar)).setTitle(getString(R.string.manage_menus, restaurant.getName()));
         menus = getDbManager().getAllMenusByRestaurantId(restaurant.getId());
         adapter = new MenusAdapter(getActivity(), menus, new OnMenuClickListener() {
             @Override
             public void onMenuClick(Menu menu, int adapterPosition) {
+                editMenu(menu);
+            }
+
+            @Override
+            public void onMenuLongClick(Menu menu, int adapterPosition) {
                 showEditDialog(menu, adapterPosition);
             }
 
@@ -80,6 +90,12 @@ public class ManageMenusFragment extends MasterFragment {
         }, getMasterApplication().getUserType());
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+    }
+
+    private void editMenu(Menu menu) {
+        Intent intent = new Intent(getActivity(), DetailManageMenuActivity.class);
+        intent.putExtra(KEY_MENU, menu);
+        startActivity(intent);
     }
 
     private void showDeleteConfirmation(final int position) {
@@ -211,12 +227,14 @@ public class ManageMenusFragment extends MasterFragment {
 
     private void removeOfDB(int position) {
         showToast(String.format(getString(R.string.deleteNotification), adapter.getMenu(position).getName()));
-        adapter.removeMenu(position);
         getDbManager().deleteMenu(adapter.getItemId(position));
+        adapter.removeMenu(position);
     }
 
     public interface OnMenuClickListener {
         void onMenuClick(Menu menu, int adapterPosition);
+
+        void onMenuLongClick(Menu menu, int adapterPosition);
 
         void onIsVisibleClick(Menu menu, boolean visible);
     }

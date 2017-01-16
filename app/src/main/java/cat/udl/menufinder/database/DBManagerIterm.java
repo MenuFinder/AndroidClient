@@ -1,5 +1,7 @@
 package cat.udl.menufinder.database;
 
+import com.google.firebase.messaging.FirebaseMessaging;
+
 import java.util.List;
 import java.util.Map;
 
@@ -13,6 +15,7 @@ import cat.udl.menufinder.models.MenuItem;
 import cat.udl.menufinder.models.Restaurant;
 import cat.udl.menufinder.models.Review;
 import cat.udl.menufinder.ws.WebServiceImpl;
+import cat.udl.menufinder.ws.WebServiceSoapImpl;
 import cat.udl.menufinder.ws.WebServiceSync;
 
 public class DBManagerIterm implements DBManager {
@@ -20,26 +23,28 @@ public class DBManagerIterm implements DBManager {
     private static DBManagerIterm ourInstance = new DBManagerIterm();
     private final WebServiceSync sync;
     private final DBManager local;
-    private final WebServiceImpl remote;
+    private final WebServiceImpl rest;
+    private final WebServiceSoapImpl soap;
+
+    private DBManagerIterm() {
+        rest = new WebServiceImpl();
+        soap = new WebServiceSoapImpl();
+        sync = WebServiceSync.getInstance();
+        local = DBManagerLocal.getInstance();
+    }
 
     public static DBManagerIterm getInstance() {
         return ourInstance;
     }
 
-    private DBManagerIterm() {
-        remote = new WebServiceImpl();
-        sync = WebServiceSync.getInstance();
-        local = DBManagerLocal.getInstance();
-    }
-
     @Override
     public Account getValidLogin(String id, String password) {
-        return remote.getValidLogin(id, password);
+        return soap.getValidLogin(id, password);
     }
 
     @Override
     public boolean addAccount(Account account) {
-        return remote.addAccount(account);
+        return soap.addAccount(account);
     }
 
     @Override
@@ -249,12 +254,14 @@ public class DBManagerIterm implements DBManager {
 
     @Override
     public boolean deleteAccountSubscription(AccountSubscription accountSubscription) {
+        FirebaseMessaging.getInstance().unsubscribeFromTopic(String.valueOf(local.getRestaurantById(accountSubscription.getRestaurant()).getId()));
         sync.deleteAccountSubscription(accountSubscription);
         return local.deleteAccountSubscription(accountSubscription);
     }
 
     @Override
     public boolean addAccountSubscription(AccountSubscription accountSubscription) {
+        FirebaseMessaging.getInstance().subscribeToTopic(String.valueOf(local.getRestaurantById(accountSubscription.getRestaurant()).getId()));
         sync.addAccountSubscription(accountSubscription);
         return local.addAccountSubscription(accountSubscription);
     }
@@ -272,5 +279,27 @@ public class DBManagerIterm implements DBManager {
     @Override
     public List<Menu> getAllMenusByRestaurantId(long restaurantId) {
         return local.getAllMenusByRestaurantId(restaurantId);
+    }
+
+    @Override
+    public boolean updateAccountToken(Account account) {
+        return soap.updateAccountToken(account);
+    }
+
+    @Override
+    public List<Restaurant> getFilteredRestaurants(String where) {
+        List<Restaurant> restaurants = local.getFilteredRestaurants(where);
+        if (restaurants.isEmpty()) restaurants = rest.getFilteredRestaurants(where);
+        return restaurants;
+    }
+
+    @Override
+    public List<String> getAllDifferentCities() {
+        return local.getAllDifferentCities();
+    }
+
+    @Override
+    public List<String> getAllRestaurantNames() {
+        return local.getAllRestaurantNames();
     }
 }
