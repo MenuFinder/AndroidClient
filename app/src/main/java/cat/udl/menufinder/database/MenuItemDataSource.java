@@ -43,8 +43,8 @@ public class MenuItemDataSource extends DataSource {
     public boolean deleteMenuItem(MenuItem menuItem) {
         database.delete(
                 MenuItemContract.MenuItemTable.TABLE_NAME,
-                MenuItemContract.MenuItemTable.MENU + " = ?",
-                new String[]{String.valueOf(menuItem.getItem())}
+                MenuItemContract.MenuItemTable.MENU + " = ? AND " + MenuItemContract.MenuItemTable.ITEM + " = ? AND " + MenuItemContract.MenuItemTable.ITEMCATEGORY + " = ?",
+                new String[]{String.valueOf(menuItem.getMenu()), String.valueOf(menuItem.getItem()), String.valueOf(menuItem.getItemCategory())}
         );
         return true;
     }
