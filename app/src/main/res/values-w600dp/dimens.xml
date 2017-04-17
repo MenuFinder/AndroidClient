@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="nav_header_vertical_spacing">20dp</dimen>
+    <dimen name="nav_header_height">200dp</dimen>
+    <dimen name="nav_header_icon">70dp</dimen>
+
+    <dimen name="title">28sp</dimen>
+    <dimen name="subtitle">20sp</dimen>
+
+    <dimen name="card_view_title">28sp</dimen>
+    <dimen name="card_view_text">20sp</dimen>
+    <dimen name="card_view_height">300dp</dimen>
+
+    <dimen name="fab_space">32dp</dimen>
+    <dimen name="list_header">12dp</dimen>
+
+    <dimen name="text_size_button">20sp</dimen>
+    <dimen name="edittext_text_size">25sp</dimen>
+</resources>

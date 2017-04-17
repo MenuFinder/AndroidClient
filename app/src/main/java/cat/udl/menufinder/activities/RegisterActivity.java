@@ -35,6 +35,7 @@ public class RegisterActivity extends MasterActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         changeOrientationIfIsPhone();
+        setDisplayHomeAsUpEnable();
         setContentView(R.layout.activity_register);
         final LinearLayout linearLayout = (LinearLayout) findViewById(R.id.restaurant_linear_layout);
         linearLayout.setVisibility(GONE);

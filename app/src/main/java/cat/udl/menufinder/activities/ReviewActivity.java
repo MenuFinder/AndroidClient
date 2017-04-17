@@ -35,6 +35,7 @@ public class ReviewActivity extends MasterActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         changeOrientationIfIsPhone();
+        setDisplayHomeAsUpEnable();
         setContentView(R.layout.activity_review);
         Item item = (Item) getIntent().getSerializableExtra(KEY_ITEM);
         ((TextView) findViewById(R.id.name)).setText(item.getName());

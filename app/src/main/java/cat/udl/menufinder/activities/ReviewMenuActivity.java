@@ -32,6 +32,7 @@ public class ReviewMenuActivity extends MasterActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         changeOrientationIfIsPhone();
+        setDisplayHomeAsUpEnable();
         setContentView(R.layout.activity_review);
         Menu menu = (Menu) getIntent().getSerializableExtra(KEY_MENU);
         ((TextView) findViewById(R.id.name)).setText(menu.getName());

@@ -30,6 +30,7 @@ public class DetailMenuActivity extends MasterActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         changeOrientationIfIsPhone();
+        setDisplayHomeAsUpEnable();
         setContentView(R.layout.activity_detail_menu);
         menu = (Menu) getIntent().getSerializableExtra(KEY_MENU);
         configFAB();

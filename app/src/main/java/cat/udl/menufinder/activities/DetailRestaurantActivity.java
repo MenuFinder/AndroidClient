@@ -16,6 +16,7 @@ public class DetailRestaurantActivity extends MasterActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         changeOrientationIfIsPhone();
+        setDisplayHomeAsUpEnable();
         setContentView(R.layout.activity_detail_restaurant);
         Intent intent = getIntent();
         Restaurant restaurant = (Restaurant) intent.getSerializableExtra(KEY_RESTAURANT);
